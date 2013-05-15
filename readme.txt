@@ -15,10 +15,23 @@ Description:
 	
 	Right now this is more or less a bot base, once polished, i will also release the source for a bot that does other things besides core features as a fork.
 	
-	
+Program Notes: 
+	Setting login details and such,
+		This is currently all done programatically, in baseClient.cpp, Next revision of the software should load this from an external ini file.
+		
+	Misc.cpp
+		Inside of misc.cpp (usually refered to as engine) I have created some basic and usefull features that can be used project wide. The main reason I did this, was to create a "debug printline" which is toggled with debug in misc.cpp, more core features will be added to this function later on.
+
+Libraries		
+	libws2_32.a
+		For the base socket connector
+
+	libcryptopp.a
+		For Salsa20/MD5/Hex methods	
+
 Features:
 	Basic chat listening, 
-		Can listen for keywords in the chat and respond
+		Can listen for keywords in the chat and respond.
 		
 	PM Responses,
 		When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.
@@ -35,11 +48,14 @@ TODO:
 	Random bot crash,
 		not sure whats causing it
 	
+	Group join / leave events
+		make the bot respond to people leaving and joining.
+		
 	Image sending,
 		i've got the packets needed to send, just need to figure out how to seralize the image.
 	
 	Sub Profile Reading,
-		this handles all the usernames and statuses and such
+		this handles all the usernames and statuses and such.
 		
 	Clean up code,
 		its currently very messy and somewhat unorganized.

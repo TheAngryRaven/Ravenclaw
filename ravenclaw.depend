@@ -1,0 +1,128 @@
+# depslib dependency file v1.0
+1368641908 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+	"baseClient.h"
+
+1368645107 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+	<iostream>
+	<string.h>
+	<algorithm>
+	<vector>
+	"misc.h"
+	"crypt.h"
+	"palringoMessage.h"
+
+1368490692 c:\users\michael\documents\palringo\git\ravenclaw\misc.h
+	<iostream>
+	<fstream>
+	<vector>
+	<algorithm>
+	<string.h>
+	<conio.h>
+	<sstream>
+
+1368490562 c:\users\michael\documents\palringo\git\ravenclaw\crypt.h
+	"cryptopp/cryptlib.h"
+	"cryptopp/salsa.h"
+	"cryptopp/md5.h"
+	"cryptopp/hex.h"
+	"cryptopp/osrng.h"
+	"misc.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.h
+	"misc.h"
+	"crypt.h"
+	"baseClient.h"
+	"palringoPacket.h"
+	"palringoConnection.h"
+	<algorithm>
+	<vector>
+	<ctime>
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.h
+	<iostream>
+	<cstring>
+	<windows.h>
+	"misc.h"
+	"crypt.h"
+	"packet.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\packet.h
+	<iostream>
+	<sstream>
+	<cstring>
+	"misc.h"
+	"crypt.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.h
+	<algorithm>
+	<vector>
+	"misc.h"
+	"crypt.h"
+	"baseClient.h"
+	"connection.h"
+	"palringoClient.h"
+	"palringoPacket.h"
+	"palringoMessage.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\connection.h
+	<windows.h>
+	<winsock.h>
+	<iostream>
+	<fstream>
+	<cstring>
+	<time.h>
+	<stdio.h>
+	"misc.h"
+	"crypt.h"
+	"palringoConnection.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.h
+	"conio.h"
+	"misc.h"
+	"baseClient.h"
+	"palringoConnection.h"
+
+1368573589 source:c:\users\michael\documents\palringo\git\ravenclaw\connection.cpp
+	"connection.h"
+
+1368490619 source:c:\users\michael\documents\palringo\git\ravenclaw\crypt.cpp
+	"crypt.h"
+
+1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\main.cpp
+	"main.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\main.h
+	<windows.h>
+	"misc.h"
+	"palringoClient.h"
+
+1368490695 source:c:\users\michael\documents\palringo\git\ravenclaw\misc.cpp
+	"misc.h"
+
+1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\packet.cpp
+	"packet.h"
+
+1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.cpp
+	"palringoClient.h"
+
+1368641540 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
+	"palringoConnection.h"
+
+1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.cpp
+	"palringoContact.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.h
+
+1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\palringogroup.cpp
+	"palringoGroup.h"
+
+1333655084 c:\users\michael\documents\palringo\git\ravenclaw\palringogroup.h
+
+1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.cpp
+	"palringoMessage.h"
+
+1368641499 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp
+	"palringoPacket.h"
+
+1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\resources.rc
+
