@@ -19,8 +19,8 @@ string 	adminMessage	= "";
 baseClient::baseClient()
 {
     //Login Details | email|pass
-	username 	= "";
-	password 	= "";
+	username 	= "joesuckscrimsonscock@gmail.com";
+	password 	= "toshiba546";
 
 	botAdmin 	= "22885233";
 	botName		= "crimson";	//Set the bots name to give it personality
@@ -181,11 +181,21 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 			this->send_message(group, "I can talk again!");
 		}
 	}
+	else if(cmd == cmdBase+"admin")
+    {
+        this->send_message(group, "The group owner is "+adminName+" Userid: "+botAdmin);
+
+        if(adminOnline)
+            this->send_message(group, "And they are online");
+        else
+            this->send_message(group, "And they are onffline");
+    }
 	else if(cmd == cmdBase+"help")
 	{
 		this->send_message(group, 	"/google <query>\n"
 									"/youtube <query>\n"
 									"/credits\n"
+									"/admin\n"
 									"/website");
 	}
 	else if(cmd == cmdBase+"credits")

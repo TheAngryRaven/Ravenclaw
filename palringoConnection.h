@@ -45,7 +45,7 @@ class palringoConnection
 
 		void recv_packet(string data);	//we received a packet
 		void send_packet(packet data);	//we are sending a packet
-		void send_ping(void);	//we need to send a ping
+		void send_ping(int number);	//we need to send a ping
 
 		baseClient* get_Client(void); // returns pointer to clientUser
 

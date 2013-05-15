@@ -107,14 +107,14 @@ void connection::write(string data)
 
 DWORD connection::read(void)
 {
-	engine.pl("connection-> Thread Started", 1);
+	engine.pl("\nconnection-> Thread Started", 1);
 
 	//setup data values
-	int bufferSize = 8192;
+	int bufferSize = 128000;
 	int bytes_recv = 0;
 	char data_recv[bufferSize];
 
-
+/*
 	//time settings
 	time_t rawtime;
 	struct tm * ptm;
@@ -122,7 +122,8 @@ DWORD connection::read(void)
 	ptm = gmtime(&rawtime);
 	int curTime = ptm->tm_sec;
 	int lstTim = 0;
-
+	int pingNumber = 1;
+*/
 
 	//endless loop scanning for packets
 	while(connected)
@@ -148,6 +149,7 @@ DWORD connection::read(void)
 		}
 
 
+        /*
 		//time based ping sending
     	time(&rawtime);
     	ptm = gmtime(&rawtime);
@@ -156,10 +158,12 @@ DWORD connection::read(void)
 		//send the ping ONCE every 5 minutes
     	if(curTime%5 == 0 && lstTim != curTime)
     	{
-    		palConn->send_ping();
+            pingNumber += 2;
+            palConn->send_ping(pingNumber);
     		lstTim = curTime;
     		engine.pl("Ping Pong", 1);
     	}
+    	*/
 
 	}
 

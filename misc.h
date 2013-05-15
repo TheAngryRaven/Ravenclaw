@@ -35,6 +35,7 @@ class misc
 		misc();
 		void  pause(void);			//pauses application/thread
 
+        string i2s(int number);     //VERY basic int2string
 		void  pf(string data,		//prints line to end of file
 				 string file = "log.txt");
 

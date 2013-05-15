@@ -20,13 +20,21 @@ struct imgDataStruct //structure that holds file size and data stream
 	char *stream;
 };
 
-
 misc::misc(){}
 
 void misc::pause()
 {
 	pl("\nPress any key to continue...");
 	_getch();
+}
+
+string misc::i2s(int number)
+{
+
+    stringstream ss;//create a stringstream
+    ss << number;//add number to the stream
+    return ss.str();//return a string with the contents of the stream
+    //return std::to_
 }
 
 //types

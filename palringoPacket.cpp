@@ -151,11 +151,20 @@ packet palringoPacket::group_part(string group)
 	return output;
 }
 
-packet palringoPacket::ping()/**<  */
+packet palringoPacket::ping(int number)
 {
 	engine.pl("palPacket-> creating PING packet", 1);
 	packet output;
+
+	/*
+	Old ping packet
 	output.addCommand("P");
+    */
+
+
+    output.addCommand("P");
+    output.addHeader("last","1");
+    output.addHeader("ps", engine.i2s(number) );
 
 	return output;
 }

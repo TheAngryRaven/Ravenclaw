@@ -12,7 +12,6 @@
 
 //private variables
 const string	SERVERIP	= "80.69.129.75"; //palringo
-//const string	SERVERIP	= "80.69.129.137"; //utalk
 const int		SERVERPORT	= 0x3039;
 
 palringoConnection::palringoConnection(palringoClient *client)
@@ -27,10 +26,7 @@ palringoConnection::palringoConnection(palringoClient *client)
 
 bool palringoConnection::connect()
 {
-	string buffer = "";
-	buffer.append("palConn-> Connecting to ");
-	buffer.append(SERVERIP);
-	engine.pl(buffer, 1);
+	engine.pl("palConn-> Connecting to "+SERVERIP, 1);
 
 	bool connection = conn->connectToHost(SERVERIP, SERVERPORT);
 
@@ -89,13 +85,14 @@ void palringoConnection::send_auth(packet data)
 	this->send_packet(palPack.auth(clientUser->get_Password(), data));
 }
 
-void palringoConnection::send_ping()
+void palringoConnection::send_ping(int number)
 {
-	engine.pl("palConn-> sending PING packet", 1);
-	this->send_packet(palPack.ping());
+	engine.pl("palConn-> ping triggered", 1);
+	//engine.pl("palConn-> sending PING packet", 1);
+	//this->send_packet(palPack.ping(number));
 
     //tries to keep the bot in a specific group
-	this->send_packet(palPack.group_join("thenest"));
+	//this->send_packet(palPack.group_join("thenest"));
 }
 
 //this function takes the string we get from our connection class
@@ -196,6 +193,11 @@ void palringoConnection::parse_packet(packet data)
 
 	int		paySize = data.getPayload().size();
 	string	packCmd = data.getCommand();
+
+    engine.pl("\n=====Packet=====",1);
+    engine.pl(data.serialize(),1);
+    engine.pl("================\n",1);
+    //engine.pf(data.serialize(), "packets.txt");
 
 	if(packCmd == "AUTH")
 	{

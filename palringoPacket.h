@@ -40,7 +40,7 @@ class palringoPacket: public packet
 		packet auth(string password,	//creates auth packet with generated password
 					packet data);
 
-		packet ping(void);				//creates simplistic ping packet
+		packet ping(int number);				//creates simplistic ping packet
 
 		packet message(	string target,	//creates a packet with a message to send
 						string to,
