@@ -13,23 +13,23 @@ Description:
 	
 	This isn't as feature rich as some of the C# bots, but uses C++ which makes it much more challenging and fun to program for. Plus since its c++ you could integrate all kinds of cool scripting languages like python.
 	
+	Right now this is more or less a bot base, once polished, i will also release the source for a bot that does other things besides core features as a fork.
+	
 	
 Features:
 	Basic chat listening, 
 		Can listen for keywords in the chat and respond
 		
-	*PM Responses,
-		When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats. This isn't a hard coded feature.
+	PM Responses,
+		When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.
 		
 	Full admin functions,
 		If given elevated premissions can mod/mute/ban etc etc. 
 		
-	*Bot Admin status,
+	Bot Admin status,
 		Default status is offline, when the bot sees that the bot admin has typed a message in a group the bot is in it sets the admins status to online.
 		
-		Programatically the bot owner can set keywords where the bot pms them saything they're being looked for.
-		
-	 Features marked with * are not hard coded features
+		Programatically the bot owner can set keywords where the bot pms them saything they're being looked for. Usefull for checking if the admin the bot belongs to is online.
 
 TODO:
 	Random bot crash,
