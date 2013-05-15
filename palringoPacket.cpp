@@ -91,17 +91,8 @@ packet palringoPacket::imageHeader(string target, string to, char* payload, int 
 	output.addHeader("mesg-target",target);
 	output.addHeader("target-id",to);
 	output.addHeader("total-length",imageSize.str());
-	/*
- * Software created by:
- * Michael Champagne
- * Raven (ID: 22885233 | 512388)
 
- * Licensed with GNU lpgl v3.0
- * Found in gnu-v3.txt or available online here
- * http://www.gnu.org/licenses/lgpl.txt
- */
-
-output.addPayload(payload);
+    output.addPayload(payload);
 	return output;
 }
 
