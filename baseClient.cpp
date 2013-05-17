@@ -42,7 +42,8 @@ baseClient::baseClient(string username, string password, string botAdmin, string
 
 void baseClient::recv_message(string group, string user, string message)
 {
-	this->parse_commands(group, user, engine.splitStr(message, ' '));
+    if(user != "3154204")
+        this->parse_commands(group, user, engine.splitStr(message, ' '));
 }
 
 void baseClient::recv_pm(string name, string user, string message)
@@ -50,12 +51,12 @@ void baseClient::recv_pm(string name, string user, string message)
 	if(user != botAdmin)
 	{
 		string buffer = "";
-		buffer.append("====== PM Received ======\n");
+		buffer.append("====== PM Received ======\r\n");
 		buffer.append("From: ");
 		buffer.append(name);
-		buffer.append("\n");
+		buffer.append("\r\n");
 		buffer.append(message);
-		buffer.append("\n=======================\n");
+		buffer.append("\r\n=======================\r\n");
 		//engine.pl(buffer);
 
 		this->send_pm(botAdmin, buffer);
@@ -87,6 +88,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	{
 		//sets the bot admins status to being back online
 		adminOnline = true;
+		adminMessage = "";
 		this->send_message(group, adminName+" is back online!");
 	}
 
@@ -159,11 +161,12 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 			{
 				adminMessage	= this->messagePatcher(data, " ");
 				adminOnline		= false;
-				this->send_message(group, "Bye " + adminName + "!\nAnd don't worry I saved the message");
+				this->send_message(group, "Bye " + adminName + "!\r\nAnd don't worry I saved the message");
 			}
 			else
 			{
-				this->send_message(group, adminName+" don't be silly\n/away <message>");
+			    adminOnline		= false;
+				this->send_message(group, "Bye "+adminName+"!");
 			}
 		}
 	}
@@ -182,59 +185,80 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	}
 	else if(cmd == cmdBase+"admin")
     {
-        this->send_message(group, "The group owner is "+adminName+" Userid: "+botAdmin);
+        string output = "The bot owner is "+adminName+" Userid: "+botAdmin;
+        //this->send_message(group, "The bot owner is "+adminName+" Userid: "+botAdmin);
 
         if(adminOnline)
-            this->send_message(group, "And they are online");
+            output += "\r\nAnd they are online";
         else
-            this->send_message(group, "And they are onffline");
+        {
+             output += "\r\nAnd they are offline";
+
+             if(adminMessage != "")
+                output += "\r\nBut they left a message!\r\n"+adminMessage;
+        }
+
+        this->send_message(group, output);
     }
 	else if(cmd == cmdBase+"help")
 	{
-		this->send_message(group, 	cmdBase+"google <query>\n"+
-									cmdBase+"youtube <query>\n"+
-									cmdBase+"credits\n"+
-									cmdBase+"admin\n"+
+	    if(user == botAdmin)
+        {
+            this->send_message(group, 	"Admin Help\r\n"+
+                                        cmdAdmin+"check\r\n"+
+                                        cmdAdmin+"leave\r\n"+
+                                        cmdAdmin+"join <group name>\r\n"+
+                                        cmdAdmin+"msg <user id> <message>\r\n"+
+                                        cmdAdmin+"away <message>\r\n"+
+                                        cmdAdmin+"mute (also unmute)"
+                                        );
+        }
+
+		this->send_message(group, 	"User Help\r\n"+
+                                    cmdBase+"google <query>\r\n"+
+									cmdBase+"youtube <query>\r\n"+
+									cmdBase+"credits\r\n"+
+									cmdBase+"admin\r\n"+
 									cmdBase+"website");
 	}
 	else if(cmd == cmdBase+"credits")
 	{
-		this->send_message(group, 	"Ravenclaw bot created by Raven [furry]\n\n"
-									"I can thank so many people on pal for this\n"
-									"Mainly ross, sniper, and nom\n"
-									"And my friend city fox for a binary file reader\n"
-									"the rest know who you are\n");
+		this->send_message(group, 	"Ravenclaw bot created by Raven [furry]\r\n\r\n"
+									"I can thank so many people on pal for this\r\n"
+									"Mainly ross, sniper, and nom\r\n"
+									"And my friend city fox for a binary file reader\r\n"
+									"the rest know who you are\r\n");
 	}
 	else if(cmd == cmdBase+"website")
 	{
 		this->send_message(group, "This bot is open source under GPLv3"
-                                    "\nTalk to "+adminName+" about getting access to the repo\n"
+                                    "\r\nTalk to "+adminName+" about getting access to the repo\r\n"
                                     "https://bitbucket.org/BlackRaven/ravenclaw/");
 	}
 	else if(cmd == cmdBase+"google")
 	{
 		if(blocks > 1)
 		{
-			string search = "Here you go hun\nhttp://www.google.com/search?q=";
+			string search = "Here you go hun\r\nhttp://www.google.com/search?q=";
 			search.append(this->messagePatcher(data, "+"));
 			this->send_message(group, search);
 		}
 		else
 		{
-			this->send_message(group, "Sorry hun thats not how you use this command\n/google <search query>");
+			this->send_message(group, "Sorry hun thats not how you use this command\r\n/google <search query>");
 		}
 	}
 	else if(cmd == cmdBase+"youtube")
 	{
 		if(blocks > 1)
 		{
-			string search = "Videos are fun!\nhttp://www.youtube.com/results?search_query=";
+			string search = "Videos are fun!\r\nhttp://www.youtube.com/results?search_query=";
 			search.append(this->messagePatcher(data, "+"));
 			this->send_message(group, search);
 		}
 		else
 		{
-			this->send_message(group, "Sorry hun thats not how you use this command\n/youtube <search query>");
+			this->send_message(group, "Sorry hun thats not how you use this command\r\n/youtube <search query>");
 		}
 	}
 	else if(cmd == botName) /* "talk to the bot" */
@@ -265,7 +289,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 				else
 				{
 					this->send_message(group, "i know im cute");
-					this->send_message(group, "im flattered\nbut seriously\nim just some computer code");
+					this->send_message(group, "im flattered\r\nbut seriously\r\nim just some computer code");
 					this->send_message(group, "#android-problems");
 				}
 			}
@@ -321,7 +345,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 						}
 						else if(hash == "#yolo")
                         {
-                            this->send_message(group, "NIGGA\nYou only live fuckin once\nSo stop getting fucking shitfaced every damn day because YOU HAVE A LIFE TO LIVE NIGGA");
+                            this->send_message(group, "NIGGA\r\nYou only live fuckin once\r\nSo stop getting fucking shitfaced every damn day because YOU HAVE A LIFE TO LIVE NIGGA");
                         }
 						else if(hash == "#swag")
 						{
@@ -332,7 +356,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 					}
 					else if(data[i] == "u" || data[i] == "c" || data[i] == "r" || data[i] == "y" || data[i] == "o")
 					{
-						this->send_message(group, "Use words not letters\nDon't be lazy!");
+						this->send_message(group, "Use words not letters\r\nDon't be lazy!");
 						//this->admin_silence(group, user);
 						break;
 					}
@@ -347,9 +371,9 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 						/* can also detect phrases anywhere in the post */
 						if(user != botAdmin)
 						{
-							this->send_message(group, 	"it would be awesome if you didnt talk about that shitty game\n"
-														"It has the most inaccurate presntations of firearms second only to doom\n"
-														"Brink has more accurate weapons than COD\n"
+							this->send_message(group, 	"it would be awesome if you didnt talk about that shitty game\r\n"
+														"It has the most inaccurate presntations of firearms second only to doom\r\n"
+														"Brink has more accurate weapons than COD\r\n"
 														"The ak74 isnt a fucking SMG");
 							break;
 						}

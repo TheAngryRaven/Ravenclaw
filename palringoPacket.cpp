@@ -161,14 +161,10 @@ packet palringoPacket::ping(int number)
 	output.addCommand("P");
     */
 
-    /*
-    New? ping packet?
+    //New? ping packet?
     output.addCommand("P");
     output.addHeader("last","1");
     output.addHeader("ps", engine.i2s(number) );
-    */
-
-    output.addCommand("P");
 
 	return output;
 }

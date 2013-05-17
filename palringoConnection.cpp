@@ -19,6 +19,7 @@ palringoConnection::palringoConnection(palringoClient *client)
 	palClient	= client;
 	clientUser	= palClient->get_Client();
 	loggedIn	= false;
+	pingsSent   = 0;
 
 	conn		= new connection(this);
 	palMsg		= new palringoMessage(this, clientUser);
@@ -26,13 +27,13 @@ palringoConnection::palringoConnection(palringoClient *client)
 
 bool palringoConnection::connect()
 {
-	engine.pl("palConn-> Connecting to "+SERVERIP, 1);
+	engine.pl("palConn-> Connecting to "+SERVERIP);
 
 	bool connection = conn->connectToHost(SERVERIP, SERVERPORT);
 
 	if (connection)
 	{
-		engine.pl("palConn-> connection made", 1);
+		engine.pl("palConn-> connection made");
 		this->send_logon();
 	}
 
@@ -74,21 +75,21 @@ baseClient* palringoConnection::get_Client() { return clientUser; }
 //private functions
 void palringoConnection::send_logon()
 {
-	engine.pl("palConn-> sending LOGON packet", 1);
+	engine.pl("palConn-> sending LOGON packet");
 	this->send_packet(palPack.logon(clientUser->get_Username()));
 }
 
 void palringoConnection::send_auth(packet data)
 {
-	engine.pl("palConn-> sending AUTH packet", 1);
-    //engine.pause();
+	engine.pl("palConn-> sending AUTH packet");
 	this->send_packet(palPack.auth(clientUser->get_Password(), data));
 }
 
-void palringoConnection::send_ping(int number)
+void palringoConnection::send_ping()
 {
 	engine.pl("palConn-> sending PING packet", 1);
-	this->send_packet(palPack.ping(number));
+	pingsSent += 2; //not sure why do, its just what wireshark has shown me
+	this->send_packet(palPack.ping(pingsSent));
 
     //Feature is currently depreciated
     //tries to keep the bot in a specific group
@@ -123,16 +124,6 @@ void palringoConnection::parse_recv(string data)
             {
                 output.addCommand(cmd);
             }
-            /*
-            else if(cmd == "SUB PROFILE")
-            {
-                engine.pl("palConn-> Sub Profile Ignored",1);
-
-                output.addCommand(cmd);
-                this->parse_packet(output);
-
-                break;
-            }*/
 			else
 			{
 				engine.pl("palConn-> Auth Failed");
@@ -210,9 +201,7 @@ void palringoConnection::parse_packet(packet data)
 
     engine.pl("\n=====Packet=====",1);
     engine.pl(data.serialize(),1);
-    //engine.pl(cipher.hexEnc(data.serialize()),1);
     engine.pl("================\n",1);
-    //engine.pf(data.serialize(), "packets.txt");
 
 	if(packCmd == "AUTH")
 	{
@@ -221,8 +210,6 @@ void palringoConnection::parse_packet(packet data)
 		if(paySize == 24)
 		{
 			engine.pl("palConn-> AUTH valid");
-			//this->send_ping();
-			//engine.pl(data.getPayload());
 			this->send_auth(data);
 		}
 		else
@@ -237,24 +224,19 @@ void palringoConnection::parse_packet(packet data)
 	{
 		palMsg->recv_message(data);
 	}
-	else
-	{
-		/*
-		string buffer;
-		buffer.append("palConn-> unknown command [");
-		buffer.append(packCmd);
-		buffer.append("]");
-		engine.pl(buffer);
-		buffer = "";
-
-		buffer.append("unknown command [");
-		buffer.append(packCmd);
-		buffer.append("]\nHex:\n");
-		buffer.append(cipher.hexEnc(data.serialize()));
-		//buffer.append("\n\nPlain:\n");
-		//buffer.append(data.serialize());
-		buffer.append("\n\n\n");
-		engine.pf(buffer, "commands.txt
-		*/
-	}
+	else if(packCmd == "GHOSTED")
+    {
+        engine.pl("palConn-> We got ghosted, disconnecting");
+        loggedIn = false;
+        this->disconnect();
+    }
+    else if(packCmd == "SUB PROFILE")
+    {
+        engine.pl("palConn-> Subprofile");
+    }
+    else if(packCmd == "P")
+    {
+        engine.pl("palConn-> Received Ping Request", 1);
+        this->send_ping();
+    }
 }

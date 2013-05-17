@@ -13,7 +13,7 @@ Description:
 	
 	This isn't as feature rich as some of the C# bots, but uses C++ which makes it much more challenging and fun to program for. Plus since its c++ you could integrate all kinds of cool scripting languages like python.
 	
-	Right now this is more or less a bot base, once polished, i will also release the source for a bot that does other things besides core features as a fork.
+	Right now this is more or less a bot base, once polished, I will also release the source for a bot that does other things besides core features as a fork.
 	
 Program Notes: 
 	Setting login details and such,
@@ -57,13 +57,13 @@ Features:
 
 TODO:
 	Random bot crash,
-		not sure whats causing it
+		I have appeared to have fixed the bug, the bot would go into a "black hole" state when it was GHOSTED, fix that, and fixed how pings are sent. So far no black holes, think I fixed it.
 	
 	Group join / leave events
 		make the bot respond to people leaving and joining.
 		
 	Image sending,
-		i've got the packets needed to send, just need to figure out how to seralize the image.
+		I've got the packets needed to send, just need to figure out how to seralize the image.
 	
 	Sub Profile Reading,
 		this handles all the usernames and statuses and such.
