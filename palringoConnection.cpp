@@ -87,16 +87,17 @@ void palringoConnection::send_auth(packet data)
 
 void palringoConnection::send_ping(int number)
 {
-	engine.pl("palConn-> ping triggered", 1);
-	//engine.pl("palConn-> sending PING packet", 1);
-	//this->send_packet(palPack.ping(number));
+	engine.pl("palConn-> sending PING packet", 1);
+	this->send_packet(palPack.ping(number));
 
     //tries to keep the bot in a specific group
-	//this->send_packet(palPack.group_join("thenest"));
+	this->send_packet(palPack.group_join("thenest"));
 }
 
 //this function takes the string we get from our connection class
 //and creates a packet that follows the standards we have already set
+
+
 void palringoConnection::parse_recv(string data)
 {
 	//engine.pl("palConn-> parsing input", 1);
@@ -118,7 +119,19 @@ void palringoConnection::parse_recv(string data)
 			string cmd = token.substr(0, token.size()-1);
 
 			if(cmd != "LOGON FAILED")
-				output.addCommand(cmd);
+            {
+                output.addCommand(cmd);
+            }
+            /*
+            else if(cmd == "SUB PROFILE")
+            {
+                engine.pl("palConn-> Sub Profile Ignored",1);
+
+                output.addCommand(cmd);
+                this->parse_packet(output);
+
+                break;
+            }*/
 			else
 			{
 				engine.pl("palConn-> Auth Failed");
@@ -196,6 +209,7 @@ void palringoConnection::parse_packet(packet data)
 
     engine.pl("\n=====Packet=====",1);
     engine.pl(data.serialize(),1);
+    //engine.pl(cipher.hexEnc(data.serialize()),1);
     engine.pl("================\n",1);
     //engine.pf(data.serialize(), "packets.txt");
 

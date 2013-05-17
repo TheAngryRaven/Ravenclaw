@@ -114,7 +114,8 @@ DWORD connection::read(void)
 	int bytes_recv = 0;
 	char data_recv[bufferSize];
 
-/*
+    /*
+    //Time Based Sending is no longer a thing
 	//time settings
 	time_t rawtime;
 	struct tm * ptm;
@@ -123,7 +124,7 @@ DWORD connection::read(void)
 	int curTime = ptm->tm_sec;
 	int lstTim = 0;
 	int pingNumber = 1;
-*/
+    */
 
 	//endless loop scanning for packets
 	while(connected)
@@ -138,8 +139,9 @@ DWORD connection::read(void)
 
 			buffer.append(temp_buff.substr(0, temp_buff.size()));
 
-			engine.pLog(buffer, 0);
+			//engine.pLog(buffer, 0);
 			palConn->recv_packet(buffer);
+
 
 			//reset buffers
 			buffer = "";
@@ -147,7 +149,6 @@ DWORD connection::read(void)
 			for(int i=0;i<bufferSize;i++)
 				data_recv[i] = '\0'; //probably a better way to do this...
 		}
-
 
         /*
 		//time based ping sending
