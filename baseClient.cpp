@@ -16,25 +16,24 @@ string 	commanderGroup	= "";
 bool	adminOnline		= false;
 string 	adminMessage	= "";
 
-baseClient::baseClient()
+baseClient::baseClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser)
 {
-    //Login Details | email|pass
-	username 	= "joesuckscrimsonscock@gmail.com";
-	password 	= "toshiba546";
+    //Login Details | No more compile time username and password
+	this->username 	= username;
+	this->password 	= password;
 
-	botAdmin 	= "22885233";
-	botName		= "crimson";	//Set the bots name to give it personality
-	adminName	= "Ravey";		//used for printing the admins name in some messages
+	this->botAdmin 	= botAdmin;     //the ID of the user who owns the bot
+	this->botName	= botName;	    //Set the bots name to give it personality
+	this->adminName	= adminName;    //used for printing the admins name in messages
 
 	//these set the way you call commands
 	//ie #leave or /help
-	cmdAdmin 	= "#";
-	cmdBase		= "/";
+	this->cmdAdmin 	= cmdAdmin;
+	this->cmdBase	= cmdUser;
 
+    //Feature is currently depreciated
     //A way to save the group number for special bot commands
-    //you can set it to autojoin a group in palringoConnection::send_ping()
-    //Hopefully soon you wont have to set the group in both locations
-	controlGroup = "4378151"; //palringo
+	//controlGroup = "[Group ID]"; //palringo
 
 	//various "system" variables
 	canTalk = true; //if the bot is muted or not
@@ -192,23 +191,25 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
     }
 	else if(cmd == cmdBase+"help")
 	{
-		this->send_message(group, 	"/google <query>\n"
-									"/youtube <query>\n"
-									"/credits\n"
-									"/admin\n"
-									"/website");
+		this->send_message(group, 	cmdBase+"google <query>\n"+
+									cmdBase+"youtube <query>\n"+
+									cmdBase+"credits\n"+
+									cmdBase+"admin\n"+
+									cmdBase+"website");
 	}
 	else if(cmd == cmdBase+"credits")
 	{
-		this->send_message(group, 	"Ravenclaw bot created by Raven [furry]\n"
+		this->send_message(group, 	"Ravenclaw bot created by Raven [furry]\n\n"
 									"I can thank so many people on pal for this\n"
 									"Mainly ross, sniper, and nom\n"
-									"Thanks city fox for the binary file reader <3\n"
+									"And my friend city fox for a binary file reader\n"
 									"the rest know who you are\n");
 	}
 	else if(cmd == cmdBase+"website")
 	{
-		this->send_message(group, "https://bitbucket.org/BlackRaven/ravenclaw/");
+		this->send_message(group, "This bot is open source under GPLv3"
+                                    "\nTalk to "+adminName+" about getting access to the repo\n"
+                                    "https://bitbucket.org/BlackRaven/ravenclaw/");
 	}
 	else if(cmd == cmdBase+"google")
 	{

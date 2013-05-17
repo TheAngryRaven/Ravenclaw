@@ -29,8 +29,9 @@ class palringoConnection;
 class palringoClient
 {
 	public:
-		palringoClient(); 	//basically nothing
-		void run(void);		//starts and creates everything
+        //Yay Command like arguments
+		palringoClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
+		void run();		//starts and creates everything
 		baseClient* get_Client(void); // returns pointer to clientUser
 
 	protected:

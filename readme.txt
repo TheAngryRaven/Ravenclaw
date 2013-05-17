@@ -17,8 +17,19 @@ Description:
 	
 Program Notes: 
 	Setting login details and such,
-		This is currently all done programatically, in baseClient.cpp, Next revision of the software should load this from an external ini file.
+		Not quite an ini file but close enough for government work
 		
+		The bot now accepts commandline arguments for, Email - password - bot admin id - Bot admin name and Bot name. It also features 2 bonus arguments cmdAdmin, and cmdUser. The last two are optional and by default are # and / respectively.
+		
+		It is good practice to wrap all your arguments in quotes ie: "example@email.com" sometimes special characters trigger things in the command line, this is mostly true using special chars for arguments, OR if you are using spaces in any of the arguments, Test Name will break arguments, use "Test Name" instead.
+		
+	Example command line arguments
+	You can just create a batch file or a shortcut so you dont have to always type them
+	
+	`ravenclaw.exe example@email.com 12345 22885233  Ravey crimson "$" "&"`
+
+	>Now all admin commands are $command rather than #command and user commands are &help rather than /help
+			
 	Misc.cpp
 		Inside of misc.cpp (usually refered to as engine) I have created some basic and usefull features that can be used project wide. The main reason I did this, was to create a "debug printline" which is toggled with debug in misc.cpp, more core features will be added to this function later on.
 

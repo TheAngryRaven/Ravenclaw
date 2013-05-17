@@ -26,13 +26,15 @@ using namespace std;
 
 //project variables
 misc engine;
-palringoClient *palClient = new palringoClient;
+//palringoClient *palClient = new palringoClient;
+palringoClient *palClient;
 
 //main loops/functions
-int main();				//the main
+int main(int argc, char* argv[]);				//the main
 
 void spinUp(void);		//application startup
-void spinning(void);	//main application loop
+//main application loop
+void spinning(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
 void spinDown(void);	//ending application function
 
 #endif // MAIN_H_INCLUDED

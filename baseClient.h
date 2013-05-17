@@ -34,7 +34,8 @@ class palringoMessage;
 class baseClient
 {
 	public:
-		baseClient();
+
+		baseClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
 
 		//its wise not to "run" these functions
 		//these get called by other various application functions

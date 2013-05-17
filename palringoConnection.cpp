@@ -90,8 +90,9 @@ void palringoConnection::send_ping(int number)
 	engine.pl("palConn-> sending PING packet", 1);
 	this->send_packet(palPack.ping(number));
 
+    //Feature is currently depreciated
     //tries to keep the bot in a specific group
-	this->send_packet(palPack.group_join("thenest"));
+	//this->send_packet(palPack.group_join("groupname"));
 }
 
 //this function takes the string we get from our connection class
