@@ -23,6 +23,7 @@ palringoConnection::palringoConnection(palringoClient *client)
 
 	conn		= new connection(this);
 	palMsg		= new palringoMessage(this, clientUser);
+	palGroup		= new palringoGroup(this, clientUser);
 }
 
 bool palringoConnection::connect()
@@ -46,14 +47,14 @@ void palringoConnection::disconnect()
 	conn->disconnect();
 }
 
-void palringoConnection::recv_packet(string data)
+void palringoConnection::recv_packet(string data, char* raw)
 {
 	//engine.pl("palConn-> packet received", 1);
 	//engine.pl(data, 1);
 
 	try
 	{
-		this->parse_recv(data);
+		this->parse_recv(data, raw);
 	}
 	catch(...)
 	{
@@ -100,7 +101,7 @@ void palringoConnection::send_ping()
 //and creates a packet that follows the standards we have already set
 
 
-void palringoConnection::parse_recv(string data)
+void palringoConnection::parse_recv(string data, char* raw)
 {
 	//engine.pl("palConn-> parsing input", 1);
 
@@ -169,19 +170,38 @@ void palringoConnection::parse_recv(string data)
 			}
 			else if(headers[i] == "CONTENT-LENGTH" || headers[i] == "Content-Length")
 			{
-				//adds the payload based on the content-length
-				//more accurate way of adding the payload
-				string headLen		= headers[i+1].substr(1, headers[i+1].size()-2);
-				int payloadLength	= atoi(headLen.c_str());
+			    //beasue this is a COMPLETELY different packet type....
+			    if(output.getCommand() == "GROUP UPDATE")
+                {
+                    /*
+                    engine.pl("GU Content length found");
+                    string headLen		= headers[i+1].substr(1, headers[i+1].size()-2);
+                    int payloadLength	= atoi(headLen.c_str());
 
-				//string tData = headers[headerCnt-1];
-				string tData = data.substr(data.size()-payloadLength, payloadLength);
-				output.addPayload(tData);
+                    cout << "\n\nPayload Length: " << payloadLength << "\n\n";
+                    cout << "\n\nPayload: " << cipher.hexEnc(raw) << "\n\n";
+
+                    //crashes the parser, this is a "serialized" payload
+                    //string tData = data.substr(data.size()-payloadLength, payloadLength);
+
+                    //output.addPayload(tData);
+                    */
+                }
+                else
+                {
+                    //adds the payload based on the content-length
+                    //more accurate way of adding the payload
+                    string headLen		= headers[i+1].substr(1, headers[i+1].size()-2);
+                    int payloadLength	= atoi(headLen.c_str());
+
+                    string tData = data.substr(data.size()-payloadLength, payloadLength);
+                    output.addPayload(tData);
+                }
 			}
 			else
 			{
 				//removes the last character from the second data set
-				// the end line char is still there from the earlier parsing
+				//the end line char is still there from the earlier parsing
 				output.addHeader(headers[i], headers[i+1].substr(1, headers[i+1].size()-2));
 			}
 		}
@@ -199,9 +219,9 @@ void palringoConnection::parse_packet(packet data)
 	int		paySize = data.getPayload().size();
 	string	packCmd = data.getCommand();
 
-    engine.pl("\n=====Packet=====",1);
+    /*engine.pl("\n=====Packet=====",1);
     engine.pl(data.serialize(),1);
-    engine.pl("================\n",1);
+    engine.pl("================\n",1);*/
 
 	if(packCmd == "AUTH")
 	{
@@ -233,6 +253,14 @@ void palringoConnection::parse_packet(packet data)
     else if(packCmd == "SUB PROFILE")
     {
         engine.pl("palConn-> Subprofile");
+    }
+    else if(packCmd == "GROUP ADMIN")
+    {
+        palGroup->group_admin(data);
+    }
+    else if(packCmd == "GROUP UPDATE")
+    {
+        palGroup->group_update();
     }
     else if(packCmd == "P")
     {

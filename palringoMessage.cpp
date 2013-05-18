@@ -39,16 +39,6 @@ void palringoMessage::send_pm(string to, string message)
 	palConn->send_packet(palPack.message("0", to, message));
 }
 
-void palringoMessage::group_join(string groupName, string password)
-{
-	palConn->send_packet(palPack.group_join(groupName, password));
-}
-
-void palringoMessage::group_part(string groupID)
-{
-	palConn->send_packet(palPack.group_part(groupID));
-}
-
 void palringoMessage::admin_admin(string groupID, string user)
 {
 	palConn->send_packet(palPack.admin("1", groupID, user));

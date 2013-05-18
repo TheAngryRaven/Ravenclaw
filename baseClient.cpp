@@ -40,12 +40,14 @@ baseClient::baseClient(string username, string password, string botAdmin, string
 
 }
 
+//triggered when a message is received
 void baseClient::recv_message(string group, string user, string message)
 {
     if(user != "3154204")
         this->parse_commands(group, user, engine.splitStr(message, ' '));
 }
 
+//triggered when a PM is received
 void baseClient::recv_pm(string name, string user, string message)
 {
 	if(user != botAdmin)
@@ -70,6 +72,39 @@ void baseClient::recv_pm(string name, string user, string message)
 	{
 		this->parse_commands(controlGroup,user, engine.splitStr(message,' '));
 	}
+}
+
+//triggered when anyone joins or leaves a group
+void baseClient::group_update()
+{
+    //TODO: fully furnish, doesnt work at all except for the fact it gets triggered
+    engine.pl("palClient-> someone joined or left a group");
+}
+
+//triggered when anyone commits an admin action
+void baseClient::group_admin(string group, string admin, string user, string action)
+{
+    //TODO: works, just need more details coded
+
+    string op    = "1";
+    string mod      = "2";
+    string silence  = "8";
+    string reset    = "0";
+    string kick     = "16";
+    string ban      = "4";
+
+    if(action == op)
+        this->send_message(group, "Congrats!\r\nJust dont power abuse");
+    else if(action == mod)
+        this->send_message(group, "Aww thats cute\r\nYou think you have power");
+    else if(action == silence)
+        this->send_message(group, "I love duct tape!");
+    else if(action == reset)
+        this->send_message(group, "Yay they reset you :3");
+    else if(action == kick)
+        this->send_message(group, "Get told");
+    else if(action == ban)
+        this->send_message(group, "Here comes the buthurt");
 }
 
 //ive left in some of the basic bot features im writting for my personal bot to give you a feel of how i do things
@@ -388,8 +423,8 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 /* Everything Below This Segmet should remain un touched */
 //////////////////////////////////////////////////////////
 //base group functions
-void 	baseClient::group_join(string groupName, string password)	{ palMesg->group_join(groupName, password); }
-void	baseClient::group_part(string groupID)						{ palMesg->group_part(groupID); }
+void 	baseClient::group_join(string groupName, string password)	{ palGroup->group_join(groupName, password); }
+void	baseClient::group_part(string groupID)						{ palGroup->group_part(groupID); }
 
 //base message handlers
 void 	baseClient::send_message(string group, string message)		{ if(canTalk) palMesg->send_message(group, message); }
@@ -405,6 +440,7 @@ void	baseClient::admin_ban    (string groupID, string userID)	{ palMesg->admin_b
 
 //sets pointers
 void	baseClient::set_palMesg(palringoMessage *mesg)				{ palMesg = mesg; }
+void	baseClient::set_palGroup(palringoGroup *group)				{ palGroup = group; }
 
 //public functions to get variables
 string 	baseClient::get_Username() 									{ return this->username; }

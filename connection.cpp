@@ -117,7 +117,9 @@ DWORD connection::read(void)
 	//endless loop scanning for packets
 	while(connected)
 	{
-		bytes_recv = recvfrom(sock, data_recv, sizeof(data_recv), 0,(struct sockaddr *) 0, (int *) 0);
+		bytes_recv = recvfrom(sock, data_recv, bufferSize, 0,(struct sockaddr *) 0, (int *) 0);
+		//struct sockaddr raw;
+		//bytes_recv = recvfrom(sock, data_recv, sizeof(data_recv), 0,&raw, (int *) 0);
 
 		//if we received data
 		if(bytes_recv != -1)
@@ -128,7 +130,7 @@ DWORD connection::read(void)
 			buffer.append(temp_buff.substr(0, temp_buff.size()));
 
 			//engine.pLog(buffer, 0);
-			palConn->recv_packet(buffer);
+			palConn->recv_packet(buffer, data_recv);
 
 
 			//reset buffers

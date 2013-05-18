@@ -55,6 +55,12 @@ A library called crypto++ is required for the bot to function, until I feel that
 		
 ####Full admin functions
 >If given elevated premissions can mod/mute/ban etc etc. 
+
+####Admin triggers
+>**baseClient::group_admin()** gets triggered when any admin function is used in a group
+		
+####Group join/leave trigger
+>**baseClient::group_update()** gets triggered when anyone joins or leaves a group BUT cannot currently tell who or where
 		
 ####Bot Admin status
 >Default status is offline, when the bot sees that the bot-admin has typed a message in a group the bot is in it sets the admins status to online.
@@ -64,11 +70,8 @@ This is not a hard coded feature, just a neat one I like.
 
 ***
 ###TODO
-####Random bot crash
->I have appeared to have fixed the bug, the bot would go into a "black hole" state when it was GHOSTED, fix that, and fixed how pings are sent. So far no black holes, think I fixed it.
-
-####Group join / leave events
->make the bot respond to people leaving and joining.
+####Fix group join / leave events
+>Figure out how to decode the packet telling me information like what group and who left/joined
 
 ####Image sending
 >I've got the packets needed to send, just need to figure out how to seralize the image.

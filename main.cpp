@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         */
 
 
-        spinUp();
+        spinUp(botName);
         spinning(username, password, botAdmin, adminName, botName, cmdAdmin, cmdUser);
         spinDown();
 
@@ -71,9 +71,10 @@ int main(int argc, char* argv[])
     }
 }
 
-void spinUp()
+void spinUp(string botName)
 {
-	SetConsoleTitle( "PalringoBot: Crimson" );
+    string titleName = "PalringoBot: "+botName;
+	SetConsoleTitle( titleName.c_str() );
 }
 
 void spinning(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser)

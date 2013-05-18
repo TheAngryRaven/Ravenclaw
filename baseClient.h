@@ -25,25 +25,30 @@
 #include "misc.h"
 #include "crypt.h"
 #include "palringoMessage.h"
+#include "palringoGroup.h"
 
 using namespace std;
 
 class misc;
 class crypt;
 class palringoMessage;
+class palringoGroup;
 class baseClient
 {
 	public:
-
 		baseClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
 
-		//its wise not to "run" these functions
-		//these get called by other various application functions
+		//The following 4 functions are called from palringoConnection when needed
 		void recv_message(string group, string user, string message);
 		void recv_pm(string name, string user, string message);
 
+		//group update and admin actions also dont touch
+		void group_update(void);
+		void group_admin(string group, string admin, string user, string action);
+
 		//these functions should not be touched
 		void	set_palMesg(palringoMessage *mesg);	//sets the palringoMessage pointer
+		void	set_palGroup(palringoGroup *group);	//sets the palringoGroup pointer
 		string 	get_Username(void);	//returns username
 		string 	get_Password(void);	//returns password
 
@@ -56,7 +61,6 @@ class baseClient
 		//Group join and leave functions
 		void group_join(string groupName, string password = "");
 		void group_part(string groupID);
-		void group_update(void);
 
 		//Self Explaining admin actions
 		void admin_admin(string groupID, string userID);
@@ -78,6 +82,7 @@ class baseClient
 		crypt	cipher;
 
 		palringoMessage 	*palMesg;
+		palringoGroup 	*palGroup;
 
 };
 

@@ -27,6 +27,7 @@
 #include "palringoClient.h"
 #include "palringoPacket.h"
 #include "palringoMessage.h"
+#include "palringoGroup.h"
 
 class misc;
 class crypt;
@@ -35,6 +36,7 @@ class connection;
 class palringoClient;
 class palringoPacket;
 class palringoMessage;
+class palringoGroup;
 class palringoConnection
 {
 	public:
@@ -43,7 +45,7 @@ class palringoConnection
 		bool connect(void);		//connect's to palringo server
 		void disconnect(void);	//disconnect from server
 
-		void recv_packet(string data);	//we received a packet
+		void recv_packet(string data, char* raw = NULL);	//we received a packet
 		void send_packet(packet data);	//we are sending a packet
 		void send_ping();	            //we need to send a ping
 
@@ -54,12 +56,13 @@ class palringoConnection
 		void send_logon(void);	//we need to send the logon
 		void send_auth(packet data);	//we need to send the auth
 
-		void parse_recv(string data);
+		void parse_recv(string data, char* raw);
 		void parse_packet(packet data);
 
 		palringoClient	*palClient;
 		palringoPacket	palPack;
 		palringoMessage	*palMsg;
+		palringoGroup	*palGroup;
 
 		baseClient		*clientUser;
 		connection		*conn;

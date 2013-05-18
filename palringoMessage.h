@@ -43,12 +43,6 @@ class palringoMessage
 		void send_message(string group, string message);
 		void send_pm(string to, string message);
 
-
-		//eventually move these functions into palringoGroup
-		//group join/leave
-		void group_join(string groupName, string Password);
-		void group_part(string groupID);
-
 		//group admin actions
 		void admin_admin(string groupID, string userID);
 		void admin_mod(string groupID, string userID);

@@ -32,7 +32,7 @@ palringoClient *palClient;
 //main loops/functions
 int main(int argc, char* argv[]);				//the main
 
-void spinUp(void);		//application startup
+void spinUp(string botName);		//application startup
 //main application loop
 void spinning(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
 void spinDown(void);	//ending application function
