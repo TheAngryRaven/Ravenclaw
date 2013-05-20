@@ -2,13 +2,13 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="crimson" />
+		<Option title="ravenclaw" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Option virtualFolders="clients\source\;clients\header\;network\source\;network\header\;base\source\;base\header\;palringo\source\;palringo\header\;RPG\;RPG\player\;RPG\world\;RPG\room\;RPG\room\window\;RPG\room\door\;RPG\room\.source\;RPG\object\;RPG\object\.header\;RPG\object\.source\;RPG\player\.header\;RPG\player\.source\;RPG\room\.header\;RPG\world\.header\;RPG\world\.source\;RPG\room\wall\;RPG\room\wall\.header\;RPG\room\wall\.source\;RPG\room\door\.header\;RPG\room\door\.source\;RPG\room\window\.header\;RPG\room\window\.source\;" />
 		<Build>
 			<Target title="Release">
-				<Option output="bin/Release/crimson" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/ravenclaw" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -20,7 +20,7 @@
 				</Linker>
 			</Target>
 			<Target title="Debug">
-				<Option output="bin/Debug/crimson" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/ravenclaw" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />

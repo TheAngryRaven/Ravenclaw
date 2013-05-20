@@ -1,3 +1,8 @@
 bin/*
 obj/*
 cryptopp/*
+crimson/*
+crimson.depend
+crimson.layout
+ravenclaw.depend
+ravenclaw.layout
