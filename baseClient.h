@@ -20,6 +20,8 @@
 #include <string.h>
 #include <algorithm>
 #include <vector>
+#include <ctime>
+#include <time.h>
 
 //project includes
 #include "misc.h"
@@ -75,9 +77,10 @@ class baseClient
 		string messagePatcher(vector<string> message, string patch = " ", int start = 1);
 
 	private:
-		string	username, password, botAdmin, botName, adminName, controlGroup;
+		string	username, password, botAdmin, botName, adminName, adminMessage;
 		string  cmdAdmin, cmdBase;
-		bool	canTalk;
+		bool	canTalk, adminOnline;
+		time_t  startTime;
 		misc	engine;
 		crypt	cipher;
 

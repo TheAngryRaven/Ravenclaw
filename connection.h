@@ -21,7 +21,6 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <time.h>
 
 #include <stdio.h>
 using namespace std;

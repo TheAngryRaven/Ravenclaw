@@ -10,12 +10,6 @@
 
 #include "baseClient.h"
 
-string 	commander		= "";
-string 	commanderGroup	= "";
-
-bool	adminOnline		= false;
-string 	adminMessage	= "";
-
 baseClient::baseClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser)
 {
     //Login Details | No more compile time username and password
@@ -33,11 +27,13 @@ baseClient::baseClient(string username, string password, string botAdmin, string
 
     //Feature is currently depreciated
     //A way to save the group number for special bot commands
-	//controlGroup = "[Group ID]"; //palringo
+	//controlGroup      = "[Group ID]"; //palringo
+	//controlGroupName  = "[Group ID]"; //palringo
 
 	//various "system" variables
-	canTalk = true; //if the bot is muted or not
-
+	canTalk     = true;     //if the bot is muted or not
+	adminOnline = false;    //if admin is online or not
+	startTime   = time(NULL);//sets the time the bot initializes
 }
 
 //triggered when a message is received
@@ -70,7 +66,7 @@ void baseClient::recv_pm(string name, string user, string message)
 	}
 	else
 	{
-		this->parse_commands(controlGroup,user, engine.splitStr(message,' '));
+		//this->parse_commands(controlGroup,user, engine.splitStr(message,' '));
 	}
 }
 
@@ -86,7 +82,7 @@ void baseClient::group_admin(string group, string admin, string user, string act
 {
     //TODO: works, just need more details coded
 
-    string op    = "1";
+    string op       = "1";
     string mod      = "2";
     string silence  = "8";
     string reset    = "0";
@@ -132,12 +128,12 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 		if(user == botAdmin)
 		{
 			if(canTalk == true)
-				this->send_message(group, "I'm Here :3");
+                this->send_message(group, "I am online!");
 			else
 			{
 				//if shes been muted this will run
 				canTalk = true;
-				this->send_message(group, "Im supposed to be quiet ;_;");
+				this->send_message(group, "I've been muted but im here ;_;");
 				canTalk = false;
 			}
 		}
@@ -254,6 +250,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 									cmdBase+"youtube <query>\r\n"+
 									cmdBase+"credits\r\n"+
 									cmdBase+"admin\r\n"+
+									cmdBase+"uptime\r\n"+
 									cmdBase+"website");
 	}
 	else if(cmd == cmdBase+"credits")
@@ -274,13 +271,13 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	{
 		if(blocks > 1)
 		{
-			string search = "Here you go hun\r\nhttp://www.google.com/search?q=";
+			string search = "Here you go\r\nhttp://www.google.com/search?q=";
 			search.append(this->messagePatcher(data, "+"));
 			this->send_message(group, search);
 		}
 		else
 		{
-			this->send_message(group, "Sorry hun thats not how you use this command\r\n/google <search query>");
+			this->send_message(group, "Sorry thats not how you use this command\r\n/google <search query>");
 		}
 	}
 	else if(cmd == cmdBase+"youtube")
@@ -296,6 +293,21 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 			this->send_message(group, "Sorry hun thats not how you use this command\r\n/youtube <search query>");
 		}
 	}
+	else if(cmd == cmdBase+"uptime")
+    {
+        double uptime = difftime(time(NULL), startTime);
+
+        char buffer[256];
+        int days    = uptime / 86400;
+        int hours   = (uptime - 86400 * days) / 3600;
+        int minutes = ((uptime - 86400 * days) - (3600 * hours))/60;
+        int seconds = ((uptime - 86400 * days) - (3600 * hours))- 60 * minutes;
+
+        //double days = (double)uptime/86400;
+        snprintf(buffer, sizeof(buffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
+
+        this->send_message(group, buffer);
+    }
 	else if(cmd == botName) /* "talk to the bot" */
 	{
 		if(blocks >= 2)
@@ -395,7 +407,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 						//this->admin_silence(group, user);
 						break;
 					}
-					else if(data[i] == "fuck" || data[i] == "shit" || data[i] == "damn" || data[i] == "hell" || data[i] == "cunt")
+					else if(data[i] == "ass" || data[i] == "bitch" || data[i] == "fuck" || data[i] == "shit" || data[i] == "damn" || data[i] == "hell" || data[i] == "cunt")
 					{
 						this->send_message(group, "Potty Mouth!!!");
 						//this->admin_silence(group, user);

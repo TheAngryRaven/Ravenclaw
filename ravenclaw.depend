@@ -1,12 +1,14 @@
 # depslib dependency file v1.0
-1368842136 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1369074754 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
-1368841910 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+1369076428 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
 	<iostream>
 	<string.h>
 	<algorithm>
 	<vector>
+	<ctime>
+	<time.h>
 	"misc.h"
 	"crypt.h"
 	"palringoMessage.h"
@@ -66,13 +68,12 @@
 	"palringoMessage.h"
 	"palringoGroup.h"
 
-1368660984 c:\users\michael\documents\palringo\git\ravenclaw\connection.h
+1369070415 c:\users\michael\documents\palringo\git\ravenclaw\connection.h
 	<windows.h>
 	<winsock.h>
 	<iostream>
 	<fstream>
 	<cstring>
-	<time.h>
 	<stdio.h>
 	"misc.h"
 	"crypt.h"
