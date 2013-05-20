@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1369074754 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1369077653 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
 1369076428 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
@@ -108,7 +108,7 @@
 1368820864 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.cpp
 	"palringoClient.h"
 
-1368841118 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
+1369076763 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
 	"palringoConnection.h"
 
 1368660984 source:c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.cpp

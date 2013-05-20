@@ -219,9 +219,9 @@ void palringoConnection::parse_packet(packet data)
 	int		paySize = data.getPayload().size();
 	string	packCmd = data.getCommand();
 
-    /*engine.pl("\n=====Packet=====",1);
+    engine.pl("\n=====Packet=====",1);
     engine.pl(data.serialize(),1);
-    engine.pl("================\n",1);*/
+    engine.pl("================\n",1);
 
 	if(packCmd == "AUTH")
 	{

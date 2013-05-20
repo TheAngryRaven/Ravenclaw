@@ -203,17 +203,34 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	}
 	else if(cmd == cmdAdmin+"mute")
 	{
-		if(canTalk == true)
-		{
-			this->send_message(group, "Muted myself");
-			canTalk = false;
-		}
-		else
-		{
-			canTalk = true;
-			this->send_message(group, "I can talk again!");
-		}
+	    if(user == botAdmin)
+        {
+            if(canTalk == true)
+            {
+                this->send_message(group, "Muted myself");
+                canTalk = false;
+            }
+            else
+            {
+                canTalk = true;
+                this->send_message(group, "I can talk again!");
+            }
+        }
 	}
+	else if(cmd == cmdAdmin+"help")
+    {
+        if(user == botAdmin)
+        {
+             this->send_message(group, 	"Admin Help\r\n"+
+                                        cmdAdmin+"check\r\n"+
+                                        cmdAdmin+"leave\r\n"+
+                                        cmdAdmin+"join <group name>\r\n"+
+                                        cmdAdmin+"msg <user id> <message>\r\n"+
+                                        cmdAdmin+"away <message>\r\n"+
+                                        cmdAdmin+"mute (also unmute)"
+                                        );
+        }
+    }
 	else if(cmd == cmdBase+"admin")
     {
         string output = "The bot owner is "+adminName+" Userid: "+botAdmin;
@@ -233,18 +250,6 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
     }
 	else if(cmd == cmdBase+"help")
 	{
-	    if(user == botAdmin)
-        {
-            this->send_message(group, 	"Admin Help\r\n"+
-                                        cmdAdmin+"check\r\n"+
-                                        cmdAdmin+"leave\r\n"+
-                                        cmdAdmin+"join <group name>\r\n"+
-                                        cmdAdmin+"msg <user id> <message>\r\n"+
-                                        cmdAdmin+"away <message>\r\n"+
-                                        cmdAdmin+"mute (also unmute)"
-                                        );
-        }
-
 		this->send_message(group, 	"User Help\r\n"+
                                     cmdBase+"google <query>\r\n"+
 									cmdBase+"youtube <query>\r\n"+
