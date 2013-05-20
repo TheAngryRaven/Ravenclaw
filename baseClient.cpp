@@ -39,8 +39,7 @@ baseClient::baseClient(string username, string password, string botAdmin, string
 //triggered when a message is received
 void baseClient::recv_message(string group, string user, string message)
 {
-    if(user != "3154204")
-        this->parse_commands(group, user, engine.splitStr(message, ' '));
+    this->parse_commands(group, user, engine.splitStr(message, ' '));
 }
 
 //triggered when a PM is received
@@ -55,7 +54,6 @@ void baseClient::recv_pm(string name, string user, string message)
 		buffer.append("\r\n");
 		buffer.append(message);
 		buffer.append("\r\n=======================\r\n");
-		//engine.pl(buffer);
 
 		this->send_pm(botAdmin, buffer);
 		buffer = "";
@@ -66,7 +64,7 @@ void baseClient::recv_pm(string name, string user, string message)
 	}
 	else
 	{
-		//this->parse_commands(controlGroup,user, engine.splitStr(message,' '));
+		this->parse_pm(name, user, engine.splitStr(message,' '));
 	}
 }
 
@@ -108,12 +106,6 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 {
 	int		blocks		= data.size();
 	string	cmd			= data[0];
-	/*
-		simple naming scheme
-		# - botAdmin Commands
-		/ - free to use commands
-		~ - RPG Commands
-	*/
 
 	if(user == botAdmin && adminOnline == false)
 	{
@@ -176,10 +168,11 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 
 				//send the buffer
 				this->send_pm(data[1], buff);
+				this->send_message(group, "Message Sent!");
 			}
 			else
 			{
-				this->send_pm(botAdmin, "#msg <user ID> <message>");
+				this->send_message(group, "#msg <user ID> <message>");
 			}
 		}
 	}
@@ -436,6 +429,57 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	}
 }
 
+//seperate command parser for pms
+void baseClient::parse_pm(string name, string user, vector<string> data)
+{
+	int		blocks		= data.size();
+	string	cmd			= data[0];
+
+	if(cmd == cmdAdmin+"msg")
+    {
+		if(user == botAdmin)
+		{
+			if(blocks > 2)
+			{
+				//generate message
+				string buff = this->messagePatcher(data, " ", 2);
+
+				//send the buffer
+				this->send_pm(data[1], buff);
+			}
+			else
+			{
+				this->send_pm(user, "#msg <user ID> <message>");
+			}
+		}
+    }
+    if(cmd == cmdAdmin+"uptime")
+    {
+        double uptime = difftime(time(NULL), startTime);
+
+        char buffer[256];
+        int days    = uptime / 86400;
+        int hours   = (uptime - 86400 * days) / 3600;
+        int minutes = ((uptime - 86400 * days) - (3600 * hours))/60;
+        int seconds = ((uptime - 86400 * days) - (3600 * hours))- 60 * minutes;
+
+        //double days = (double)uptime/86400;
+        snprintf(buffer, sizeof(buffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
+
+        this->send_pm(user, buffer);
+    }
+    if(cmd == cmdAdmin+"help")
+    {
+        if(user == botAdmin)
+		{
+		    this->send_pm(user, 	"Admin Help\r\n"+
+                                        cmdAdmin+"msg <user id> <message>\r\n"+
+                                        cmdAdmin+"uptime\r\n"
+                                        );
+		}
+    }
+}
+
 ////////////////////////////////////////////////////////////
 /* Everything Below This Segmet should remain un touched */
 //////////////////////////////////////////////////////////
@@ -482,6 +526,10 @@ string baseClient::messagePatcher(vector<string> message, string patch, int star
 	{
 		output.append(message[start]);
 	}
+	else if(blocks == start+1)
+    {
+        output.append(message[start]);
+    }
 	else
 	{
 		output.append("null");

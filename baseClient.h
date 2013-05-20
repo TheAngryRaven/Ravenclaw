@@ -73,8 +73,9 @@ class baseClient
 		void admin_ban(string groupID, string userID);
 
 		//"working" functions
-		void   parse_commands(string group, string user, vector<string> data);
-		string messagePatcher(vector<string> message, string patch = " ", int start = 1);
+		void    parse_commands(string group, string user, vector<string> data);
+		void    parse_pm(string name, string user, vector<string> data);
+		string  messagePatcher(vector<string> message, string patch = " ", int start = 1);
 
 	private:
 		string	username, password, botAdmin, botName, adminName, adminMessage;
