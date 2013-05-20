@@ -468,6 +468,10 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
 
         this->send_pm(user, buffer);
     }
+    if(cmd == cmdAdmin+"test")
+    {
+        this->send_pm(user, "Test Message!");
+    }
     if(cmd == cmdAdmin+"help")
     {
         if(user == botAdmin)
