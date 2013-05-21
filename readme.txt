@@ -7,6 +7,7 @@ Licenses:
 	
 Description:
 	A C++ bot base for palringo. It has a handfull of many basic operations.
+	
 	A library called crypto++ is required for the bot to function, until I feel that I have polished the bot well enough, you must find and compile this yourself. Until I feel it is polished enough for a true "release" I dont want the bot to be "noob" friendly.
 	
 	If anyone knows C++ to a well enough extent that they feel they can help, I would be glad to help them get the library up and running, so that they can help with the project. I don't ask that you know much, but if you have even a primitive understanding of c++ to the point you can handle pointers (I am far from an expert myself) I would be greatfull of your help.
@@ -16,20 +17,20 @@ Description:
 	Right now this is more or less a bot base, once polished, I will also release the source for a bot that does other things besides core features as a fork.
 	
 Program Notes: 
-	Setting login details and such,
-		Not quite an ini file but close enough for government work
-		
-		The bot now accepts commandline arguments for, Email - password - bot admin id - Bot admin name and Bot name. It also features 2 bonus arguments cmdAdmin, and cmdUser. The last two are optional and by default are # and / respectively.
-		
-		It is good practice to wrap all your arguments in quotes ie: "example@email.com" sometimes special characters trigger things in the command line, this is mostly true using special chars for arguments, OR if you are using spaces in any of the arguments, Test Name will break arguments, use "Test Name" instead.
-		
-	Example command line arguments
-	You can just create a batch file or a shortcut so you dont have to always type them
-	
-	`ravenclaw.exe example@email.com 12345 22885233  Ravey crimson "$" "&"`
+	Setting login details and such
 
-	>Now all admin commands are $command rather than #command and user commands are &help rather than /help
-			
+		The bot can now load details from an INI file, apon starting the bot a basic INI that you need to edit yourself will be generated called example.ini if you do not supply one in the commandline. Along with a super basic runBot.bat batch script, which is simply ravenclaw.exe exampli.ini.
+
+		The bot accepts INI settings for; Email - password - bot admin id - Bot admin name and Bot name. It also features 2 bonus arguments cmdAdmin, and cmdUser. The last two are optional and by default are # and / respectively.
+		
+	Starting the bot
+
+		Simply run a command along the lines of (without the quotes)
+		
+		"ravenclaw.exe example.ini"
+		
+		The bot will load the required settings from example.ini and logon and start listening
+
 	Misc.cpp
 		Inside of misc.cpp (usually refered to as engine) I have created some basic and usefull features that can be used project wide. The main reason I did this, was to create a "debug printline" which is toggled with debug in misc.cpp, more core features will be added to this function later on.
 
@@ -39,6 +40,10 @@ Libraries
 
 	libcryptopp.a
 		For Salsa20/MD5/Hex methods	
+		
+	INIReader
+
+		Super basic ini parser under the BSD license, more of an include than a library
 
 Features:
 	Basic chat listening, 

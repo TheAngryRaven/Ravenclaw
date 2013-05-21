@@ -21,17 +21,16 @@ A library called crypto++ is required for the bot to function, until I feel that
 ***
 ###Program Notes:
 ####Setting login details and such
->Not quite an ini file but close enough for government work
+>The bot can now load details from an INI file, apon starting the bot a basic INI **that you need to edit yourself** will be generated called **example.ini** if you do not supply one in the commandline. Along with a super basic **runBot.bat** batch script, which is simply *ravenclaw.exe exampli.ini*.
 
->The bot now accepts commandline arguments for, **Email** - **password** - **bot admin id** - **Bot admin name** *and* **Bot name**. It also features 2 bonus arguments **cmdAdmin**, *and* **cmdUser**. The last two are optional and by default are *#* and */* respectively.
+>The bot accepts INI settings for; **Email** - **password** - **bot admin id** - **Bot admin name** *and* **Bot name**. It also features 2 bonus arguments **cmdAdmin**, *and* **cmdUser**. The last two are optional and by default are *#* and */* respectively.
 
->It is good practice to wrap all your arguments in quotes ie: *"example@email.com"* sometimes special characters trigger things in the command line, this is mostly true using special chars for arguments, **OR** if you are using spaces in any of the arguments, **Test Name** will break arguments, use **"Test Name"** instead
+####Starting the bot
+>Simply run a command along the lines of
 
-####Example command line arguments
->You can just create a batch file or a shortcut so you dont have to always type them
->`ravenclaw.exe example@email.com 12345 22885233  Ravey crimson "$" "&"`
+>`ravenclaw.exe example.ini`
 
->Now all admin commands are **$command** rather than **#command** and user commands are **&help** rather than **/help**
+>The bot will load the required settings from example.ini and logon and start listening
 
 ####Misc.cpp
 >Inside of misc.cpp (usually refered to as engine) I have created some basic and usefull features that can be used project wide. The main reason I did this, was to create a "debug printline" which is toggled with debug in misc.cpp, more core features will be added to this function as time progresses.
@@ -44,6 +43,9 @@ A library called crypto++ is required for the bot to function, until I feel that
 ####libcryptopp.a
 >For Salsa20/MD5/Hex methods
 
+####INIReader
+>Super basic ini parser under the BSD license, more of an include than a library
+
 ***
 ## Features
 
@@ -52,6 +54,8 @@ A library called crypto++ is required for the bot to function, until I feel that
 		
 ####PM Responses
 >When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.
+
+>Now has a dedicated function for parsing pm commands in **baseClient::parse_pm()** some things still parsed in **baseClient::recv_pm()** though
 		
 ####Full admin functions
 >If given elevated premissions can mod/mute/ban etc etc. 

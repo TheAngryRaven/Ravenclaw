@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1369084220 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1369093724 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
 1369083990 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
@@ -91,13 +91,16 @@
 1368660984 source:c:\users\michael\documents\palringo\git\ravenclaw\crypt.cpp
 	"crypt.h"
 
-1368833227 source:c:\users\michael\documents\palringo\git\ravenclaw\main.cpp
+1369158570 source:c:\users\michael\documents\palringo\git\ravenclaw\main.cpp
 	"main.h"
 
-1368833156 c:\users\michael\documents\palringo\git\ravenclaw\main.h
+1369158549 c:\users\michael\documents\palringo\git\ravenclaw\main.h
 	<windows.h>
+	<iostream>
+	<fstream>
 	"misc.h"
 	"palringoClient.h"
+	"INIreader.h"
 
 1368660984 source:c:\users\michael\documents\palringo\git\ravenclaw\misc.cpp
 	"misc.h"
@@ -134,4 +137,23 @@
 	"palringoPacket.h"
 
 1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\resources.rc
+
+1369154953 source:c:\users\michael\documents\palringo\git\ravenclaw\ini.c
+	<stdio.h>
+	<ctype.h>
+	<string.h>
+	"ini.h"
+
+1369154994 c:\users\michael\documents\palringo\git\ravenclaw\ini.h
+
+1369154998 source:c:\users\michael\documents\palringo\git\ravenclaw\inireader.cpp
+	<algorithm>
+	<cctype>
+	<cstdlib>
+	"ini.h"
+	"INIReader.h"
+
+1369154478 c:\users\michael\documents\palringo\git\ravenclaw\inireader.h
+	<map>
+	<string>
 
