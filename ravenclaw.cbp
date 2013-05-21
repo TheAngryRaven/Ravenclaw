@@ -5,7 +5,7 @@
 		<Option title="ravenclaw" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="clients\source\;clients\header\;network\source\;network\header\;base\source\;base\header\;palringo\source\;palringo\header\;RPG\;RPG\player\;RPG\world\;RPG\room\;RPG\room\window\;RPG\room\door\;RPG\room\.source\;RPG\object\;RPG\object\.header\;RPG\object\.source\;RPG\player\.header\;RPG\player\.source\;RPG\room\.header\;RPG\world\.header\;RPG\world\.source\;RPG\room\wall\;RPG\room\wall\.header\;RPG\room\wall\.source\;RPG\room\door\.header\;RPG\room\door\.source\;RPG\room\window\.header\;RPG\room\window\.source\;" />
+		<Option virtualFolders="clients\source\;clients\header\;network\source\;network\header\;base\source\;base\header\;palringo\source\;palringo\header\;RPG\;RPG\player\;RPG\world\;RPG\room\;RPG\room\window\;RPG\room\door\;RPG\room\.source\;RPG\object\;RPG\object\.header\;RPG\object\.source\;RPG\player\.header\;RPG\player\.source\;RPG\room\.header\;RPG\world\.header\;RPG\world\.source\;RPG\room\wall\;RPG\room\wall\.header\;RPG\room\wall\.source\;RPG\room\door\.header\;RPG\room\door\.source\;RPG\room\window\.header\;RPG\room\window\.source\;base\header\ini\;base\source\ini\;" />
 		<Build>
 			<Target title="Release">
 				<Option output="bin/Release/ravenclaw" prefix_auto="1" extension_auto="1" />
@@ -33,6 +33,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="INIReader.cpp">
+			<Option virtualFolder="base/source/ini/" />
+		</Unit>
+		<Unit filename="INIReader.h">
+			<Option virtualFolder="base/header/ini/" />
+		</Unit>
 		<Unit filename="baseClient.cpp">
 			<Option virtualFolder="clients/source/" />
 		</Unit>
@@ -50,6 +56,13 @@
 		</Unit>
 		<Unit filename="crypt.h">
 			<Option virtualFolder="base/header/" />
+		</Unit>
+		<Unit filename="ini.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="base/source/ini/" />
+		</Unit>
+		<Unit filename="ini.h">
+			<Option virtualFolder="base/header/ini/" />
 		</Unit>
 		<Unit filename="main.cpp">
 			<Option virtualFolder="base/source/" />
