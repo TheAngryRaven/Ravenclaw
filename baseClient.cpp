@@ -381,7 +381,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 			else if(data[1] == "20" || data[1] == "d20")
                 dieRoll = rand() % 20 + 1;
 
-            if(coin == "")
+            if(dieRoll != 0)
             {
                 stringstream roll;
                 roll << dieRoll;
@@ -389,9 +389,13 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 
                 this->send_message(group, "And the DM rolls a "+result);
             }
-            else
+            else if(coin != "")
             {
                 this->send_message(group, "And its "+coin);
+            }
+            else
+            {
+                this->send_message(group, "Not a valid dice type");
             }
 		}
 		else
