@@ -34,6 +34,7 @@ baseClient::baseClient(string username, string password, string botAdmin, string
 	canTalk     = true;     //if the bot is muted or not
 	adminOnline = false;    //if admin is online or not
 	startTime   = time(NULL);//sets the time the bot initializes
+	security    = false;    //activates things like the group parser
 }
 
 //triggered when a message is received
@@ -116,40 +117,44 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 		this->send_message(group, adminName+" is back online!");
 	}
 
-    //checks if someone posted a group link
-    if(mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
+    //little security features like muting people who post group links
+    if(security == true)
     {
-        this->send_message(group, "Don't post group links!");
-
-        //finds the group they posted
-
-        //buffer to save string to
-        char const* buff = mesg.c_str();
-        int length = strlen(buff);
-
-        string groupName;
-        int sPos = 0;
-        int ePos = 0;
-
-        //loop through the string and find the location of brackets
-        for(int i=0; i < length; i++)
+        //checks if someone posted a group link
+        if(mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
         {
-            if(buff[i] == '[')
-                sPos = i+1;
+            this->send_message(group, "Don't post group links!");
 
-            if(buff[i] == ']')
-                ePos = i;
+            //finds the group they posted
 
-            if(sPos != 0 and ePos != 0)
-                break;
-        }
+            //buffer to save string to
+            char const* buff = mesg.c_str();
+            int length = strlen(buff);
 
-        //if both brackets exit do some things
-        if(sPos != 0 and ePos != 0)
-        {
-            groupName = mesg.substr(sPos, ePos-sPos);
-            this->admin_silence(group, user);
-            this->send_message(group, "Don't make me come into `"+groupName+"` and spam it!");
+            string groupName;
+            int sPos = 0;
+            int ePos = 0;
+
+            //loop through the string and find the location of brackets
+            for(int i=0; i < length; i++)
+            {
+                if(buff[i] == '[')
+                    sPos = i+1;
+
+                if(buff[i] == ']')
+                    ePos = i;
+
+                if(sPos != 0 and ePos != 0)
+                    break;
+            }
+
+            //if both brackets exit do some things
+            if(ePos != 0)
+            {
+                groupName = mesg.substr(sPos, ePos-sPos);
+                this->admin_silence(group, user);
+                this->send_message(group, "Don't make me come into `"+groupName+"` and spam it!");
+            }
         }
     }
 
@@ -248,6 +253,22 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
             }
         }
 	}
+	else if(cmd == cmdAdmin+"secure")
+    {
+        if(user == botAdmin)
+        {
+            if(security == true)
+            {
+                this->send_message(group, "Turning off security systems!");
+                security = false;
+            }
+            else
+            {
+                security = true;
+                this->send_message(group, "Turning on security systems");
+            }
+        }
+    }
 	else if(cmd == cmdAdmin+"help")
     {
         if(user == botAdmin)
@@ -258,6 +279,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                                         cmdAdmin+"join <group name>\r\n"+
                                         cmdAdmin+"msg <user id> <message>\r\n"+
                                         cmdAdmin+"away <message>\r\n"+
+                                        cmdAdmin+"secure (also unsecure)"+
                                         cmdAdmin+"mute (also unmute)"
                                         );
         }
@@ -601,6 +623,10 @@ string baseClient::messagePatcher(vector<string> message, string patch, int star
 	{
 		output.append(message[start]);
 	}
+	else if(blocks == start)
+    {
+        output.append(message[0]);
+    }
 	else if(blocks == start+1)
     {
         output.append(message[start]);

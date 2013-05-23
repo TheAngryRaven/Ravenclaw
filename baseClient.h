@@ -80,12 +80,12 @@ class baseClient
 	private:
 		string	username, password, botAdmin, botName, adminName, adminMessage;
 		string  cmdAdmin, cmdBase;
-		bool	canTalk, adminOnline;
+		bool	canTalk, adminOnline, security;
 		time_t  startTime;
 		misc	engine;
 		crypt	cipher;
 
-		palringoMessage 	*palMesg;
+		palringoMessage *palMesg;
 		palringoGroup 	*palGroup;
 
 };
