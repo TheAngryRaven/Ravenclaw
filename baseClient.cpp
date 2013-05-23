@@ -108,7 +108,6 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	string	cmd			= data[0];
 	string  mesg        = this->messagePatcher(data);
 
-    //toggles the admin to back online
 	if(user == botAdmin && adminOnline == false)
 	{
 		//sets the bot admins status to being back online
@@ -396,74 +395,77 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 		}
 	}
 
-    /* phrase filters */
-    if(blocks >= 1)
-    {
-        //generates our phrase with our magical messagePatcher <3
-        string phrase = this->messagePatcher(data, " ", 0);
 
-        if(phrase == "bye "+botName)
-        {
-            this->send_message(group, "see ya soon :D");
-        }
-        else if(phrase == "bye guys")
-        {
-            this->send_message(group, "/me waves goodbye");
-        }
-        else /* word filters, triggers if the word is anywhere in the users post */
-        {
-            //word trigger
-            //remember to break at the end of each if
-            //for the love of god dont forget
-            for(int i=0; i<blocks; i++)
-            {
-                //Hash Tags, triggers if someone uses a hashtag
-                if(i==(blocks-1) && engine.str2ch(data[i])[0] == '#')
-                {
-                    string hash = data[i];
-                    if(hash == "#poniproblems")
-                    {
-                        this->send_message(group, "Fuck you, and fuck your ponies");
-                        this->admin_silence(group, user);
-                    }
-                    else if(hash == "#yolo")
-                    {
-                        this->send_message(group, "NIGGA\r\nYou only live fuckin once\r\nSo stop getting fucking shitfaced every damn day because YOU HAVE A LIFE TO LIVE NIGGA");
-                    }
-                    else if(hash == "#swag")
-                    {
-                        this->send_message(group, "Man check you out, fuckin swaggin so hard, the term swag itself comes from how swaggin you are.");
-                    }
+	else /* filters */
+	{
+		if(blocks >= 1) /* phrase filters */
+		{
+			//generates our phrase with our magical messagePatcher <3
+			string phrase = this->messagePatcher(data, " ", 0);
 
-                    break;
-                }
-                else if(data[i] == "u" || data[i] == "c" || data[i] == "r" || data[i] == "y" || data[i] == "o")
-                {
-                    this->send_message(group, "Use words not letters\r\nDon't be lazy!");
-                    //this->admin_silence(group, user);
-                    break;
-                }
-                else if(data[i] == "ass" || data[i] == "bitch" || data[i] == "fuck" || data[i] == "shit" || data[i] == "damn" || data[i] == "hell" || data[i] == "cunt")
-                {
-                    this->send_message(group, "Potty Mouth!!!");
-                    //this->admin_silence(group, user);
-                    break;
-                }
-                else if(data[i] == "cod" || (i<blocks-2 && data[i] == "call" && data[i+1] == "of" && data[i+2] == "duty"))
-                {
-                    /* can also detect phrases anywhere in the post */
-                    if(user != botAdmin)
-                    {
-                        this->send_message(group, 	"it would be awesome if you didnt talk about that shitty game\r\n"
-                                                    "It has the most inaccurate presntations of firearms second only to doom\r\n"
-                                                    "Brink has more accurate weapons than COD\r\n"
-                                                    "The ak74 isnt a fucking SMG");
-                        break;
-                    }
-                }
-            }
-        }
-    }
+			if(phrase == "bye "+botName)
+			{
+				this->send_message(group, "see ya soon :D");
+			}
+			else if(phrase == "bye guys")
+			{
+				this->send_message(group, "/me waves goodbye");
+			}
+			else /* word filters, triggers if the word is anywhere in the users post */
+			{
+				//word trigger
+				//remember to break at the end of each if
+				//for the love of god dont forget
+				for(int i=0; i<blocks; i++)
+				{
+					//Hash Tags, triggers if someone uses a hashtag
+					if(i==(blocks-1) && engine.str2ch(data[i])[0] == '#')
+					{
+						string hash = data[i];
+						if(hash == "#poniproblems")
+						{
+							this->send_message(group, "Fuck you, and fuck your ponies");
+							this->admin_silence(group, user);
+						}
+						else if(hash == "#yolo")
+                        {
+                            this->send_message(group, "NIGGA\r\nYou only live fuckin once\r\nSo stop getting fucking shitfaced every damn day because YOU HAVE A LIFE TO LIVE NIGGA");
+                        }
+						else if(hash == "#swag")
+						{
+							this->send_message(group, "Man check you out, fuckin swaggin so hard, the term swag itself comes from how swaggin you are.");
+						}
+
+						break;
+					}
+					else if(data[i] == "u" || data[i] == "c" || data[i] == "r" || data[i] == "y" || data[i] == "o")
+					{
+						this->send_message(group, "Use words not letters\r\nDon't be lazy!");
+						//this->admin_silence(group, user);
+						break;
+					}
+					else if(data[i] == "ass" || data[i] == "bitch" || data[i] == "fuck" || data[i] == "shit" || data[i] == "damn" || data[i] == "hell" || data[i] == "cunt")
+					{
+						this->send_message(group, "Potty Mouth!!!");
+						//this->admin_silence(group, user);
+						break;
+					}
+					else if(data[i] == "cod" || (i<blocks-2 && data[i] == "call" && data[i+1] == "of" && data[i+2] == "duty"))
+					{
+						/* can also detect phrases anywhere in the post */
+						if(user != botAdmin)
+						{
+							this->send_message(group, 	"it would be awesome if you didnt talk about that shitty game\r\n"
+														"It has the most inaccurate presntations of firearms second only to doom\r\n"
+														"Brink has more accurate weapons than COD\r\n"
+														"The ak74 isnt a fucking SMG");
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 //seperate command parser for pms
