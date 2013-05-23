@@ -279,7 +279,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                                         cmdAdmin+"join <group name>\r\n"+
                                         cmdAdmin+"msg <user id> <message>\r\n"+
                                         cmdAdmin+"away <message>\r\n"+
-                                        cmdAdmin+"secure (also unsecure)"+
+                                        cmdAdmin+"secure (also unsecure)\r\n"+
                                         cmdAdmin+"mute (also unmute)"
                                         );
         }
@@ -309,6 +309,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 									cmdBase+"credits\r\n"+
 									cmdBase+"admin\r\n"+
 									cmdBase+"uptime\r\n"+
+									cmdBase+"dice\r\n"+
 									cmdBase+"website");
 	}
 	else if(cmd == cmdBase+"credits")
@@ -351,6 +352,53 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 			this->send_message(group, "Sorry hun thats not how you use this command\r\n"+cmdBase+"youtube <search query>");
 		}
 	}
+	else if(cmd == cmdBase+"dice")
+    {
+        if(blocks == 2)
+		{
+			srand (time(NULL));
+			int dieRoll = 0;
+			string coin = "";
+
+
+			if(data[1] == "coin")
+			{
+			    dieRoll = rand() % 50 + 1;
+
+			    if(dieRoll < 25)
+                    coin = "heads";
+                else
+                    coin = "tails";
+			}
+			else if(data[1] == "6" || data[1] == "d6")
+                dieRoll = rand() % 6 + 1;
+			else if(data[1] == "8" || data[1] == "d8")
+                dieRoll = rand() % 8 + 1;
+			else if(data[1] == "10" || data[1] == "d10")
+                dieRoll = rand() % 10 + 1;
+			else if(data[1] == "12" || data[1] == "d12")
+                dieRoll = rand() % 12 + 1;
+			else if(data[1] == "20" || data[1] == "d20")
+                dieRoll = rand() % 20 + 1;
+
+            if(coin == "")
+            {
+                stringstream roll;
+                roll << dieRoll;
+                string result = roll.str();
+
+                this->send_message(group, "And the DM rolls a "+result);
+            }
+            else
+            {
+                this->send_message(group, "And its "+coin);
+            }
+		}
+		else
+		{
+            this->send_message(group, "Sorry thats not how you use this command\r\n"+cmdBase+"dice <coin,6,8,10,12 or 20>");
+		}
+    }
 	else if(cmd == cmdBase+"uptime")
     {
         double uptime = difftime(time(NULL), startTime);
