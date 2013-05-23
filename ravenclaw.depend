@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1369327604 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1369336396 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
-1369083990 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+1369335931 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
 	<iostream>
 	<string.h>
 	<algorithm>
