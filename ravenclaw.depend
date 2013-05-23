@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1369093724 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1369327604 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
 1369083990 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
@@ -138,15 +138,15 @@
 
 1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\resources.rc
 
-1369154953 source:c:\users\michael\documents\palringo\git\ravenclaw\ini.c
+1369160383 source:c:\users\michael\documents\palringo\git\ravenclaw\ini.c
 	<stdio.h>
 	<ctype.h>
 	<string.h>
 	"ini.h"
 
-1369154994 c:\users\michael\documents\palringo\git\ravenclaw\ini.h
+1369160359 c:\users\michael\documents\palringo\git\ravenclaw\ini.h
 
-1369154998 source:c:\users\michael\documents\palringo\git\ravenclaw\inireader.cpp
+1369160383 source:c:\users\michael\documents\palringo\git\ravenclaw\inireader.cpp
 	<algorithm>
 	<cctype>
 	<cstdlib>

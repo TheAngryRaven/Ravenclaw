@@ -172,7 +172,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 			}
 			else
 			{
-				this->send_message(group, "#msg <user ID> <message>");
+				this->send_message(group, cmdAdmin+"msg <user ID> <message>");
 			}
 		}
 	}
@@ -275,7 +275,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 		}
 		else
 		{
-			this->send_message(group, "Sorry thats not how you use this command\r\n/google <search query>");
+			this->send_message(group, "Sorry thats not how you use this command\r\n"+cmdBase+"google <search query>");
 		}
 	}
 	else if(cmd == cmdBase+"youtube")
@@ -288,7 +288,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 		}
 		else
 		{
-			this->send_message(group, "Sorry hun thats not how you use this command\r\n/youtube <search query>");
+			this->send_message(group, "Sorry hun thats not how you use this command\r\n"+cmdBase+"youtube <search query>");
 		}
 	}
 	else if(cmd == cmdBase+"uptime")
@@ -468,12 +468,49 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
 
         this->send_pm(user, buffer);
     }
+    if(cmd == cmdAdmin+"leave")
+    {
+        if(user == botAdmin)
+		{
+			if(blocks == 2)
+			{
+				//just sends group name
+				this->group_part(data[1]);
+			}
+			else
+			{
+				this->send_pm(user, cmdAdmin+"leave <group id>");
+			}
+		}
+    }
+    if(cmd == cmdAdmin+"join")
+    {
+        if(user == botAdmin)
+		{
+			if(blocks == 2)
+			{
+				//just sends group name
+				this->group_join(data[1]);
+			}
+			else if(blocks >= 3)
+			{
+				//sends group name only
+				this->group_join( this->messagePatcher(data) );
+			}
+			else
+			{
+				this->send_pm(user, cmdAdmin+"join <group name>");
+			}
+		}
+    }
     if(cmd == cmdAdmin+"help")
     {
         if(user == botAdmin)
 		{
 		    this->send_pm(user, 	"Admin Help\r\n"+
                                         cmdAdmin+"msg <user id> <message>\r\n"+
+                                        cmdAdmin+"leave <group id>\r\n"+
+                                        cmdAdmin+"join <group name>\r\n"+
                                         cmdAdmin+"uptime\r\n"
                                         );
 		}
