@@ -34,7 +34,7 @@ baseClient::baseClient(string username, string password, string botAdmin, string
 	canTalk     = true;     //if the bot is muted or not
 	adminOnline = false;    //if admin is online or not
 	startTime   = time(NULL);//sets the time the bot initializes
-	security    = false;    //activates things like the group parser
+	security    = true;    //activates things like the group parser
 }
 
 //triggered when a message is received
@@ -118,8 +118,15 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	}
 
     //little security features like muting people who post group links
-    if(security == true)
+    if(security == true && user != botAdmin)
     {
+        //primitive auto ban system, once group update is more furnished this will be moved into there
+        if(user == "18089645")
+        {
+            //currently the user "crimson" is the only target, they spoiled the fun by getting the bot banned
+            this->admin_ban(group, user);
+        }
+
         //checks if someone posted a group link
         if(mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
         {
@@ -309,7 +316,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 									cmdBase+"credits\r\n"+
 									cmdBase+"admin\r\n"+
 									cmdBase+"uptime\r\n"+
-									cmdBase+"dice\r\n"+
+									cmdBase+"dice <coin,6,8,10,12 or 20>\r\n"+
 									cmdBase+"website");
 	}
 	else if(cmd == cmdBase+"credits")
@@ -323,7 +330,8 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	else if(cmd == cmdBase+"website")
 	{
 		this->send_message(group, "This bot is open source under GPLv3"
-                                    "\r\nTalk to "+adminName+" about getting access to the repo\r\n"
+                                    "\r\nRepo is now permanently public\r\n"
+                                    "\r\nRaven in [furry] would GLADLY teach you how to compile it\r\n"
                                     "https://bitbucket.org/BlackRaven/ravenclaw/");
 	}
 	else if(cmd == cmdBase+"google")
@@ -381,7 +389,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 			else if(data[1] == "20" || data[1] == "d20")
                 dieRoll = rand() % 20 + 1;
 
-            if(dieRoll != 0)
+            if(dieRoll != 0 && coin == "")
             {
                 stringstream roll;
                 roll << dieRoll;
@@ -437,6 +445,17 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 					this->send_message(group, "im not just funny im amazing :3");
 				}
 			}
+			else if(aiCommand == "how are you" || aiCommand == "how are you?")
+            {
+                if(user == botAdmin)
+				{
+					this->send_message(group, "You know im doing good, but thanks for asking");
+				}
+				else
+				{
+					this->send_message(group, "I'm good thanks for asking!");
+				}
+            }
 			else if(aiCommand == "is cute")
 			{
 				if(user == botAdmin)

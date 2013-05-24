@@ -28,7 +28,7 @@ packet palringoPacket::logon(string email)
 */
 
     output.addCommand("LOGON");
-    output.addHeader("Client-ID", "RavenClaw-bot");
+    output.addHeader("Client-ID", cipher.md5(email));
     output.addHeader("Operator","winpc");
     output.addHeader("affiliate-id","winpc");
     output.addHeader("app-type","Windows x86");
