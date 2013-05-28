@@ -1,5 +1,5 @@
 # Creator
-Raven (ID: 22885233 | 512388)
+Raven (ID: 25909767 | 512388)
 ***	
 ## Licenses
 RavenClaw: [http://opensource.org/licenses/GPL-3.0](http://opensource.org/licenses/GPL-3.0)
@@ -25,7 +25,7 @@ IniReader: [http://opensource.org/licenses/BSD-3-Clause](http://opensource.org/l
 >We have a function that activates on group update, but haven't quite gotten around to figuring out what data is where in the payload, its oddly serialized.
 
 * Image sending
->Have the packets for image sending, but haven't quite finished a serializer for generating the payload.
+>I have created a binary file reader in **misc::readFile** for reading images. It works, I even created a feature for the client to send images, can use it in **baseClient::** like `this->send_image(string groupName, string imagePath)` BUT, nothing happens when the image is sent... ive double checked my packets against those of the windows desktop client, but nothing. The feature is here, and *functional* just the servers dont like the data im sending them... 
 
 ***
 ## Compile Help

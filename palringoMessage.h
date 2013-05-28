@@ -23,7 +23,6 @@
 #include "palringoConnection.h"
 #include <algorithm>
 #include <vector>
-//#include <time.h>
 #include <ctime>
 
 using namespace std;
@@ -41,6 +40,7 @@ class palringoMessage
 		//message handleing
 		void recv_message(packet data);
 		void send_message(string group, string message);
+		void send_image(string group, string imgPath);
 		void send_pm(string to, string message);
 
 		//group admin actions

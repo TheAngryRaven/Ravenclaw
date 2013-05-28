@@ -127,8 +127,8 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
             this->admin_ban(group, user);
         }
 
-        //checks if someone posted a group link
-        if(mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
+        //checks if someone posted a group link thats not the welcome or autopost bot
+        if((user != "15145815" && user != "10324473") && mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
         {
             this->send_message(group, "Don't post group links!");
 
@@ -657,6 +657,7 @@ void	baseClient::group_part(string groupID)						{ palGroup->group_part(groupID)
 
 //base message handlers
 void 	baseClient::send_message(string group, string message)		{ if(canTalk) palMesg->send_message(group, message); }
+void 	baseClient::send_image(string group, string image)		    { palMesg->send_image(group, image); }
 void 	baseClient::send_pm(string id, string message) 				{ palMesg->send_pm(id, message); }
 
 //base admin functions

@@ -50,11 +50,8 @@ class palringoPacket: public packet
 						string group, string target);
 
 
-		packet image(	string target,	//creates an image packet
-						string to,
-						char* payload);
-
-		packet imageHeader(string target, string to, char* payload, int size);
+		packet image(string target, string to, string correlation, string mesgId, string payload);
+		packet imageHeader(string target, string to, string mesgId, string length, string payload);
 
 		packet group_join(string group, string password = "");		//creates a packet to join a group
 		packet group_part(string group);		//creates a packet to leave a group

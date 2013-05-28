@@ -76,37 +76,36 @@ packet palringoPacket::message(string target, string to, string payload)
 	return output;
 }
 
-packet palringoPacket::imageHeader(string target, string to, char* payload, int size)
+packet palringoPacket::imageHeader(string target, string to, string mesgId, string length, string payload)
 {
-	engine.pl("palPacket-> creating IMAGE packet", 1);
-
-	stringstream imageSize;
-	imageSize << size;
+	engine.pl("palPacket-> creating IMAGE Header packet", 1);
 
 	packet output;
 	output.addCommand("MESG");
+	//output.addHeader("content-length","512");
 	output.addHeader("content-type","image/jpeg");
-	output.addHeader("last","1");
-	output.addHeader("mesg-id","1");
+	output.addHeader("mesg-id",mesgId);
 	output.addHeader("mesg-target",target);
 	output.addHeader("target-id",to);
-	output.addHeader("total-length",imageSize.str());
+	output.addHeader("total-length",length);
 
     output.addPayload(payload);
 	return output;
 }
 
-packet palringoPacket::image(string target, string to, char* payload)
+packet palringoPacket::image(string target, string to, string correlation, string mesgId, string payload)
 {
 	engine.pl("palPacket-> creating IMAGE packet", 1);
 
 	packet output;
 	output.addCommand("MESG");
+	//output.addHeader("content-length","512");
 	output.addHeader("content-type","image/jpeg");
-	output.addHeader("last","1");
-	output.addHeader("mesg-id","1");
+	output.addHeader("correlation-id",correlation);
+	output.addHeader("mesg-id",mesgId);
 	output.addHeader("mesg-target",target);
 	output.addHeader("target-id",to);
+
 	output.addPayload(payload);
 	return output;
 }

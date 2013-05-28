@@ -34,7 +34,6 @@ string misc::i2s(int number)
     stringstream ss;//create a stringstream
     ss << number;//add number to the stream
     return ss.str();//return a string with the contents of the stream
-    //return std::to_
 }
 
 //types
@@ -119,79 +118,38 @@ vector<string> misc::splitStr(string data, char token)
 	return blocks;
 }
 
-/*
-imgDataStruct misc::readBinary(string fileLocation)
+fileDataStruct misc::readFile(string fileLocation)
 {
-	//ilu cityfox <3
-	FILE *pFile;
-	long lSize;
-	char *buffer;
-	size_t result=0;
+	vector< char > fileContents;
+	fileDataStruct output;
+	output.error = false;
 
-	pFile = fopen (fileLocation.c_str(), "rb");
-	if (pFile==NULL)
-	{
-	//some event handling if the file doesn't exist or is used
-	}
+    ifstream file(fileLocation.c_str(), ios::in | ios::binary | ios::ate);
+    if(!file.is_open())
+    {
+        output.error = true;
+        output.status = "Couldn't open file, does it exist?";
+    }
 
-	//get file size
-	fseek(pFile, 0, SEEK_END);
-	lSize = ftell (pFile);
-	rewind (pFile);
+    if(!output.error)
+    {
+        fileContents.resize(file.tellg());
 
-	//allocate memory for the stream
-	buffer = (char*) malloc (sizeof(char)*lSize);
-	if (buffer == NULL)
-	{
-	//some event handling for memory allocation error
-	}
+        file.seekg(0, ios::beg);
+        if(!file.read(&fileContents[ 0 ], fileContents.size()))
+        {
+            cout << "failed to read from image" << endl;
+            output.error = true;
+            output.status = "Failed to read file!";
+        }
 
-	// copy the file into the buffer:
-	while(!feof(pFile)){result += fread(buffer, 1, lSize, pFile);}
-	if (result != lSize)
-	{
-	//some event handling for read error
-	}
 
-	//terminate!!!
-	fclose (pFile);
-	imgDataStruct new_struct; //initialize structure that holds file size and data stream
-	new_struct.stream=buffer;
-	new_struct.size=lSize;
+        if(!output.error)
+        {
+            output.size = fileContents.size();
+            output.stream = fileContents;
+        }
+    }
 
-	return new_struct;
-	free (buffer);
+    return output;
 }
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

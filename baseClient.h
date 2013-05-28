@@ -58,7 +58,7 @@ class baseClient
 		//Functions to send things
 		void send_message(string group, string message);
 		void send_pm(string id, string message);
-		void send_image(void);
+		void send_image(string group, string image);
 
 		//Group join and leave functions
 		void group_join(string groupName, string password = "");

@@ -28,7 +28,13 @@ using namespace std;
 
 //project includes
 
-struct imgDataStruct;
+struct fileDataStruct{
+    vector< char > stream;
+    long size;
+    bool error;
+    string status;
+};
+
 class misc
 {
 	public:
@@ -45,7 +51,7 @@ class misc
 		void 			pLog(string data, int type);//prints packet data to log
 		char*			str2ch(string data);	//input string receive char*
 		vector<string>	splitStr(string data, char token);
-		//imgDataStruct	readBinary(string fileLocation);
+		fileDataStruct  readFile(string fileLocation);
 
 	protected:
 	private:
