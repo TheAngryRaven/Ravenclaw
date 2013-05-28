@@ -49,9 +49,9 @@ class palringoPacket: public packet
 		packet admin(	string action,	//creates a admin packet (admin, mod, etc)
 						string group, string target);
 
-
-		packet image(string target, string to, string correlation, string mesgId, string payload);
 		packet imageHeader(string target, string to, string mesgId, string length, string payload);
+		packet image(string target, string to, string correlation, string mesgId, string payload);
+		packet imageFinal(string target, string to, string correlation, string mesgId, string payload);
 
 		packet group_join(string group, string password = "");		//creates a packet to join a group
 		packet group_part(string group);		//creates a packet to leave a group

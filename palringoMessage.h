@@ -40,7 +40,7 @@ class palringoMessage
 		//message handleing
 		void recv_message(packet data);
 		void send_message(string group, string message);
-		void send_image(string group, string imgPath);
+		void send_image(string target, string group, string imgPath);
 		void send_pm(string to, string message);
 
 		//group admin actions

@@ -29,7 +29,7 @@ void palringoMessage::recv_message(packet data)
 	}
 }
 
-void palringoMessage::send_image(string group, string imgPath)
+void palringoMessage::send_image(string target, string to, string imgPath)
 {
     engine.pl("Attempting to send image");
 
@@ -60,7 +60,7 @@ void palringoMessage::send_image(string group, string imgPath)
                 }
 
                 fileStream << buffer;
-                palConn->send_packet(palPack.imageHeader("1", group, engine.i2s(messageId), engine.i2s(fileInput.size), buffer) );
+                palConn->send_packet(palPack.imageHeader(target, to, engine.i2s(messageId), engine.i2s(fileInput.size), buffer) );
             }
             else
             {
@@ -79,7 +79,11 @@ void palringoMessage::send_image(string group, string imgPath)
                 }
 
                 fileStream << buffer;
-                palConn->send_packet(palPack.image("1", group, engine.i2s(messageId), engine.i2s(messageId+i), buffer));
+
+                if(i != imgChunks)
+                    palConn->send_packet(palPack.image(target, to, engine.i2s(messageId), engine.i2s(messageId+i), buffer));
+                else
+                    palConn->send_packet(palPack.imageFinal(target, to, engine.i2s(messageId), engine.i2s(messageId+i), buffer));
             }
             //cout << i << endl;
         }
@@ -90,7 +94,7 @@ void palringoMessage::send_image(string group, string imgPath)
     }
     else
     {
-        this->send_message(group, "Error sending image:\r\n"+fileInput.status);
+        this->send_message(to, "Error sending image:\r\n"+fileInput.status);
     }
 
 }

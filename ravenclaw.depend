@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1369783328 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1369787104 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
-1369779094 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+1369787104 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -31,7 +31,7 @@
 	"cryptopp/osrng.h"
 	"misc.h"
 
-1369780793 c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.h
+1369787023 c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.h
 	"misc.h"
 	"crypt.h"
 	"baseClient.h"
@@ -41,7 +41,7 @@
 	<vector>
 	<ctime>
 
-1369780197 c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.h
+1369786558 c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.h
 	<iostream>
 	<cstring>
 	<windows.h>
@@ -130,10 +130,10 @@
 	"palringoConnection.h"
 	"palringoMessage.h"
 
-1369785438 source:c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.cpp
+1369787128 source:c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.cpp
 	"palringoMessage.h"
 
-1369783409 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp
+1369786550 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp
 	"palringoPacket.h"
 
 1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\resources.rc

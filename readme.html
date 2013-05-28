@@ -37,11 +37,6 @@
 <blockquote>
   <p>We have a function that activates on group update, but haven't quite gotten around to figuring out what data is where in the payload, its oddly serialized.</p>
 </blockquote></li>
-<li><p>Image sending</p>
-
-<blockquote>
-  <p>I have created a binary file reader in <strong>misc::readFile</strong> for reading images. It works, I even created a feature for the client to send images, can use it in <strong>baseClient::</strong> like <code>this-&gt;send_image(string groupName, string imagePath)</code> BUT, nothing happens when the image is sent... ive double checked my packets against those of the windows desktop client, but nothing. The feature is here, and <em>functional</em> just the servers dont like the data im sending them... </p>
-</blockquote></li>
 </ul>
 
 <hr />
@@ -154,6 +149,12 @@
   <p>When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.</p>
   
   <p>Now has a dedicated function for parsing pm commands in <strong>baseClient::parse<em>pm()</strong> some things still parsed in <strong>baseClient::recv</em>pm()</strong> though.</p>
+</blockquote>
+
+<h4>Image Sending (new)</h4>
+
+<blockquote>
+  <p>You can now send images inside of <strong>baseClient::</strong> and it's super simple! At the moment it only supports <strong>JPEG</strong> images. Second simply call <code>this-&gt;send_image("groupID", "filepath\test.jpg");</code> or <code>this-&gt;send_image_pm("userID", "filepath\test.jpg");</code> and away the image goes.</p>
 </blockquote>
 
 <h4>Full admin functions</h4>
@@ -310,12 +311,6 @@
 
 <blockquote>
   <p>Figure out how to decode the packet telling me information like what group and who left/joined.</p>
-</blockquote>
-
-<h4>Image sending</h4>
-
-<blockquote>
-  <p>I've got the packets needed to send, just need to figure out how to seralize the image.</p>
 </blockquote>
 
 <h4>Sub Profile Reading</h4>

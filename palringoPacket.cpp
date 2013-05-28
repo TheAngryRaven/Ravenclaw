@@ -110,6 +110,24 @@ packet palringoPacket::image(string target, string to, string correlation, strin
 	return output;
 }
 
+packet palringoPacket::imageFinal(string target, string to, string correlation, string mesgId, string payload)
+{
+	engine.pl("palPacket-> creating IMAGE final packet", 1);
+
+	packet output;
+	output.addCommand("MESG");
+	//output.addHeader("content-length","512");
+	output.addHeader("content-type","image/jpeg");
+	output.addHeader("correlation-id",correlation);
+	output.addHeader("last","1");
+	output.addHeader("mesg-id",mesgId);
+	output.addHeader("mesg-target",target);
+	output.addHeader("target-id",to);
+
+	output.addPayload(payload);
+	return output;
+}
+
 packet palringoPacket::admin(string action, string group, string target)
 {
 	engine.pl("palPacket-> creating ADMIN packet", 1);

@@ -23,10 +23,6 @@ IniReader: [http://opensource.org/licenses/BSD-3-Clause](http://opensource.org/l
 
 * Group Update Parsing
 >We have a function that activates on group update, but haven't quite gotten around to figuring out what data is where in the payload, its oddly serialized.
-
-* Image sending
->I have created a binary file reader in **misc::readFile** for reading images. It works, I even created a feature for the client to send images, can use it in **baseClient::** like `this->send_image(string groupName, string imagePath)` BUT, nothing happens when the image is sent... ive double checked my packets against those of the windows desktop client, but nothing. The feature is here, and *functional* just the servers dont like the data im sending them... 
-
 ***
 ## Compile Help
 
@@ -96,7 +92,10 @@ The source files are included in the project and require no action from you, but
 >When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.
 
 >Now has a dedicated function for parsing pm commands in **baseClient::parse_pm()** some things still parsed in **baseClient::recv_pm()** though.
-		
+	
+####Image Sending (new)
+>You can now send images inside of **baseClient::** and it's super simple! At the moment it only supports **JPEG** images. Second simply call `this->send_image("groupID", "filepath\test.jpg");` or `this->send_image_pm("userID", "filepath\test.jpg");` and away the image goes.
+
 ####Full admin functions
 >If given elevated premissions can mod/mute/ban etc etc. 
 
@@ -217,9 +216,6 @@ If someone uses a hashtag phrase **IE: #yolo** at the end of a message, this tri
 ###TODO
 ####Fix group join / leave events
 >Figure out how to decode the packet telling me information like what group and who left/joined.
-
-####Image sending
->I've got the packets needed to send, just need to figure out how to seralize the image.
 	
 ####Sub Profile Reading
 >this handles all the text usernames and statuses and such.

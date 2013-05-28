@@ -657,7 +657,8 @@ void	baseClient::group_part(string groupID)						{ palGroup->group_part(groupID)
 
 //base message handlers
 void 	baseClient::send_message(string group, string message)		{ if(canTalk) palMesg->send_message(group, message); }
-void 	baseClient::send_image(string group, string image)		    { palMesg->send_image(group, image); }
+void 	baseClient::send_image(string group, string image)		    { palMesg->send_image("1", group, image); }
+void 	baseClient::send_image_pm(string user, string image)		{ palMesg->send_image("0", user, image); }
 void 	baseClient::send_pm(string id, string message) 				{ palMesg->send_pm(id, message); }
 
 //base admin functions
