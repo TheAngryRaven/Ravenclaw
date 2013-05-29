@@ -35,27 +35,35 @@ class palringoPacket: public packet
 	public:
 		palringoPacket();
 
-		packet logon(string email);		//creates simplistic logon packet
+        //auth packets
+		packet logon(string email);
 
-		packet auth(string password,	//creates auth packet with generated password
+		packet auth(string password,
 					packet data);
 
-		packet ping(int number);				//creates simplistic ping packet
+        //tell the servers were still alive
+		packet ping(int number);
 
-		packet message(	string target,	//creates a packet with a message to send
+        //generate the message packet
+		packet message(	string target,
 						string to,
 						string payload);
 
-		packet admin(	string action,	//creates a admin packet (admin, mod, etc)
+        //for admin actions
+		packet admin(	string action,
 						string group, string target);
 
+        //3 required packets for sending an image
 		packet imageHeader(string target, string to, string mesgId, string length, string payload);
 		packet image(string target, string to, string correlation, string mesgId, string payload);
 		packet imageFinal(string target, string to, string correlation, string mesgId, string payload);
 
-		packet group_join(string group, string password = "");		//creates a packet to join a group
-		packet group_part(string group);		//creates a packet to leave a group
+        //group subscription packets
+		packet group_join(string group, string password = "");
+		packet group_part(string group);
 
+		//Test packet, throw random data into it and try to get strange responses from server
+		packet debug(string target, string to);
 
 	protected:
 	private:

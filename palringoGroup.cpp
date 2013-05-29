@@ -42,3 +42,7 @@ void palringoGroup::group_part(string groupID)
 	palConn->send_packet(palPack.group_part(groupID));
 }
 
+void palringoGroup::admin(string action, string groupID, string user)
+{
+	palConn->send_packet(palPack.admin(action, groupID, user));
+}

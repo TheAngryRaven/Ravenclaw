@@ -61,6 +61,9 @@ class baseClient
 		void send_image(string group, string image);
 		void send_image_pm(string user, string image);
 
+		//packet used for testing random things
+		void send_debug(string to);
+
 		//Group join and leave functions
 		void group_join(string groupName, string password = "");
 		void group_part(string groupID);

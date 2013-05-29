@@ -38,12 +38,16 @@ class palringoGroup
 
 		//when someone joins or leaves
 		void group_update(void);
+
 		//when someone does any kind of admin action
 		void group_admin(packet data);
 
 		//group join/leave
 		void group_join(string groupName, string Password);
 		void group_part(string groupID);
+
+		//admin action
+		void admin(string action, string groupID, string user);
 
 	protected:
 	private:

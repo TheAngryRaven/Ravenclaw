@@ -81,47 +81,17 @@ void palringoMessage::send_image(string target, string to, string imgPath)
     }
     else
     {
-        this->send_message(to, "Error sending image:\r\n"+fileInput.status);
+        this->send_message(target, to, "Error sending image:\r\n"+fileInput.status);
     }
 
 }
 
-void palringoMessage::send_message(string group, string message)
+void palringoMessage::send_message(string target, string to, string message)
 {
-	palConn->send_packet(palPack.message("1", group, message));
+	palConn->send_packet(palPack.message(target, to, message));
 }
 
-void palringoMessage::send_pm(string to, string message)
+void palringoMessage::send_debug(string target, string to)
 {
-	palConn->send_packet(palPack.message("0", to, message));
-}
-
-void palringoMessage::admin_admin(string groupID, string user)
-{
-	palConn->send_packet(palPack.admin("1", groupID, user));
-}
-
-void palringoMessage::admin_mod(string groupID, string user)
-{
-	palConn->send_packet(palPack.admin("2", groupID, user));
-}
-
-void palringoMessage::admin_silence(string groupID, string user)
-{
-	palConn->send_packet(palPack.admin("8", groupID, user));
-}
-
-void palringoMessage::admin_reset(string groupID, string user)
-{
-	palConn->send_packet(palPack.admin("0", groupID, user));
-}
-
-void palringoMessage::admin_kick(string groupID, string user)
-{
-	palConn->send_packet(palPack.admin("16", groupID, user));
-}
-
-void palringoMessage::admin_ban(string groupID, string user)
-{
-	palConn->send_packet(palPack.admin("4", groupID, user));
+    palConn->send_packet(palPack.debug(target, to));
 }

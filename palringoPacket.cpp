@@ -17,18 +17,9 @@ packet palringoPacket::logon(string email)
 	engine.pl("palPacket-> creating LOGON packet", 1);
 
 	packet output;
-/*
-    Old Logon Info, still valid, but the other is the "standard"
-	output.addCommand("LOGON");
-	output.addHeader("protocol-version","2.0");
-	output.addHeader("app-type","Windows x86");
-	output.addHeader("Operator","PC_CLIENT");
-	output.addHeader("name",email);
-	output.addHeader("capabilities","4");
-*/
 
     output.addCommand("LOGON");
-    output.addHeader("Client-ID", cipher.md5(email));
+    output.addHeader("Client-ID", cipher.hexEnc(cipher.md5(email)));
     output.addHeader("Operator","winpc");
     output.addHeader("affiliate-id","winpc");
     output.addHeader("app-type","Windows x86");
@@ -82,7 +73,6 @@ packet palringoPacket::imageHeader(string target, string to, string mesgId, stri
 
 	packet output;
 	output.addCommand("MESG");
-	//output.addHeader("content-length","512");
 	output.addHeader("content-type","image/jpeg");
 	output.addHeader("mesg-id",mesgId);
 	output.addHeader("mesg-target",target);
@@ -99,7 +89,6 @@ packet palringoPacket::image(string target, string to, string correlation, strin
 
 	packet output;
 	output.addCommand("MESG");
-	//output.addHeader("content-length","512");
 	output.addHeader("content-type","image/jpeg");
 	output.addHeader("correlation-id",correlation);
 	output.addHeader("mesg-id",mesgId);
@@ -116,7 +105,6 @@ packet palringoPacket::imageFinal(string target, string to, string correlation, 
 
 	packet output;
 	output.addCommand("MESG");
-	//output.addHeader("content-length","512");
 	output.addHeader("content-type","image/jpeg");
 	output.addHeader("correlation-id",correlation);
 	output.addHeader("last","1");
@@ -173,16 +161,29 @@ packet palringoPacket::ping(int number)
 	engine.pl("palPacket-> creating PING packet", 1);
 	packet output;
 
-	/*
-	Old ping packet
-	output.addCommand("P");
-    */
-
     //New? ping packet?
     output.addCommand("P");
     output.addHeader("last","1");
     output.addHeader("ps", engine.i2s(number) );
 
+	return output;
+}
+
+packet palringoPacket::debug(string target, string to)
+{
+	engine.pl("palPacket-> creating debug packet", 1);
+
+	packet output;
+	output.addCommand("MESG");
+	output.addHeader("content-type","text/plain");
+	//output.addHeader("content-type","image/jpeghtml");
+	output.addHeader("last","1");
+	output.addHeader("mesg-id","1");
+	output.addHeader("mesg-target",target);
+	output.addHeader("target-id",to);
+	//video packet
+	//output.addPayload( cipher.hexDec("ffd9") + "<object type=\"application/x-shockwave-flash\" data=\"http://www.youtube.com/v/dw1HavgoK9E&fs=1\" width=\"480\" height=\"360\" id=\"object\"><param name=\"movie\" value=\"http://www.youtube.com/v/dw1HavgoK9E\" /><param name=\"quality\" value=\"high\" /><param name=\"allowFullScreen\" value=\"true\" /></object><script type=\"text/javascript\">if(window.navigator.userAgent.indexOf('iPhone')!=-1){var obj = document.getElementById('object'); obj.setAttribute('width',240); obj.setAttribute('height',180)}else if(window.navigator.userAgent.indexOf('iPad')==-1){var newspan = document.createElement('span');newspan.innerHTML='<a href=\"http://www.youtube.com/watch?v=dw1HavgoK9E\"><img src=\"http://img.youtube.com/vi/dw1HavgoK9E/0.jpg\" width=\"100%\" alt=\"[video]\" /></a>'; document.getElementById('object').appendChild(newspan)}</script>");
+	output.addPayload( cipher.md5("dummy data") );
 	return output;
 }
 

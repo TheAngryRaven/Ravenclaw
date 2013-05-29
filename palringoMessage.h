@@ -39,17 +39,9 @@ class palringoMessage
 
 		//message handleing
 		void recv_message(packet data);
-		void send_message(string group, string message);
+		void send_message(string target, string to, string message);
 		void send_image(string target, string group, string imgPath);
-		void send_pm(string to, string message);
-
-		//group admin actions
-		void admin_admin(string groupID, string userID);
-		void admin_mod(string groupID, string userID);
-		void admin_silence(string groupID, string userID);
-		void admin_reset(string groupID, string userID);
-		void admin_kick(string groupID, string userID);
-		void admin_ban(string groupID, string userID);
+		void send_debug(string target, string to);
 
 	protected:
 

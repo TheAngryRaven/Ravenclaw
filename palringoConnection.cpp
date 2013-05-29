@@ -91,10 +91,6 @@ void palringoConnection::send_ping()
 	engine.pl("palConn-> sending PING packet", 1);
 	pingsSent += 2; //not sure why do, its just what wireshark has shown me
 	this->send_packet(palPack.ping(pingsSent));
-
-    //Feature is currently depreciated
-    //tries to keep the bot in a specific group
-	//this->send_packet(palPack.group_join("groupname"));
 }
 
 //this function takes the string we get from our connection class
@@ -252,7 +248,7 @@ void palringoConnection::parse_packet(packet data)
     }
     else if(packCmd == "SUB PROFILE")
     {
-        engine.pl("palConn-> Subprofile");
+        engine.pl("palConn-> Subprofile received");
     }
     else if(packCmd == "GROUP ADMIN")
     {

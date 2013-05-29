@@ -105,46 +105,6 @@ int main(int argc, char* argv[])
 
         return 0;
     }
-    /*
-    if (argc < 5)
-    {
-        //get base filename not full argv[0] path
-        char *filePath = strrchr(argv[0], '\\');
-        string trueName = filePath;
-        trueName.erase(0, 1);
-
-        cerr << "Bot Cannot start\n"
-                "Logon Details are no longer compiled\n\n"
-                "Usage: "<< trueName <<" [Email] [Password] [Admin ID] [Admin Name] [Bot Name]" << endl;
-
-        engine.pause();
-        return 1;
-    }
-    else
-    {
-        string username = argv[1];
-        string password = argv[2];
-        string botAdmin = argv[3];
-        string adminName= argv[4];
-        string botName  = argv[5];
-
-        string cmdAdmin = "#";
-        string cmdUser = "/";
-
-        if(argv[6])
-            cmdAdmin = argv[6];
-
-        if(argv[7])
-            cmdUser = argv[7];
-
-
-        spinUp(botName);
-        spinning(username, password, botAdmin, adminName, botName, cmdAdmin, cmdUser);
-        spinDown();
-
-        return 0;
-    }
-    */
 }
 
 void spinUp(string botName)
