@@ -138,14 +138,14 @@ Tells you the available commands, this isn't dynamic if you add more functions b
 >**\#leave**  
 Makes the bot leave the group you posted the message in.
 
->**\#join [*< group name >]* *< password >***  - *UPDATED*  
+>**\#join [< group name >] < password >***  - *UPDATED*  
 Tells the bot to join whatever group name you want, this function has been updated to support passwords.
 Using passwords is rather simple, to join a group with no password simply `#join [group name]` to join with a password `#join [group name] password`. Brackets **ARE** now required for the group name.
 
->**\#msg *< user id >* *< message >***  
+>**\#msg < user id > < message >**  
 The bot will PM the user with the supplied **USER ID** with the supplied message.
 
->**\#away *< message >***  
+>**\#away < message >**  
 Sets the bot admin to away with an **OPTIONAL** message, if *anyone* mentions the admins name in chat, the bot will tell the group if the admin is online or not.
 
 >**\#secure** (also unsecure)  
