@@ -288,7 +288,8 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                                         );
         }
     }
-	else if(cmd == cmdBase+"admin")
+
+	if(cmd == cmdBase+"admin")
     {
         string output = "The bot owner is "+adminName+" Userid: "+botAdmin;
         //this->send_message(group, "The bot owner is "+adminName+" Userid: "+botAdmin);
