@@ -670,7 +670,7 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
 		buffer.append("From: ");
 		buffer.append(name);
 		buffer.append("\r\n");
-		buffer.append(message);
+		buffer.append(mesg);
 		buffer.append("\r\n=======================\r\n");
 
 		this->send_pm(botAdmin, buffer);
