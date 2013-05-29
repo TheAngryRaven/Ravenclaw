@@ -138,14 +138,14 @@ Tells you the available commands, this isn't dynamic if you add more functions b
 >**\#leave**  
 Makes the bot leave the group you posted the message in.
 
->**\#join [*< group name>]* *< password>***  - *UPDATED*  
+>**\#join [*< group name >]* *< password >***  - *UPDATED*  
 Tells the bot to join whatever group name you want, this function has been updated to support passwords.
 Using passwords is rather simple, to join a group with no password simply `#join [group name]` to join with a password `#join [group name] password`. Brackets **ARE** now required for the group name.
 
->**\#msg *< user id>* *< message>***  
+>**\#msg *< user id >* *< message >***  
 The bot will PM the user with the supplied **USER ID** with the supplied message.
 
->**\#away *< message>***  
+>**\#away *< message >***  
 Sets the bot admin to away with an **OPTIONAL** message, if *anyone* mentions the admins name in chat, the bot will tell the group if the admin is online or not.
 
 >**\#secure** (also unsecure)  
@@ -163,13 +163,13 @@ The bot will post a little message letting you know that it's online even if its
 >**\#help**  
 Tells you the available PM commands
 
->**\#msg < user id> < message>**  
+>**\#msg < user id > < message >**  
 The bot will PM the user with the supplied **USER ID** with the supplied message.
  
->**\#leave < group id>**  
+>**\#leave < group id >**  
 Makes the bot leave the requested group, **NOTE:** supply the group **ID** not **NAME**
 
->**\#join < group name>**  
+>**\#join < group name >**  
 Makes the bot join the requested group name.
 
 >**\#uptime**  
@@ -181,10 +181,10 @@ Sends you a message displaying the bots uptime in a fashion as such `0d 20h 3m 2
 >**/help**  
 Tells everyone the available commands.
 
->**/google < query>**  
+>**/google < query >**  
 Put simply posts a google search url, doesn't post results to chat.
 
->**/youtube < query>**  
+>**/youtube < query >**  
 Put simply posts a youtube search url, doesn't post results to chat.
 
 >**/credits**  
@@ -196,7 +196,7 @@ Tells the group who the admin is and if they are online, if they are offline and
 >**/uptime**  
 Posts how long the bot has been running.
 
->**/dice < coin,6,8,10,12 or 20>**  
+>**/dice < coin,6,8,10,12 or 20 >**  
 Very basic random number generator, posts results to group.
 
 >**/website**  
