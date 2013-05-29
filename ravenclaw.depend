@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1369787104 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1369788002 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
-1369787104 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+1369791483 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -102,7 +102,7 @@
 	"palringoClient.h"
 	"INIreader.h"
 
-1369780786 source:c:\users\michael\documents\palringo\git\ravenclaw\misc.cpp
+1369789817 source:c:\users\michael\documents\palringo\git\ravenclaw\misc.cpp
 	"misc.h"
 
 1369782192 source:c:\users\michael\documents\palringo\git\ravenclaw\packet.cpp
@@ -130,7 +130,7 @@
 	"palringoConnection.h"
 	"palringoMessage.h"
 
-1369787128 source:c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.cpp
+1369787737 source:c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.cpp
 	"palringoMessage.h"
 
 1369786550 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp

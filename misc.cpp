@@ -150,6 +150,7 @@ fileDataStruct misc::readFile(string fileLocation)
             output.stream = fileContents;
         }
     }
+    file.close();
 
     return output;
 }

@@ -391,11 +391,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 
             if(dieRoll != 0 && coin == "")
             {
-                stringstream roll;
-                roll << dieRoll;
-                string result = roll.str();
-
-                this->send_message(group, "And the DM rolls a "+result);
+                this->send_message(group, "And the DM rolls a "+engine.i2s(dieRoll));
             }
             else if(coin != "")
             {
