@@ -31,6 +31,13 @@
 
 using namespace std;
 
+struct botMod{
+    string id;
+    string name;
+    string message = "";
+    bool online = false;
+};
+
 class misc;
 class crypt;
 class palringoMessage;
@@ -38,7 +45,7 @@ class palringoGroup;
 class baseClient
 {
 	public:
-		baseClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
+		baseClient(map<string, string> botSettings);
 
 		//The following 4 functions are called from palringoConnection when needed
 		void recv_message(string group, string user, string message);
@@ -81,6 +88,9 @@ class baseClient
 		void    parse_pm(string name, string user, vector<string> data);
 		string  messagePatcher(vector<string> message, string patch = " ", int start = 1);
 
+		//beta features
+		void    reloadIni(string group = "");
+
 	private:
 		string	username, password, botAdmin, botName, adminName, adminMessage;
 		string  cmdAdmin, cmdBase;
@@ -92,6 +102,21 @@ class baseClient
 		palringoMessage *palMesg;
 		palringoGroup 	*palGroup;
 
+		//beta features
+		string iniFile;
+
+		map<string, botMod> botMods;
+		bool isMod(string userid);
+		string searchMod(string modname);
+
+		vector<string> botPests;
+		bool isPest(string userid);
+
+		vector<string> muteList;
+		bool shouldMute(string userid);
+
+		vector<string> banList;
+		bool shouldBan(string userid);
 };
 
 #endif // BASECLIENT_H

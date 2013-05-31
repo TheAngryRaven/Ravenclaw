@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1369860207 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1370046872 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
-1369860093 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+1370045947 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -14,7 +14,7 @@
 	"palringoMessage.h"
 	"palringoGroup.h"
 
-1369774851 c:\users\michael\documents\palringo\git\ravenclaw\misc.h
+1369946158 c:\users\michael\documents\palringo\git\ravenclaw\misc.h
 	<iostream>
 	<fstream>
 	<vector>
@@ -22,6 +22,7 @@
 	<string.h>
 	<conio.h>
 	<sstream>
+	"INIreader.h"
 
 1368660984 c:\users\michael\documents\palringo\git\ravenclaw\crypt.h
 	"cryptopp/cryptlib.h"
@@ -79,7 +80,7 @@
 	"crypt.h"
 	"palringoConnection.h"
 
-1368820820 c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.h
+1369937580 c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.h
 	"conio.h"
 	"misc.h"
 	"baseClient.h"
@@ -91,24 +92,23 @@
 1368660984 source:c:\users\michael\documents\palringo\git\ravenclaw\crypt.cpp
 	"crypt.h"
 
-1369854211 source:c:\users\michael\documents\palringo\git\ravenclaw\main.cpp
+1369946436 source:c:\users\michael\documents\palringo\git\ravenclaw\main.cpp
 	"main.h"
 
-1369158549 c:\users\michael\documents\palringo\git\ravenclaw\main.h
+1369946158 c:\users\michael\documents\palringo\git\ravenclaw\main.h
 	<windows.h>
 	<iostream>
 	<fstream>
 	"misc.h"
 	"palringoClient.h"
-	"INIreader.h"
 
-1369789817 source:c:\users\michael\documents\palringo\git\ravenclaw\misc.cpp
+1369932847 source:c:\users\michael\documents\palringo\git\ravenclaw\misc.cpp
 	"misc.h"
 
 1369782192 source:c:\users\michael\documents\palringo\git\ravenclaw\packet.cpp
 	"packet.h"
 
-1368820864 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.cpp
+1369937599 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.cpp
 	"palringoClient.h"
 
 1369854052 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp

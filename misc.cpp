@@ -14,12 +14,6 @@
 const bool DEBUG = true;
 ofstream fileStream;
 
-struct imgDataStruct //structure that holds file size and data stream
-{
-	long size;
-	char *stream;
-};
-
 misc::misc(){}
 
 void misc::pause()

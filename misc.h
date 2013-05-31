@@ -27,6 +27,7 @@
 using namespace std;
 
 //project includes
+#include "INIreader.h"
 
 struct fileDataStruct{
     vector< char > stream;

@@ -30,7 +30,7 @@ class palringoClient
 {
 	public:
         //Yay Command like arguments
-		palringoClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
+		palringoClient(map<string, string> botSettings);
 		void run();		//starts and creates everything
 		baseClient* get_Client(void); // returns pointer to clientUser
 

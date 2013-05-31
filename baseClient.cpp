@@ -10,20 +10,20 @@
 
 #include "baseClient.h"
 
-baseClient::baseClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser)
+baseClient::baseClient(map<string, string> botSettings)
 {
     //Login Details | No more compile time username and password
-	this->username 	= username;
-	this->password 	= password;
+	this->username 	= botSettings["username"];
+	this->password 	= botSettings["password"];
 
-	this->botAdmin 	= botAdmin;     //the ID of the user who owns the bot
-	this->botName	= botName;	    //Set the bots name to give it personality
-	this->adminName	= adminName;    //used for printing the admins name in messages
+	this->botAdmin 	= botSettings["botAdmin"];  //the ID of the user who owns the bot
+	this->botName	= botSettings["botName"];   //Set the bots name to give it personality
+	this->adminName	= botSettings["adminName"]; //used for printing the admins name in messages
 
 	//these set the way you call commands
 	//ie #leave or /help
-	this->cmdAdmin 	= cmdAdmin;
-	this->cmdBase	= cmdUser;
+	this->cmdAdmin 	= botSettings["cmdAdmin"];
+	this->cmdBase	= botSettings["cmdUser"];
 
     //Feature is currently depreciated
     //A way to save the group number for special bot commands
@@ -31,22 +31,62 @@ baseClient::baseClient(string username, string password, string botAdmin, string
 	//controlGroupName  = "[Group ID]"; //palringo
 
 	//various "system" variables
-	canTalk     = true;     //if the bot is muted or not
-	adminOnline = false;    //if admin is online or not
-	startTime   = time(NULL);//sets the time the bot initializes
-	security    = true;    //activates things like the group parser
+	canTalk     = true;         //if the bot is muted or not
+	adminOnline = false;        //if admin is online or not
+	startTime   = time(NULL);   //sets the time the bot initializes
+	security    = true;         //activates things like the group parser
+
+	//beta features
+	this->iniFile = botSettings["iniFile"];
+	this->reloadIni();
 }
 
 //triggered when a message is received
 void baseClient::recv_message(string group, string user, string message)
 {
-    this->parse_commands(group, user, engine.splitStr(message, ' '));
+    if(security && shouldMute(user))
+    {
+        this->admin_silence(group, user);
+
+        this->send_message(group, "User <"+user+"> is a known pest");
+        this->send_pm(botAdmin, "Attempted to Mute user <"+user+"> in group <"+group+">");
+
+        if(botMods.size() > 0)
+        {
+            for(std::map<string, botMod>::iterator i = botMods.begin(); i != botMods.end(); ++i)
+            {
+                this->send_pm(i->first, "Attempted to Mute user <"+user+"> in group <"+group+">");
+            }
+        }
+    }
+    else if(security && shouldBan(user))
+    {
+        this->admin_ban(group, user);
+
+        this->send_message(group, "User <"+user+"> is a known pest");
+        this->send_pm(botAdmin, "Attempted to Ban user <"+user+"> in group <"+group+">");
+
+        if(botMods.size() > 0)
+        {
+            for(std::map<string, botMod>::iterator i = botMods.begin(); i != botMods.end(); ++i)
+            {
+                this->send_pm(i->first, "Attempted to Ban user <"+user+"> in group <"+group+">");
+            }
+        }
+    }
+    else if(!isPest(user))
+    {
+        this->parse_commands(group, user, engine.splitStr(message, ' '));
+    }
 }
 
 //triggered when a PM is received
 void baseClient::recv_pm(string name, string user, string message)
 {
-    this->parse_pm(name, user, engine.splitStr(message,' '));
+    if(!isPest(user) and !shouldMute(user) and !shouldBan(user))
+    {
+        this->parse_pm(name, user, engine.splitStr(message,' '));
+    }
 }
 
 //triggered when anyone joins or leaves a group
@@ -89,6 +129,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	string	cmd			= data[0];
 	string  mesg        = this->messagePatcher(data);
 
+    //signs admin back online
 	if(user == botAdmin && adminOnline == false)
 	{
 		//sets the bot admins status to being back online
@@ -97,18 +138,22 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 		this->send_message(group, adminName+" is back online!");
 	}
 
-    //little security features like muting people who post group links
-    if(security == true && user != botAdmin)
+    //signs mods back online
+    if(isMod(user))
     {
-        //primitive auto ban system, once group update is more furnished this will be moved into there
-        if(user == "18089645")
+        if(botMods[user].name != "" and botMods[user].online == false)
         {
-            //currently the user "crimson" is the only target, they spoiled the fun by getting the bot banned
-            this->admin_ban(group, user);
+            botMods[user].online = true;
+            botMods[user].message = "";
+            this->send_message(group, botMods[user].name+" is back online!");
         }
+    }
 
-        //checks if someone posted a group link thats not the welcome or autopost bot
-        if((user != "15145815" && user != "10324473") && mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
+    //little security features like muting people who post group links
+    if(security == true && user != botAdmin && !isMod(user))
+    {
+        //checks if someone posted a group link
+        if(mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
         {
             this->send_message(group, "Don't post group links!");
 
@@ -145,6 +190,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
         }
     }
 
+    //admin commands
     if(user == botAdmin)
     {
         if(cmd == cmdAdmin+"check")
@@ -240,9 +286,10 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
             }
             else
             {
-                adminOnline		= false;
+                adminOnline = false;
                 this->send_message(group, "Bye "+adminName+"!");
             }
+
         }
         else if(cmd == cmdAdmin+"mute")
         {
@@ -275,6 +322,10 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
             this->send_message(group, "Sending developer packet");
             this->send_debug(group);
         }
+        else if(cmd == cmdAdmin+"loadini")
+        {
+            this->reloadIni(group);
+        }
         else if(cmd == cmdAdmin+"help")
         {
              this->send_message(group, 	"Admin Help\r\n"+
@@ -284,11 +335,140 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                                         cmdAdmin+"msg <user id> <message>\r\n"+
                                         cmdAdmin+"away <message>\r\n"+
                                         cmdAdmin+"secure (also unsecure)\r\n"+
+                                        cmdAdmin+"mute (also unmute)"+
+                                        cmdAdmin+"loadini"
+                                        );
+        }
+    }
+
+    //mod commands
+    if(isMod(user))
+    {
+        if(cmd == cmdAdmin+"check")
+        {
+            if(canTalk == true)
+                this->send_message(group, "I am online!");
+            else
+            {
+                //if shes been muted this will run
+                canTalk = true;
+                this->send_message(group, "I've been muted but im here ;_;");
+                canTalk = false;
+            }
+        }
+        else if(cmd == cmdAdmin+"leave")
+        {
+            this->group_part(group);
+        }
+        else if(cmd == cmdAdmin+"join")
+        {
+            if(blocks >= 2)
+            {
+                if(mesg.find("[") != std::string::npos && mesg.find("]") != std::string::npos)
+                {
+                    //buffer to save string to
+                    char const* buffer = mesg.c_str();
+                    int length = strlen(buffer);
+
+                    string groupName;
+                    string password;
+                    int sPos = 0;
+                    int ePos = 0;
+
+                    //loop through the string and find the location of brackets
+                    for(int i=0; i < length; i++)
+                    {
+                        if(buffer[i] == '[')
+                            sPos = i+1;
+
+                        if(buffer[i] == ']')
+                            ePos = i;
+
+                        if(ePos != 0)
+                            break;
+                    }
+
+                    //if both brackets exit do some things
+                    if(ePos != 0)
+                    {
+                        //set group name
+                        groupName = mesg.substr(sPos, ePos-sPos);
+
+                        //find password
+                        if((sPos != 0 and ePos != 0) and (buffer[ePos+1] == ' '))
+                            password = mesg.substr(ePos+2, length);
+                        else
+                            password = "";
+
+                        //join the group
+                        this->group_join(groupName, password);
+                    }
+                }
+            }
+            else
+            {
+                this->send_message(group, cmdAdmin+"join [<group name>] <password>");
+            }
+        }
+        else if(cmd == cmdAdmin+"msg")
+        {
+            if(blocks > 2)
+            {
+                //generate message
+                string buff = this->messagePatcher(data, " ", 2);
+
+                //send the buffer
+                this->send_pm(data[1], buff);
+                this->send_message(group, "Message Sent!");
+            }
+            else
+            {
+                this->send_message(group, cmdAdmin+"msg <user ID> <message>");
+            }
+        }
+        else if(cmd == cmdAdmin+"away")
+        {
+            /* Allows the bot admin to go afk, and the bot will know your not online, and leaves a message showing your not online */
+            if(blocks > 1)
+            {
+				botMods[user].message	= this->messagePatcher(data, " ");
+				botMods[user].online	= false;
+				this->send_message(group, "Bye " + botMods[user].name + "!\r\nAnd don't worry I saved the message");
+            }
+            else
+            {
+				botMods[user].online = false;
+				this->send_message(group, "Bye "+botMods[user].name+"!");
+            }
+
+        }
+        else if(cmd == cmdAdmin+"mute")
+        {
+            if(canTalk == true)
+            {
+                this->send_message(group, "Muted myself");
+                canTalk = false;
+            }
+            else
+            {
+                canTalk = true;
+                this->send_message(group, "I can talk again!");
+            }
+        }
+        else if(cmd == cmdAdmin+"help")
+        {
+             this->send_message(group, 	"Mod Help\r\n"+
+                                        cmdAdmin+"check\r\n"+
+                                        cmdAdmin+"leave\r\n"+
+                                        cmdAdmin+"join [<group name>] <password>\r\n"+
+                                        cmdAdmin+"msg <user id> <message>\r\n"+
+                                        cmdAdmin+"away <message>\r\n"+
                                         cmdAdmin+"mute (also unmute)"
                                         );
         }
     }
 
+    //user commands
 	if(cmd == cmdBase+"admin")
     {
         string output = "The bot owner is "+adminName+" Userid: "+botAdmin;
@@ -309,10 +489,11 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 	else if(cmd == cmdBase+"help")
 	{
 		this->send_message(group, 	"User Help\r\n"+
+                                    cmdBase+"admin\r\n"+
+									cmdBase+"mods\r\n"+
                                     cmdBase+"google <query>\r\n"+
 									cmdBase+"youtube <query>\r\n"+
 									cmdBase+"credits\r\n"+
-									cmdBase+"admin\r\n"+
 									cmdBase+"uptime\r\n"+
 									cmdBase+"dice <coin,6,8,10,12 or 20>\r\n"+
 									cmdBase+"website");
@@ -404,6 +585,34 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 		{
             this->send_message(group, "Sorry thats not how you use this command\r\n"+cmdBase+"dice <coin,6,8,10,12 or 20>");
 		}
+    }
+	else if(cmd == cmdBase+"mod" or cmd == cmdBase+"mods")
+    {
+        if(botMods.size() > 0)
+        {
+            string output = "The bot now has mods\r\n";
+
+            for(std::map<string, botMod>::iterator i = botMods.begin(); i != botMods.end(); ++i)
+            {
+                output.append("\r\n"+i->second.name);
+
+                if(i->second.online)
+                {
+                    output.append(" - online\r\n");
+                }
+                else
+                {
+                    output.append(" - offline\r\n");
+
+                    if(i->second.message != "")
+                        output.append("Message: "+i->second.message+"\r\n\");
+                }
+            }
+
+            this->send_message(group, output);
+        }
+        else
+            this->send_message(group, "The bot currently has no mods assigned");
     }
 	else if(cmd == cmdBase+"uptime")
     {
@@ -524,6 +733,29 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
 
 						break;
 					}
+					else if( searchMod(data[i]) != "" )
+                    {
+                        string output;
+
+                        //save to a temp botMod instance so we dont have to keep searching
+                        botMod temp = botMods.find(searchMod(data[i]))->second;
+
+                        if(temp.online)
+                        {
+                            output += data[i]+" is online!";
+                        }
+                        else
+                        {
+                            output += data[i]+" is offline!";
+
+                            if(temp.message != "")
+                                output += "\r\nBut they left of a message!\r\n"+temp.message;
+                        }
+
+                        this->send_message(group, output);
+
+                        break;
+                    }
 					else if(data[i] == "u" || data[i] == "c" || data[i] == "r" || data[i] == "y" || data[i] == "o")
 					{
 						this->send_message(group, "Use words not letters\r\nDon't be lazy!");
@@ -561,7 +793,7 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
 	string	cmd			= data[0];
 	string  mesg        = this->messagePatcher(data);
 
-    if(user == botAdmin)
+    if(user == botAdmin or isMod(user))
     {
         if(cmd == cmdAdmin+"msg")
         {
@@ -673,13 +905,13 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
 		buffer.append("\r\n");
 		buffer.append(mesg);
 		buffer.append("\r\n=======================\r\n");
+		this->send_pm(botAdmin, buffer); //sends the botadmin the pm it received
 
-		this->send_pm(botAdmin, buffer);
 		buffer = "";
 		buffer.append("#msg ");
 		buffer.append(user);
 		buffer.append(" ");
-		this->send_pm(botAdmin, buffer);
+		this->send_pm(botAdmin, buffer); //sends a second message so the admin can copy/paste the command for eaiser replies
     }
 }
 
@@ -752,3 +984,161 @@ string baseClient::messagePatcher(vector<string> message, string patch, int star
 	return output;
 }
 
+//COMPLETELY BETA FEATURES
+
+bool baseClient::isMod(string userid)
+{
+    if(botMods.find(userid) != botMods.end())
+        return true;
+    else
+        return false;
+}
+
+string baseClient::searchMod(string modname)
+{
+    for(std::map<string, botMod>::iterator i = botMods.begin(); i != botMods.end(); ++i)
+    {
+        if(i->second.name == modname)
+            return i->second.id;
+    }
+
+    return "";
+}
+
+bool baseClient::isPest(string userid)
+{
+    int listSize = botPests.size();
+
+    if(listSize > 0)
+    {
+        for(int i=0; i<listSize; i++)
+        {
+            if(botPests[i] == userid)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool baseClient::shouldMute(string userid)
+{
+    int listSize = muteList.size();
+
+    if(listSize > 0)
+    {
+        for(int i=0; i<listSize; i++)
+        {
+            if(muteList[i] == userid)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool baseClient::shouldBan(string userid)
+{
+    int listSize = banList.size();
+
+    if(listSize > 0)
+    {
+        for(int i=0; i<listSize; i++)
+        {
+            if(banList[i] == userid)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+void baseClient::reloadIni(string group)
+{
+    INIReader reader = INIReader(this->iniFile);
+    string postBuffer = "INILoader Details"; //so we can stop posting multiple messages
+
+
+    /////Mod Functions
+    botMods.clear(); //reset the list so we can make changes
+    string modNumbersInput = reader.Get("MODS", "modAccounts", "null");
+    string modNamesInput = reader.Get("MODS", "modNames", "null");
+    vector<string> modNumbers;
+    vector<string> modNames;
+
+    if(modNumbersInput != "null")
+        modNumbers = engine.splitStr(modNumbersInput, '|');
+
+    if(modNamesInput != "null")
+        modNames = engine.splitStr(modNamesInput, '|');
+
+    if((modNames.size() == modNumbers.size()))
+    {
+        int modCount = modNumbers.size();
+        for(int i=0; i<modCount; i++)
+        {
+            botMod temp;
+            temp.id = modNumbers[i];
+            temp.name = modNames[i];
+
+            this->botMods[modNumbers[i]] = temp;
+        }
+
+        if(group != "")
+            postBuffer += "\r\nMods: "+modNumbersInput;
+    }
+    else
+        postBuffer += "\r\nNo Mods Found";
+
+    /////Pest Functions
+    botPests.clear(); //reset the list so we can make changes
+    string pestInput = reader.Get("SECURITY", "ignore", "null");
+
+    if(pestInput != "null" and pestInput != "")
+    {
+        botPests = engine.splitStr(pestInput, '|');
+
+        if(group != "")
+            postBuffer += "\r\nPests: "+pestInput;
+    }
+    else
+        postBuffer += "\r\nNo pests found";
+
+    /////Mute Functions
+    muteList.clear(); //reset the list so we can make changes
+    string muteInput = reader.Get("SECURITY", "autoMute", "null");
+
+    if(muteInput != "null" and muteInput != "")
+    {
+        muteList = engine.splitStr(muteInput, '|');
+
+        if(group != "")
+            postBuffer += "\r\nMute List: "+muteInput;
+    }
+    else
+        postBuffer += "\r\nNo Mutes Found";
+
+    /////Ban Functions
+    banList.clear(); //reset the list so we can make changes
+    string banInput = reader.Get("SECURITY", "autoBan", "null");
+
+    if(banInput != "null" and banInput != "")
+    {
+        banList = engine.splitStr(banInput, '|');
+
+        if(group != "")
+            postBuffer += "\r\nBan List: "+banInput;
+    }
+    else
+        postBuffer += "\r\nNo Bans Found";
+
+    //send message buffer
+    if(group != "")
+        this->send_message(group, postBuffer);
+}

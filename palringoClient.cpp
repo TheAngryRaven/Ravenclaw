@@ -10,9 +10,9 @@
 
 #include "palringoClient.h"
 
-palringoClient::palringoClient(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser)
+palringoClient::palringoClient(map<string, string> botSettings)
 {
-	clientUser	= new baseClient(username, password, botAdmin, adminName, botName, cmdAdmin, cmdUser);
+	clientUser	= new baseClient(botSettings);
 	palConn		= new palringoConnection(this);
 }
 

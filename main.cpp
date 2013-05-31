@@ -78,29 +78,32 @@ int main(int argc, char* argv[])
             return 1;
         }
         //get LOGON details
-        string username     = reader.Get("LOGON", "email", "UNKNOWN");
-        string password     = reader.Get("LOGON", "password", "UNKNOWN");
+        map<string, string> botSettings;
+
+        botSettings["username"]     = reader.Get("LOGON", "email", "UNKNOWN");
+        botSettings["password"]     = reader.Get("LOGON", "password", "UNKNOWN");
 
         //get bot settings
-        string botAdmin     = reader.Get("SETTINGS", "adminId", "UNKNOWN");
-        string adminName    = reader.Get("SETTINGS", "adminName", "UNKNOWN");
-        string botName      = reader.Get("SETTINGS", "botName", "UNKNOWN");
-        string cmdAdmin     = reader.Get("SETTINGS", "cmdAdmin", "#");
-        string cmdUser      = reader.Get("SETTINGS", "cmdUser", "/");
+        botSettings["botAdmin"]     = reader.Get("SETTINGS", "adminId", "UNKNOWN");
+        botSettings["adminName"]    = reader.Get("SETTINGS", "adminName", "UNKNOWN");
+        botSettings["botName"]      = reader.Get("SETTINGS", "botName", "UNKNOWN");
+        botSettings["cmdAdmin"]     = reader.Get("SETTINGS", "cmdAdmin", "#");
+        botSettings["cmdUser"]      = reader.Get("SETTINGS", "cmdUser", "/");
+        botSettings["iniFile"]      = iniFile;
 
-        if(username     == "UNKNOWN" ||
-           password     == "UNKNOWN" ||
-           botAdmin     == "UNKNOWN" ||
-           adminName    == "UNKNOWN" ||
-           botName      == "UNKNOWN" )
+        if(botSettings["username"]      == "UNKNOWN" ||
+           botSettings["password"]      == "UNKNOWN" ||
+           botSettings["botAdmin"]      == "UNKNOWN" ||
+           botSettings["botName"]       == "UNKNOWN" ||
+           botSettings["adminName"]     == "UNKNOWN" )
         {
             engine.pl("Bot cannot find required field(s) for logging on\r\nPlease check your .ini file");
             engine.pause();
             return 1;
         }
 
-        spinUp(botName);
-        spinning(username, password, botAdmin, adminName, botName, cmdAdmin, cmdUser);
+        spinUp(botSettings["botName"]);
+        spinning(botSettings);
         spinDown();
 
         return 0;
@@ -113,10 +116,10 @@ void spinUp(string botName)
 	SetConsoleTitle( titleName.c_str() );
 }
 
-void spinning(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser)
+void spinning(map<string, string> botSettings)
 {
 	engine.pl("Main-> starting palClient", 1);
-	palClient = new palringoClient(username, password, botAdmin, adminName, botName, cmdAdmin, cmdUser);
+	palClient = new palringoClient(botSettings);
 	palClient->run();
 }
 

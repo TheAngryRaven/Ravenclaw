@@ -25,19 +25,15 @@ using namespace std;
 //project includes
 #include "misc.h"
 #include "palringoClient.h"
-#include "INIreader.h"
 
 //project variables
 misc engine;
-//palringoClient *palClient = new palringoClient;
 palringoClient *palClient;
 
-//main loops/functions
 int main(int argc, char* argv[]);				//the main
 
-void spinUp(string botName);		//application startup
-//main application loop
-void spinning(string username, string password, string botAdmin, string adminName, string botName, string cmdAdmin, string cmdUser);
-void spinDown(void);	//ending application function
+void spinUp(string botName);                    //sets console title and such
+void spinning(map<string, string> botSettings); //main application loop
+void spinDown(void);	                        //ending application function
 
 #endif // MAIN_H_INCLUDED
