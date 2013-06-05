@@ -63,7 +63,7 @@ string crypt::hexEnc(char* data, int count)
 
 string crypt::hexEnc(string data)
 {
-	engine.pl("crypt-> generating hex from plaintext",1);
+	//engine.pl("crypt-> generating hex from plaintext",1);
 
 	//create cipher
 	CryptoPP::HexEncoder encoder;
@@ -79,7 +79,7 @@ string crypt::hexEnc(string data)
 
 string crypt::hexDec(string data)
 {
-	engine.pl("crypt-> generating plaintext from hex",1);
+	//engine.pl("crypt-> generating plaintext from hex",1);
 
 	//create cipher
 	CryptoPP::HexDecoder decoder;

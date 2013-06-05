@@ -27,7 +27,11 @@ using namespace std;
 
 class misc;
 class crypt;
-struct packetHeader;
+struct packetHeader
+{
+	string key;
+	string value;
+};
 class packet
 {
 	public:
@@ -43,6 +47,7 @@ class packet
 		string search_headers(string query);
 
 
+        string          NULLHEADER = "no-header";
 		string			getCommand();
 		string			getPayload();
 		packetHeader	getHeader(int number);

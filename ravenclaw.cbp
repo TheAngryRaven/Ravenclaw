@@ -59,6 +59,9 @@
 		<Unit filename="crypt.h">
 			<Option virtualFolder="base/header/" />
 		</Unit>
+		<Unit filename="definitions.h">
+			<Option virtualFolder="base/header/" />
+		</Unit>
 		<Unit filename="ini.c">
 			<Option compilerVar="CC" />
 			<Option virtualFolder="base/source/ini/" />

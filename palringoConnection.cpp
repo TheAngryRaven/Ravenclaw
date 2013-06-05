@@ -99,112 +99,103 @@ void palringoConnection::send_ping()
 
 void palringoConnection::parse_recv(string data, char* raw)
 {
-	//engine.pl("palConn-> parsing input", 1);
+    packet output;				//this is our output packet data
 
-	packet output;				//this is our output packet data
+    data = cipher.hexEnc(data);
+    //cout << data << endl;
 
-	istringstream iss(data);	//turns out data string, into a string stream
-	string token;				//bascially used as a buffer, data is sent to and from
-	vector<string> headers; 	//put all headers here for later logic
-	int line = 0; 				//used basically to see which line we are pasrsing
-	int headerCnt = 0;			//how many headers we have, used later
+    int packetLength    = data.length();
+    const char* buffer  = data.c_str();
 
-	while(getline(iss, token, '\n'))
-	{
-		if(line == 0)
-		{
-			//first line is the packet command
-			//contains the damn \n char at the end so we remove it
-			string cmd = token.substr(0, token.size()-1);
+    string payload;
+    int payloadStart = 0;
 
-			if(cmd != "LOGON FAILED")
+    //find where the payload starts
+    for(int i=0; i<packetLength; i++)
+    {
+        if( buffer[i] == '0' &&
+            buffer[i+1] == 'D' &&
+            buffer[i+2] == '0' &&
+            buffer[i+3] == 'A' &&
+            buffer[i+4] == '0' &&
+            buffer[i+5] == 'D' &&
+            buffer[i+6] == '0' &&
+            buffer[i+7] == 'A')
+       {
+           payloadStart = i+7;
+           //cout << "Found payload, starting at " << payloadStart << endl;
+           break;
+       }
+    }
+    //If we have a valid payload
+    if(payloadStart !=0)
+    {
+
+        //seperate the body
+        string buff_head;
+        string buff_value = "null";
+        vector<string> headers;
+        vector<string> values;
+        bool header = true;
+
+
+        //find headers and header values
+        for(int i=0; i<=payloadStart-4; i++)
+        {
+            if(buffer[i] == '0' && buffer[i+1] == 'D' && buffer[i+2] == '0' && buffer[i+3] == 'A')
             {
-                output.addCommand(cmd);
+                //if found \r\n stop operation and save to vector
+                i += 3;
+                headers.push_back(buff_head);
+                values.push_back(buff_value);
+
+                buff_head   = "";
+                buff_value  = "";
+                header      = true;
             }
-			else
-			{
-				engine.pl("palConn-> Auth Failed");
-				output.addCommand("LOGON FAILED");
-				this->disconnect();
-				Sleep(1000);
-				this->connect();
-				break;
-			}
-		}
-		else
-		{
-			//the rest of the function are for headers
-			//parses the colons in this to create the two parts for the header
-			istringstream iss(token);
-			string hTok;
-
-			while(getline(iss, hTok, ':'))
-			{
-				//prevents parsing errors if a user sends a messagestarting with :
-				if(hTok != "")
-				{
-					headers.push_back(hTok);
-					headerCnt++;
-				}
-			}
-		}
-
-		line++;	//add one to our parsed lines list
-	}
-
-	//used to tell a later function if we need to add a payload
-	for(int i=0; i < headerCnt; i += 2)
-	{
-		//we need to make sure to skip the last 3 parts of the vector
-		//designed to handle every other itteration
-		if(i < headerCnt-2)
-		{
-			//check if this is the CONTENT-LENGTH header
-			if(headers[i] == "image/jpeg" || headers[i] == "IMAGE/JPEG")
-			{
-				break;
-			}
-			else if(headers[i] == "CONTENT-LENGTH" || headers[i] == "Content-Length")
-			{
-			    //beasue this is a COMPLETELY different packet type....
-			    if(output.getCommand() == "GROUP UPDATE")
-                {
-                    /*
-                    engine.pl("GU Content length found");
-                    string headLen		= headers[i+1].substr(1, headers[i+1].size()-2);
-                    int payloadLength	= atoi(headLen.c_str());
-
-                    cout << "\n\nPayload Length: " << payloadLength << "\n\n";
-                    cout << "\n\nPayload: " << cipher.hexEnc(raw) << "\n\n";
-
-                    //crashes the parser, this is a "serialized" payload
-                    //string tData = data.substr(data.size()-payloadLength, payloadLength);
-
-                    //output.addPayload(tData);
-                    */
-                }
+            else if(buffer[i] == '3' && buffer[i+1] == 'A' && buffer[i+2] == '2' && buffer[i+3] == '0')
+            {
+                //if found : change writting to values instead of headers
+                i +=3;
+                header = false;
+            }
+            else
+            {
+                //write to the header or value buffer
+                if(header)
+                    buff_head += buffer[i];
                 else
-                {
-                    //adds the payload based on the content-length
-                    //more accurate way of adding the payload
-                    string headLen		= headers[i+1].substr(1, headers[i+1].size()-2);
-                    int payloadLength	= atoi(headLen.c_str());
+                    buff_value += buffer[i];
+            }
+        }
 
-                    string tData = data.substr(data.size()-payloadLength, payloadLength);
-                    output.addPayload(tData);
-                }
-			}
-			else
-			{
-				//removes the last character from the second data set
-				//the end line char is still there from the earlier parsing
-				output.addHeader(headers[i], headers[i+1].substr(1, headers[i+1].size()-2));
-			}
-		}
-	}
+            output.addCommand(cipher.hexDec(headers[0]));
+            output.addPayload(cipher.hexDec(payload));
 
-	//send the created packet to the packet parser
-	//engine.pl("palConn-> Sending to packet parser", 1);
+
+            int headerCount = headers.size();
+
+            for(int i=1; i<headerCount; i++)
+            {
+                output.addHeader(cipher.hexDec(headers[i]), cipher.hexDec(values[i]));
+                //cout << headers[i] << endl;
+            }
+
+        //This kills the payload
+        for(int i=payloadStart+1; i<=packetLength; i++)
+        {
+            payload += buffer[i];
+        }
+
+        output.addPayload(payload);
+    }
+    else
+    {
+        output.addCommand("MALFORMED PACKET");
+        output.addPayload(data);
+    }
+
+
 	this->parse_packet(output);
 }
 
@@ -212,13 +203,39 @@ void palringoConnection::parse_packet(packet data)
 {
 	engine.pl("palConn-> parsing packet",1);
 
-	int		paySize = data.getPayload().size();
+	int		paySize = data.getPayload().size()/2;
 	string	packCmd = data.getCommand();
 
-    engine.pl("\n=====Packet=====",1);
-    engine.pl(data.serialize(),1);
-    engine.pl("================\n",1);
+    if(packCmd != "MALFORMED PACKET" && packCmd != "SUB PROFILE" && packCmd != "BALANCE QUERY RESULT")
+    {
+        //debug information
+        cout << "------------------------------------" << endl;
+        cout << "Command:\t\t";
+        cout << data.getCommand() << endl;
 
+        cout << "------------------------------------" << endl;
+
+        cout << "[Body]" << endl;
+        for(int i=1; i<data.getHeaders(); i++)
+        {
+            packetHeader buffer = data.getHeader(i);
+            cout << "[" << i << "] " << buffer.key << "\t" << buffer.value << endl;
+        }
+
+        cout << "------------------------------------" << endl;
+        cout << "[Payload]" << endl << cipher.hexDec(data.getPayload()) << endl;
+        cout << "------------------------------------" << endl;
+        cout << "[Payload Raw]" << endl << data.getPayload() << endl;
+        cout << "------------------------------------" << endl;
+    }
+
+	if(packCmd == "LOGON FAILED")
+    {
+        engine.pl("palConn-> Auth Failed");
+        this->disconnect();
+        Sleep(1000);
+        this->connect();
+    }
 	if(packCmd == "AUTH")
 	{
 		engine.pl("palConn-> AUTH received");
@@ -226,6 +243,9 @@ void palringoConnection::parse_packet(packet data)
 		if(paySize == 24)
 		{
 			engine.pl("palConn-> AUTH valid");
+
+			data.addPayload(cipher.hexDec(data.getPayload()));
+
 			this->send_auth(data);
 		}
 		else
@@ -238,7 +258,8 @@ void palringoConnection::parse_packet(packet data)
 	}
 	else if(packCmd == "MESG")
 	{
-		palMsg->recv_message(data);
+	    data.addPayload(cipher.hexDec(data.getPayload()));
+        palMsg->recv_message(data);
 	}
 	else if(packCmd == "GHOSTED")
     {
@@ -260,7 +281,17 @@ void palringoConnection::parse_packet(packet data)
     }
     else if(packCmd == "P")
     {
-        engine.pl("palConn-> Received Ping Request", 1);
+        engine.pl("palConn-> Received Ping Request");
         this->send_ping();
+    }
+    else if(packCmd == "RESPONSE")
+    {
+        engine.pl("Received response packet");
+        this->clientUser->parseResponse(data);
+    }
+    else if(packCmd == "THROTTLE")
+    {
+        engine.pl("Received throttle packet");
+        //this->clientUser->parseResponse(data);
     }
 }

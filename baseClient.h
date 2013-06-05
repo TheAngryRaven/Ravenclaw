@@ -28,6 +28,7 @@
 #include "crypt.h"
 #include "palringoMessage.h"
 #include "palringoGroup.h"
+#include "definitions.h"
 
 using namespace std;
 
@@ -60,6 +61,9 @@ class baseClient
 		void	set_palGroup(palringoGroup *group);	//sets the palringoGroup pointer
 		string 	get_Username(void);	//returns username
 		string 	get_Password(void);	//returns password
+
+		//beta features
+		void    parseResponse(packet input);
 
 	protected:
 		//Functions to send things

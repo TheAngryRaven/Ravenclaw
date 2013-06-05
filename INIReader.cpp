@@ -41,6 +41,10 @@ string INIReader::Get(string section, string name, string default_value)
     return _values.count(key) ? _values[key] : default_value;
 }
 
+string INIReader::Set(string section, string name, string value)
+{
+
+}
 
 long INIReader::GetInteger(string section, string name, long default_value)
 {

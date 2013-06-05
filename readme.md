@@ -57,6 +57,10 @@ In **Code::Blocks** go to **settings->compiler** now click on the **linker setti
 >The bot can now load details from an INI file, apon starting the bot a basic INI **that you need to edit yourself** (any text editor will do) will be generated called **example.ini** if you do not supply one in the commandline. Along with a super basic **runBot.bat** batch script, which simply contains `ravenclaw.exe exampli.ini`.  
 
 >See the below example for the input the ini excepts.
+
+>Awww man whats that? New features? Bet your damn ass.  
+Bot can now have admins, based on the example it is super easy to add people to the ini file  
+Auto mute/ban will automatically mute/ban the userid's the first time they post a message
     
     [LOGON]
     email=youremailhere@gmail.com
@@ -68,6 +72,16 @@ In **Code::Blocks** go to **settings->compiler** now click on the **linker setti
 	botName=ravenclaw
 	cmdAdmin=#
 	cmdUser=/
+	
+	[MODS]
+	modAccounts=17779473|2937702
+	modNames=nom|andrei
+
+	[SECURITY]
+	#first two are welcome/autopost bots
+	ignore=15145815|10324473|18089645
+	autoBan=18089645
+	autoMute=18089645
 
 ####Starting the bot
 >Simply run a command in the cmd prompt along the lines of
@@ -105,7 +119,7 @@ The source files are included in the project and require no action from you, but
 
 >Now has a dedicated function for parsing private message in **baseClient::parse_pm()**.
 	
-####Image Sending - *NEW*
+####Image Sending
 >You can now send images inside of `baseClient::` and it's super simple! Second simply call `this->send_image("groupID", "filepath\test.jpg");` or `this->send_image_pm("userID", "filepath\test.jpg");` and away the image goes.
 
 ####Full admin functions
@@ -119,10 +133,25 @@ The source files are included in the project and require no action from you, but
 		
 ####Bot Admin status
 >Default status is offline, when the bot sees that the bot-admin has typed a message in a group the bot is in it sets the admins status to online.
-		
->Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.
-This is not a hard coded feature, just a neat one I like.
 
+####Find Mod/Admins
+>Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.
+This is not a hard coded feature, just a neat one I like. Also now works for mods.
+
+####Bot Mod status - *NEW*
+>Default status is offline, when the bot sees that a bot-mod has typed a message in a group the bot is in it sets the mods status to online.
+		
+####Bot Mods - *NEW*
+>As shown in the example ini above you can now have bot mods, there is a new if loop in **baseClient::parse_commands()** you can even load new mods without restarting the bot, just add them to the ini and run the command `#loadini` and boom, mods/auto lists now updated!
+
+####Auto ban/mute - *NEW/BETA*
+>Not exactly where I want it yet, but that will come with sub profile parsing. If a user is on the ban/mute list the first time they post a message they will be muted/banned.
+
+####Ignore - *NEW*
+>If a user is on the ignore list the bot simply ignores **ANY** post they make. Helpfull for those abusing the bot.
+
+####Server Responses - *NEW/BETA*
+>Currently doesnt work, is only triggered in **baseClient::parseResponse()** will soon be able to listen for all sorts of server responses and hopefully advert all errors if they occur.
 ***
 ## List of simple chat commands
 >All of the featured are simply in `baseClient::parse_commands()`, nothing is hard coded and can be changed without breaking anything. It is mostly here as an example how ive acomplished some neat little tricks. **Do not** use the less/greator than signs, they are simply there to show you the arguments for the function.
@@ -140,7 +169,7 @@ Makes the bot leave the group you posted the message in.
 
 >**\#join [< group name >] < password >***  - *UPDATED*  
 Tells the bot to join whatever group name you want, this function has been updated to support passwords.
-Using passwords is rather simple, to join a group with no password simply `#join [group name]` to join with a password `#join [group name] password`. Brackets **ARE** now required for the group name.
+Using passwords is rather simple, to join a group with no password simply `#join [group name]` to join with a password `#join [group name] password`. Brackets are now **ONLY required** for the group name, if you do not want to supply a password.
 
 >**\#msg < user id > < message >**  
 The bot will PM the user with the supplied **USER ID** with the supplied message.
@@ -156,6 +185,12 @@ Default state is **OFF** bot will still do admin commands in code, but will not 
 
 >**\#check**  
 The bot will post a little message letting you know that it's online even if its set to mute.
+
+>**\#test** (new)  
+There is a new packet in **palringo::packet** designed to fill up with whatever data you please, and send to the palringo servers. This command is what triggers the sending of the command.
+
+>**\#loadini** (new)  
+Reloads the bot's ini file to update ignore/mod/auto lists. It also spits out the output of the reload.
 
 ####Admin PM Commands
 >Work similar to the regular admin commands except they are triggered when you PM the bot.They are called from `baseClient::parse_pm()`.  
@@ -175,6 +210,9 @@ Makes the bot join the requested group name.
 >**\#uptime**  
 Sends you a message displaying the bots uptime in a fashion as such `0d 20h 3m 28s`.
 
+####Mod Commands
+>Mods are currently programed to use all admin commands except for **Secure, test and loadini**. They currently can also use the PM commands.
+
 ####User Commands
 >Anyone in the group the bot is in can use these commands.
 
@@ -192,6 +230,9 @@ Posts a little message to chat telling people who helped me get the bot going.
 
 >**/admin**  
 Tells the group who the admin is and if they are online, if they are offline and the admin has set an away message, displays that message.
+
+>**/mods** (new)  
+Tells the group who all the assigned mods are and if they are online or not.
 
 >**/uptime**  
 Posts how long the bot has been running.
@@ -236,7 +277,7 @@ If someone uses a hashtag phrase **IE:** `#yolo` at the end of a message, this t
 >this handles all the text usernames and statuses and such.
 		
 ####Clean up code
->its currently very messy and somewhat unorganized.
+>Fuck yea re-did packet parser, and a new packet debug output.
 
 ####Figure out if its possible to recreate the functionality of youtube bot
 >No it is not, ive tried.

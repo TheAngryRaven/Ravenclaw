@@ -101,24 +101,17 @@ void baseClient::group_admin(string group, string admin, string user, string act
 {
     //TODO: works, just need more details coded
 
-    string op       = "1";
-    string mod      = "2";
-    string silence  = "8";
-    string reset    = "0";
-    string kick     = "16";
-    string ban      = "4";
-
-    if(action == op)
+    if(action == ACTION_ADMIN)
         this->send_message(group, "Congrats!\r\nJust dont power abuse");
-    else if(action == mod)
+    else if(action == ACTION_MOD)
         this->send_message(group, "Aww thats cute\r\nYou think you have power");
-    else if(action == silence)
+    else if(action == ACTION_SILENCE)
         this->send_message(group, "I love duct tape!");
-    else if(action == reset)
+    else if(action == ACTION_RESET)
         this->send_message(group, "Yay they reset you :3");
-    else if(action == kick)
+    else if(action == ACTION_KICK)
         this->send_message(group, "Get told");
-    else if(action == ban)
+    else if(action == ACTION_BAN)
         this->send_message(group, "Here comes the buthurt");
 }
 
@@ -253,6 +246,10 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                         this->group_join(groupName, password);
                     }
                 }
+                else
+                {
+                    this->group_join(this->messagePatcher(data));
+                }
             }
             else
             {
@@ -336,6 +333,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                                         cmdAdmin+"away <message>\r\n"+
                                         cmdAdmin+"secure (also unsecure)\r\n"+
                                         cmdAdmin+"mute (also unmute)"+
+                                        cmdAdmin+"test\r\n"++
                                         cmdAdmin+"loadini"
                                         );
         }
@@ -403,6 +401,10 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                         //join the group
                         this->group_join(groupName, password);
                     }
+                }
+                else
+                {
+                    this->group_join(this->messagePatcher(data));
                 }
             }
             else
@@ -605,7 +607,7 @@ void baseClient::parse_commands(string group, string user, vector<string> data)
                     output.append(" - offline\r\n");
 
                     if(i->second.message != "")
-                        output.append("Message: "+i->second.message+"\r\n\");
+                        output.append("Message: "+i->second.message+"\r\n");
                 }
             }
 
@@ -880,6 +882,10 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
                         this->group_join(groupName, password);
                     }
                 }
+                else
+                {
+                    this->group_join(this->messagePatcher(data));
+                }
             }
             else
             {
@@ -891,7 +897,7 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
             this->send_pm(user, 	"Admin Help\r\n"+
                                     cmdAdmin+"msg <user id> <message>\r\n"+
                                     cmdAdmin+"join [<group name>] <password>\r\n"+
-                                    cmdAdmin+"join <group name>\r\n"+
+                                    cmdAdmin+"leave <group id>\r\n"+
                                     cmdAdmin+"uptime\r\n"
                                     );
         }
@@ -915,6 +921,12 @@ void baseClient::parse_pm(string name, string user, vector<string> data)
     }
 }
 
+//BETA
+//handle response packets
+void baseClient::parseResponse(packet input)
+{
+}
+
 ////////////////////////////////////////////////////////////
 /* Everything Below This Segmet should remain un touched */
 //////////////////////////////////////////////////////////
@@ -923,23 +935,23 @@ void 	baseClient::group_join(string groupName, string password)	{ palGroup->grou
 void	baseClient::group_part(string groupID)						{ palGroup->group_part(groupID); }
 
 //base message handlers
-void 	baseClient::send_message(string group, string message)		{ if(canTalk) palMesg->send_message("1", group, message); }
-void 	baseClient::send_pm(string id, string message) 				{ palMesg->send_message("0", id, message); }
+void 	baseClient::send_message(string group, string message)		{ if(canTalk) palMesg->send_message(TARGET_GROUP, group, message); }
+void 	baseClient::send_pm(string id, string message) 				{ palMesg->send_message(TARGET_PM, id, message); }
 
-void 	baseClient::send_image(string group, string image)		    { palMesg->send_image("1", group, image); }
-void 	baseClient::send_image_pm(string user, string image)		{ palMesg->send_image("0", user, image); }
+void 	baseClient::send_image(string group, string image)		    { palMesg->send_image(TARGET_GROUP, group, image); }
+void 	baseClient::send_image_pm(string user, string image)		{ palMesg->send_image(TARGET_PM, user, image); }
 
 //function to send test packet
 //packet can be edited in palringoPacket.cpp under ::debug
-void    baseClient::send_debug(string to)                           { palMesg->send_debug("1", to); }
+void    baseClient::send_debug(string to)                           { palMesg->send_debug(TARGET_GROUP, to); }
 
 //base admin functions
-void	baseClient::admin_admin  (string groupID, string userID)	{ palGroup->admin("1", groupID, userID); }
-void	baseClient::admin_mod    (string groupID, string userID)	{ palGroup->admin("2", groupID, userID); }
-void	baseClient::admin_silence(string groupID, string userID)	{ palGroup->admin("8", groupID, userID); }
-void	baseClient::admin_reset  (string groupID, string userID)	{ palGroup->admin("0", groupID, userID); }
-void	baseClient::admin_kick   (string groupID, string userID)	{ palGroup->admin("16", groupID, userID); }
-void	baseClient::admin_ban    (string groupID, string userID)	{ palGroup->admin("4", groupID, userID); }
+void	baseClient::admin_admin  (string groupID, string userID)	{ palGroup->admin(ACTION_ADMIN, groupID, userID); }
+void	baseClient::admin_mod    (string groupID, string userID)	{ palGroup->admin(ACTION_MOD, groupID, userID); }
+void	baseClient::admin_silence(string groupID, string userID)	{ palGroup->admin(ACTION_SILENCE, groupID, userID); }
+void	baseClient::admin_reset  (string groupID, string userID)	{ palGroup->admin(ACTION_RESET, groupID, userID); }
+void	baseClient::admin_kick   (string groupID, string userID)	{ palGroup->admin(ACTION_KICK, groupID, userID); }
+void	baseClient::admin_ban    (string groupID, string userID)	{ palGroup->admin(ACTION_BAN, groupID, userID); }
 
 //sets pointers
 void	baseClient::set_palMesg(palringoMessage *mesg)				{ palMesg = mesg; }

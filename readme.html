@@ -400,363 +400,426 @@
 </head>
 
 <body>
-	<h1>Creator</h1>
+<h1>Creator</h1>
 
-	<p>Raven (ID: 25909767 | 512388) <br />
-	Can be found in <a href="http://www.palringo.com/en/us/groups/uncategorized/furry-2676">[furry]</a></p>
+<p>Raven (ID: 25909767 | 512388) <br />
+Can be found in <a href="http://www.palringo.com/en/us/groups/uncategorized/furry-2676">[furry]</a></p>
 
-	<hr />
+<hr />
 
-	<h2>Licenses</h2>
+<h2>Licenses</h2>
 
-	<p>RavenClaw: <a href="http://opensource.org/licenses/GPL-3.0">http://opensource.org/licenses/GPL-3.0</a></p>
+<p>RavenClaw: <a href="http://opensource.org/licenses/GPL-3.0">http://opensource.org/licenses/GPL-3.0</a></p>
 
-	<p>Cryptopp: <a href="http://www.boost.org/users/license.html">http://www.boost.org/users/license.html</a></p>
+<p>Cryptopp: <a href="http://www.boost.org/users/license.html">http://www.boost.org/users/license.html</a></p>
 
-	<p>IniReader: <a href="http://opensource.org/licenses/BSD-3-Clause">http://opensource.org/licenses/BSD-3-Clause</a></p>
+<p>IniReader: <a href="http://opensource.org/licenses/BSD-3-Clause">http://opensource.org/licenses/BSD-3-Clause</a></p>
 
-	<hr />
+<hr />
 
-	<h2>Description</h2>
+<h2>Description</h2>
 
-	<p>A C++ bot base for palringo. Designed for <strong>Windows</strong> It has a handful of basic chat commands and core features. </p>
+<p>A C++ bot base for palringo. Designed for <strong>Windows</strong> It has a handful of basic chat commands and core features. </p>
 
-	<p>A library called crypto++ is required for the bot to function, you can find it in the downloads section.  </p>
+<p>A library called crypto++ is required for the bot to function, you can find it in the downloads section.  </p>
 
-	<p>Bot is now staying publicly open source, because I feel like it. Be aware it is missing a couple of key features, so start your own fork and help me out!</p>
+<p>Bot is now staying publicly open source, because I feel like it. Be aware it is missing a couple of key features, so start your own fork and help me out!</p>
 
-	<h4>Missing Core Features</h4>
+<h4>Missing Core Features</h4>
 
-	<ul>
-	<li><p>Sub Profile Decryption</p>
+<ul>
+<li><p>Sub Profile Decryption</p>
 
-	<blockquote>
-	  <p>This is the packet sent from palringo telling us things like <strong>display names</strong> and <strong>users status messages</strong> along with <strong>users in a group</strong>.</p>
-	</blockquote></li>
-	<li><p>Group Update Parsing</p>
+<blockquote>
+  <p>This is the packet sent from palringo telling us things like <strong>display names</strong> and <strong>users status messages</strong> along with <strong>users in a group</strong>.</p>
+</blockquote></li>
+<li><p>Group Update Parsing</p>
 
-	<blockquote>
-	  <p>We have a function that activates on group update, but haven't quite gotten around to figuring out what data is where in the payload, its oddly serialized.</p>
-	</blockquote></li>
-	</ul>
+<blockquote>
+  <p>We have a function that activates on group update, but haven't quite gotten around to figuring out what data is where in the payload, its oddly serialized.</p>
+</blockquote></li>
+</ul>
 
-	<hr />
+<hr />
 
-	<h2>Compile Help</h2>
+<h2>Compile Help</h2>
 
-	<h4>Enviroment</h4>
+<h4>Enviroment</h4>
 
-	<blockquote>
-	  <p>I use <a href="http://www.codeblocks.org/"><strong>Code::Blocks</strong></a> with the version of mingw that comes with it</p>
-	</blockquote>
+<blockquote>
+  <p>I use <a href="http://www.codeblocks.org/"><strong>Code::Blocks</strong></a> with the version of mingw that comes with it</p>
+</blockquote>
 
-	<h4>Compiling CryptoPP</h4>
+<h4>Compiling CryptoPP</h4>
 
-	<blockquote>
-	  <p>In the downloads section of the repo you can find a copy of cryptopp i have slightly tweaked to compile with mingw using various internet sources.</p>
-	  
-	  <p>I've included a precompiled version of cryptopp which you can use, simply open up the folder where <strong>Code::Blocks</strong> is installed, typically <strong>C:\Program Files\CodeBlocks\</strong>, now inside of that folder you will see a folder called <strong>Mingw</strong>, simply copy the <strong>include</strong> and <strong>lib</strong> folder from the archive i've supplied in the downloads section to that folder, it will ask if you want to merger or copy over click yes, you will not be overwritting anything. <br />
-	  <strong>In Theory</strong> you do not need to recompile cryptopp, if you do here are the basic instructions. </p>
-	  
-	  <ul>
-	  <li>Setup the mingw/bin/ folder to be part of your system path <a href="http://www.computerhope.com/issues/ch000549.htm">How To</a></li>
-	  <li>Copy the <strong>cryptopp</strong> folder from the root of the archive somewhere to your computer</li>
-	  <li><strong>DELETE</strong> the <strong>include</strong> and <strong>lib</strong> folders</li>
-	  <li>Open the folder in an instance of the windows command prompt</li>
-	  <li>Run the command <code>mingw32-make</code> and wait for it to compile you <em>shouldn't</em> receive any errors (it takes a while)</li>
-	  <li>Run the command (can copy and paste) <code>mkdir include&amp;mkdir include\cryptopp&amp;mkdir lib</code> to create the folders to stick the binaries in</li>
-	  <li>Run the command <code>copy *.h include\cryptopp&amp;copy *.a lib</code> this copies the headers needed for <strong>Code::Blocks</strong> and the libary to link against</li>
-	  <li>Now as directed before copy the <em>include</em> and <em>lib</em> folders to the mingw path in your <strong>Code::Blocks</strong> install path</li>
-	  </ul>
-	</blockquote>
+<blockquote>
+  <p>In the downloads section of the repo you can find a copy of cryptopp i have slightly tweaked to compile with mingw using various internet sources.</p>
+  
+  <p>I've included a precompiled version of cryptopp which you can use, simply open up the folder where <strong>Code::Blocks</strong> is installed, typically <strong>C:\Program Files\CodeBlocks\</strong>, now inside of that folder you will see a folder called <strong>Mingw</strong>, simply copy the <strong>include</strong> and <strong>lib</strong> folder from the archive i've supplied in the downloads section to that folder, it will ask if you want to merger or copy over click yes, you will not be overwritting anything. <br />
+  <strong>In Theory</strong> you do not need to recompile cryptopp, if you do here are the basic instructions. </p>
+  
+  <ul>
+  <li>Setup the mingw/bin/ folder to be part of your system path <a href="http://www.computerhope.com/issues/ch000549.htm">How To</a></li>
+  <li>Copy the <strong>cryptopp</strong> folder from the root of the archive somewhere to your computer</li>
+  <li><strong>DELETE</strong> the <strong>include</strong> and <strong>lib</strong> folders</li>
+  <li>Open the folder in an instance of the windows command prompt</li>
+  <li>Run the command <code>mingw32-make</code> and wait for it to compile you <em>shouldn't</em> receive any errors (it takes a while)</li>
+  <li>Run the command (can copy and paste) <code>mkdir include&amp;mkdir include\cryptopp&amp;mkdir lib</code> to create the folders to stick the binaries in</li>
+  <li>Run the command <code>copy *.h include\cryptopp&amp;copy *.a lib</code> this copies the headers needed for <strong>Code::Blocks</strong> and the libary to link against</li>
+  <li>Now as directed before copy the <em>include</em> and <em>lib</em> folders to the mingw path in your <strong>Code::Blocks</strong> install path</li>
+  </ul>
+</blockquote>
 
-	<h4>Setting up:</h4>
+<h4>Setting up:</h4>
 
-	<blockquote>
-	  <p>Before you can just simply compile the bot, you need to set a few things up. <br />
-	  In <strong>Code::Blocks</strong> go to <strong>settings->compiler</strong> now click on the <strong>linker settings</strong> tab and add both <strong>libws2_32.a</strong> and <strong>libcryptopp.a</strong> from <strong>codeblocks\mingw\lib</strong></p>
-	  
-	  <p>Now in theory, you are ready to build the bot, have fun!</p>
-	</blockquote>
+<blockquote>
+  <p>Before you can just simply compile the bot, you need to set a few things up. <br />
+  In <strong>Code::Blocks</strong> go to <strong>settings->compiler</strong> now click on the <strong>linker settings</strong> tab and add both <strong>libws2_32.a</strong> and <strong>libcryptopp.a</strong> from <strong>codeblocks\mingw\lib</strong></p>
+  
+  <p>Now in theory, you are ready to build the bot, have fun!</p>
+</blockquote>
 
-	<hr />
+<hr />
 
-	<h2>Program Notes:</h2>
+<h2>Program Notes:</h2>
 
-	<h4>Setting login details and such</h4>
+<h4>Setting login details and such</h4>
 
-	<blockquote>
-	  <p>The bot can now load details from an INI file, apon starting the bot a basic INI <strong>that you need to edit yourself</strong> (any text editor will do) will be generated called <strong>example.ini</strong> if you do not supply one in the commandline. Along with a super basic <strong>runBot.bat</strong> batch script, which simply contains <code>ravenclaw.exe exampli.ini</code>.  </p>
-	  
-	  <p>See the below example for the input the ini excepts.</p>
-	</blockquote>
+<blockquote>
+  <p>The bot can now load details from an INI file, apon starting the bot a basic INI <strong>that you need to edit yourself</strong> (any text editor will do) will be generated called <strong>example.ini</strong> if you do not supply one in the commandline. Along with a super basic <strong>runBot.bat</strong> batch script, which simply contains <code>ravenclaw.exe exampli.ini</code>.  </p>
+  
+  <p>See the below example for the input the ini excepts.</p>
+  
+  <p>Awww man whats that? New features? Bet your damn ass. <br />
+  Bot can now have admins, based on the example it is super easy to add people to the ini file <br />
+  Auto mute/ban will automatically mute/ban the userid's the first time they post a message</p>
+</blockquote>
 
-	<pre><code>[LOGON]
-	email=youremailhere@gmail.com
-	password=yourpassword
+<pre><code>[LOGON]
+email=youremailhere@gmail.com
+password=yourpassword
 
-	[SETTINGS]
-	adminId=yourID
-	adminName=ravey
-	botName=ravenclaw
-	cmdAdmin=#
-	cmdUser=/
-	</code></pre>
+[SETTINGS]
+adminId=yourID
+adminName=ravey
+botName=ravenclaw
+cmdAdmin=#
+cmdUser=/
 
-	<h4>Starting the bot</h4>
+[MODS]
+modAccounts=17779473|2937702
+modNames=nom|andrei
 
-	<blockquote>
-	  <p>Simply run a command in the cmd prompt along the lines of</p>
-	  
-	  <p><code>ravenclaw.exe example.ini</code></p>
-	  
-	  <p>The bot will load the required settings from example.ini, logon and start listening.</p>
-	</blockquote>
+[SECURITY]
+#first two are welcome/autopost bots
+ignore=15145815|10324473|18089645
+autoBan=18089645
+autoMute=18089645
+</code></pre>
 
-	<h4>Misc.cpp</h4>
+<h4>Starting the bot</h4>
 
-	<blockquote>
-	  <p>Inside of misc.cpp (usually refered to as engine) I have created some basic and useful features that can be used project wide. The main reason I did this, was to create a "debug printline" which is toggled with debug in misc.cpp, more core features will be added to this function as time progresses. Even has a super simple int to string function <code>misc::i2s(int number)</code></p>
-	</blockquote>
+<blockquote>
+  <p>Simply run a command in the cmd prompt along the lines of</p>
+  
+  <p><code>ravenclaw.exe example.ini</code></p>
+  
+  <p>The bot will load the required settings from example.ini, logon and start listening.</p>
+</blockquote>
 
-	<hr />
+<h4>Misc.cpp</h4>
 
-	<h3>Libraries Used</h3>
+<blockquote>
+  <p>Inside of misc.cpp (usually refered to as engine) I have created some basic and useful features that can be used project wide. The main reason I did this, was to create a "debug printline" which is toggled with debug in misc.cpp, more core features will be added to this function as time progresses. Even has a super simple int to string function <code>misc::i2s(int number)</code></p>
+</blockquote>
 
-	<h4>libws2_32.a</h4>
+<hr />
 
-	<blockquote>
-	  <p>For the base socket connector <br />
-	  Included with most IDEs, its a basic windows lib just link against it in the project.</p>
-	</blockquote>
+<h3>Libraries Used</h3>
 
-	<h4>libcryptopp.a ver5.61</h4>
+<h4>libws2_32.a</h4>
 
-	<blockquote>
-	  <p>For Salsa20/MD5/Hex methods <br />
-	  Taken from <a href="http://www.cryptopp.com/">Cryptopp 5.61</a></p>
-	</blockquote>
-
-	<h4>INIReader version 27</h4>
-
-	<blockquote>
-	  <p>Super basic ini parser under the BSD license, more of an include than a library. <br />
-	  The source files are included in the project and require no action from you, but you can find the originals here <a href="http://code.google.com/p/inih/">Google Code inih</a> if you care to have them.</p>
-	</blockquote>
-
-	<hr />
-
-	<h2>Core Features</h2>
-
-	<h4>Basic chat listening</h4>
-
-	<blockquote>
-	  <p>Can listen for keywords in the chat and respond, and do various actions.</p>
-	  
-	  <p>Currently can listen for <strong>phrases</strong> and <strong>keywords</strong> anywhere in a message, along with seeing <strong>#hashtags</strong> at the end of a message.</p>
-	</blockquote>
-
-	<h4>PM Responses</h4>
-
-	<blockquote>
-	  <p>When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.</p>
-	  
-	  <p>Now has a dedicated function for parsing private message in <strong>baseClient::parse_pm()</strong>.</p>
-	</blockquote>
-
-	<h4>Image Sending - <em>NEW</em></h4>
-
-	<blockquote>
-	  <p>You can now send images inside of <code>baseClient::</code> and it's super simple! Second simply call <code>this-&gt;send_image("groupID", "filepath\test.jpg");</code> or <code>this-&gt;send_image_pm("userID", "filepath\test.jpg");</code> and away the image goes.</p>
-	</blockquote>
-
-	<h4>Full admin functions</h4>
-
-	<blockquote>
-	  <p>If given elevated premissions can mod/mute/ban etc. </p>
-	</blockquote>
-
-	<h4>Admin triggers</h4>
-
-	<blockquote>
-	  <p><code>baseClient::group_admin()</code> gets triggered when any admin function is used in a group.</p>
-	</blockquote>
-
-	<h4>Group join/leave trigger - <em>BETA</em></h4>
-
-	<blockquote>
-	  <p><code>baseClient::group_update()</code> gets triggered when anyone joins or leaves a group BUT cannot currently tell who or where.</p>
-	</blockquote>
-
-	<h4>Bot Admin status</h4>
-
-	<blockquote>
-	  <p>Default status is offline, when the bot sees that the bot-admin has typed a message in a group the bot is in it sets the admins status to online.</p>
-	  
-	  <p>Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.
-	  This is not a hard coded feature, just a neat one I like.</p>
-	</blockquote>
-
-	<hr />
-
-	<h2>List of simple chat commands</h2>
-
-	<blockquote>
-	  <p>All of the featured are simply in <code>baseClient::parse_commands()</code>, nothing is hard coded and can be changed without breaking anything. It is mostly here as an example how ive acomplished some neat little tricks. <strong>Do not</strong> use the less/greator than signs, they are simply there to show you the arguments for the function.</p>
-	  
-	  <p><strong>Example:</strong> If the command is <code>/google &lt;query&gt;</code> you call the function with <code>/google icecream party</code>.</p>
-	</blockquote>
-
-	<h4>Admin Commands</h4>
-
-	<blockquote>
-	  <p>Only the bot admin can use these commands.</p>
-	  
-	  <p><strong>#help</strong> <br />
-	  Tells you the available commands, this isn't dynamic if you add more functions be sure to add it to the code.</p>
-	  
-	  <p><strong>#leave</strong> <br />
-	  Makes the bot leave the group you posted the message in.</p>
-	  
-	  <p><strong>#join [<em>&#60;group name>]</em> <em>&#60;password></em></strong>  - <em>UPDATED</em> <br />
-	  Tells the bot to join whatever group name you want, this function has been updated to support passwords.
-	  Using passwords is rather simple, to join a group with no password simply <code>#join [group name]</code> to join with a password <code>#join [group name] password</code>. Brackets <strong>ARE</strong> now required for the group name.</p>
-	  
-	  <p><strong>#msg <em>&#60;user id></em> <em>&#60;message></em></strong> <br />
-	  The bot will PM the user with the supplied <strong>USER ID</strong> with the supplied message.</p>
-	  
-	  <p><strong>#away <em>&#60;message></em></strong> <br />
-	  Sets the bot admin to away with an <strong>OPTIONAL</strong> message, if <em>anyone</em> mentions the admins name in chat, the bot will tell the group if the admin is online or not.</p>
-	  
-	  <p><strong>#secure</strong> (also unsecure) <br />
-	  Default state is <strong>ON</strong> usefull to program various functions like the included <em>group name checker</em> found in <code>baseClient::parseCommands()</code>, the function checks if someone posted a link to a group and will scilence them.</p>
-	  
-	  <p><strong>#mute</strong> (also unmute) <br />
-	  Default state is <strong>OFF</strong> bot will still do admin commands in code, but will not post messages to the group, useful if someone keeps triggering the <em>potty mouth</em>* function.</p>
-	  
-	  <p><strong>#check</strong> <br />
-	  The bot will post a little message letting you know that it's online even if its set to mute.</p>
-	</blockquote>
-
-	<h4>Admin PM Commands</h4>
-
-	<blockquote>
-	  <p>Work similar to the regular admin commands except they are triggered when you PM the bot.They are called from <code>baseClient::parse_pm()</code>.  </p>
-	  
-	  <p><strong>#help</strong> <br />
-	  Tells you the available PM commands</p>
-	  
-	  <p><strong>#msg &#60;user id> &#60;message></strong> <br />
-	  The bot will PM the user with the supplied <strong>USER ID</strong> with the supplied message.</p>
-	  
-	  <p><strong>#leave &#60;group id></strong> <br />
-	  Makes the bot leave the requested group, <strong>NOTE:</strong> supply the group <strong>ID</strong> not <strong>NAME</strong></p>
-	  
-	  <p><strong>#join &#60;group name></strong> <br />
-	  Makes the bot join the requested group name.</p>
-	  
-	  <p><strong>#uptime</strong> <br />
-	  Sends you a message displaying the bots uptime in a fashion as such <code>0d 20h 3m 28s</code>.</p>
-	</blockquote>
-
-	<h4>User Commands</h4>
-
-	<blockquote>
-	  <p>Anyone in the group the bot is in can use these commands.</p>
-	  
-	  <p><strong>/help</strong> <br />
-	  Tells everyone the available commands.</p>
-	  
-	  <p><strong>/google &#60;query></strong> <br />
-	  Put simply posts a google search url, doesn't post results to chat.</p>
-	  
-	  <p><strong>/youtube &#60;query></strong> <br />
-	  Put simply posts a youtube search url, doesn't post results to chat.</p>
-	  
-	  <p><strong>/credits</strong> <br />
-	  Posts a little message to chat telling people who helped me get the bot going.</p>
-	  
-	  <p><strong>/admin</strong> <br />
-	  Tells the group who the admin is and if they are online, if they are offline and the admin has set an away message, displays that message.</p>
-	  
-	  <p><strong>/uptime</strong> <br />
-	  Posts how long the bot has been running.</p>
-	  
-	  <p><strong>/dice &#60;coin,6,8,10,12 or 20></strong> <br />
-	  Very basic random number generator, posts results to group.</p>
-	  
-	  <p><strong>/website</strong> <br />
-	  Posts a link to the BitBucket Repo for ravenclaw.</p>
-	</blockquote>
-
-	<hr />
-
-	<h3>Other Features</h3>
-
-	<blockquote>
-	  <p>These are simple features that trigger with certain messages.</p>
-	</blockquote>
-
-	<h4>Crude AI</h4>
-
-	<blockquote>
-	  <p>Simply using <code>botname phrase</code> can trigger cute little responses from the bot. I've only given ravenclaw a couple "AI" triggers, its just a giant if statement, its super easy to add your own.</p>
-	  
-	  <p><strong>Example:</strong> saying <code>ravenclaw how are you?</code> would trigger the bot to respond <code>I'm good thanks for asking!</code>.</p>
-	</blockquote>
-
-	<h4>Filters</h4>
-
-	<blockquote>
-	  <p>In the else statement in <code>baseClient::parse_commands()</code> commented with <code>/* filters */</code> are various ways to call various types of message <em>"searching"</em>. Explaining all the current triggers can make this readme EVEN MORE lengthy so ive decided not to do that, but instead describe the types of triggers I have coded, and a single example. All triggers are simply if statements and it takes seconds to add your own.</p>
-	  
-	  <p><strong>Phrases</strong> <br />
-	  if the message is the phrase and ONLY the phrase, the event triggers. <br />
-	  Example phrase is: <code>bye guys</code> triggers the bot to post <code>/me waves goodbye</code></p>
-	  
-	  <p><strong>Word Filters</strong> <br />
-	  If a users post contains the word <strong>ANYWHERE</strong> in the message, the event triggers. <br />
-	  Example: <code>shit</code> and some other curse words trigger the bot to call them a potty mouth.</p>
-	  
-	  <p><strong>Internal Phrase Triggers</strong> <br />
-	  The example ive put in the code is the <code>call of duty</code> trigger, slightly complicated code wise but not hard to wrap your head around, these trigger if the phrase is <strong>ANYWHERE</strong> in the users message.</p>
-	  
-	  <p><strong>HashTags</strong> <br />
-	  If someone uses a hashtag phrase <strong>IE:</strong> <code>#yolo</code> at the end of a message, this triggers the bot to post a very silly message about the use of yolo.</p>
-	</blockquote>
-
-	<hr />
-
-	<h3>TODO</h3>
-
-	<h4>Fix group join / leave events</h4>
-
-	<blockquote>
-	  <p>Figure out how to decode the packet telling me information like what group and who left/joined.</p>
-	</blockquote>
-
-	<h4>Sub Profile Reading</h4>
-
-	<blockquote>
-	  <p>this handles all the text usernames and statuses and such.</p>
-	</blockquote>
-
-	<h4>Clean up code</h4>
-
-	<blockquote>
-	  <p>its currently very messy and somewhat unorganized.</p>
-	</blockquote>
-
-	<h4>Figure out if its possible to recreate the functionality of youtube bot</h4>
-
-	<blockquote>
-	  <p>No it is not, ive tried.</p>
-	</blockquote>
-
-	<h4>Make the bot scripted</h4>
-
-	<blockquote>
-	  <p>No one wants to recompile the bot, the goal is once the base is nailed out and polished, impiliment python or another scripting language as a frontend, and keep RavenClaw as a backend, that only needs to be compiled for new features and bugs.</p>
-	</blockquote>
+<blockquote>
+  <p>For the base socket connector <br />
+  Included with most IDEs, its a basic windows lib just link against it in the project.</p>
+</blockquote>
+
+<h4>libcryptopp.a ver5.61</h4>
+
+<blockquote>
+  <p>For Salsa20/MD5/Hex methods <br />
+  Taken from <a href="http://www.cryptopp.com/">Cryptopp 5.61</a></p>
+</blockquote>
+
+<h4>INIReader version 27</h4>
+
+<blockquote>
+  <p>Super basic ini parser under the BSD license, more of an include than a library. <br />
+  The source files are included in the project and require no action from you, but you can find the originals here <a href="http://code.google.com/p/inih/">Google Code inih</a> if you care to have them.</p>
+</blockquote>
+
+<hr />
+
+<h2>Core Features</h2>
+
+<h4>Basic chat listening</h4>
+
+<blockquote>
+  <p>Can listen for keywords in the chat and respond, and do various actions.</p>
+  
+  <p>Currently can listen for <strong>phrases</strong> and <strong>keywords</strong> anywhere in a message, along with seeing <strong>#hashtags</strong> at the end of a message.</p>
+</blockquote>
+
+<h4>PM Responses</h4>
+
+<blockquote>
+  <p>When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.</p>
+  
+  <p>Now has a dedicated function for parsing private message in <strong>baseClient::parse_pm()</strong>.</p>
+</blockquote>
+
+<h4>Image Sending</h4>
+
+<blockquote>
+  <p>You can now send images inside of <code>baseClient::</code> and it's super simple! Second simply call <code>this-&gt;send_image("groupID", "filepath\test.jpg");</code> or <code>this-&gt;send_image_pm("userID", "filepath\test.jpg");</code> and away the image goes.</p>
+</blockquote>
+
+<h4>Full admin functions</h4>
+
+<blockquote>
+  <p>If given elevated premissions can mod/mute/ban etc. </p>
+</blockquote>
+
+<h4>Admin triggers</h4>
+
+<blockquote>
+  <p><code>baseClient::group_admin()</code> gets triggered when any admin function is used in a group.</p>
+</blockquote>
+
+<h4>Group join/leave trigger - <em>BETA</em></h4>
+
+<blockquote>
+  <p><code>baseClient::group_update()</code> gets triggered when anyone joins or leaves a group BUT cannot currently tell who or where.</p>
+</blockquote>
+
+<h4>Bot Admin status</h4>
+
+<blockquote>
+  <p>Default status is offline, when the bot sees that the bot-admin has typed a message in a group the bot is in it sets the admins status to online.</p>
+</blockquote>
+
+<h4>Find Mod/Admins</h4>
+
+<blockquote>
+  <p>Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.
+  This is not a hard coded feature, just a neat one I like. Also now works for mods.</p>
+</blockquote>
+
+<h4>Bot Mod status - <em>NEW</em></h4>
+
+<blockquote>
+  <p>Default status is offline, when the bot sees that a bot-mod has typed a message in a group the bot is in it sets the mods status to online.</p>
+</blockquote>
+
+<h4>Bot Mods - <em>NEW</em></h4>
+
+<blockquote>
+  <p>As shown in the example ini above you can now have bot mods, there is a new if loop in <strong>baseClient::parse_commands()</strong> you can even load new mods without restarting the bot, just add them to the ini and run the command <code>#loadini</code> and boom, mods/auto lists now updated!</p>
+</blockquote>
+
+<h4>Auto ban/mute - <em>NEW/BETA</em></h4>
+
+<blockquote>
+  <p>Not exactly where I want it yet, but that will come with sub profile parsing. If a user is on the ban/mute list the first time they post a message they will be muted/banned.</p>
+</blockquote>
+
+<h4>Ignore - <em>NEW</em></h4>
+
+<blockquote>
+  <p>If a user is on the ignore list the bot simply ignores <strong>ANY</strong> post they make. Helpfull for those abusing the bot.</p>
+</blockquote>
+
+<h4>Server Responses - <em>NEW/BETA</em></h4>
+
+<blockquote>
+  <p>Currently doesnt work, is only triggered in <strong>baseClient::parseResponse()</strong> will soon be able to listen for all sorts of server responses and hopefully advert all errors if they occur.</p>
+</blockquote>
+
+<hr />
+
+<h2>List of simple chat commands</h2>
+
+<blockquote>
+  <p>All of the featured are simply in <code>baseClient::parse_commands()</code>, nothing is hard coded and can be changed without breaking anything. It is mostly here as an example how ive acomplished some neat little tricks. <strong>Do not</strong> use the less/greator than signs, they are simply there to show you the arguments for the function.</p>
+  
+  <p><strong>Example:</strong> If the command is <code>/google &lt;query&gt;</code> you call the function with <code>/google icecream party</code>.</p>
+</blockquote>
+
+<h4>Admin Commands</h4>
+
+<blockquote>
+  <p>Only the bot admin can use these commands.</p>
+  
+  <p><strong>#help</strong> <br />
+  Tells you the available commands, this isn't dynamic if you add more functions be sure to add it to the code.</p>
+  
+  <p><strong>#leave</strong> <br />
+  Makes the bot leave the group you posted the message in.</p>
+  
+  <p><strong>#join [&lt; group name >] &lt; password ><em></strong>  - *UPDATED</em> <br />
+  Tells the bot to join whatever group name you want, this function has been updated to support passwords.
+  Using passwords is rather simple, to join a group with no password simply <code>#join [group name]</code> to join with a password <code>#join [group name] password</code>. Brackets are now <strong>ONLY required</strong> for the group name, if you do not want to supply a password.</p>
+  
+  <p><strong>#msg &lt; user id > &lt; message ></strong> <br />
+  The bot will PM the user with the supplied <strong>USER ID</strong> with the supplied message.</p>
+  
+  <p><strong>#away &lt; message ></strong> <br />
+  Sets the bot admin to away with an <strong>OPTIONAL</strong> message, if <em>anyone</em> mentions the admins name in chat, the bot will tell the group if the admin is online or not.</p>
+  
+  <p><strong>#secure</strong> (also unsecure) <br />
+  Default state is <strong>ON</strong> usefull to program various functions like the included <em>group name checker</em> found in <code>baseClient::parseCommands()</code>, the function checks if someone posted a link to a group and will scilence them.</p>
+  
+  <p><strong>#mute</strong> (also unmute) <br />
+  Default state is <strong>OFF</strong> bot will still do admin commands in code, but will not post messages to the group, useful if someone keeps triggering the <em>potty mouth</em>* function.</p>
+  
+  <p><strong>#check</strong> <br />
+  The bot will post a little message letting you know that it's online even if its set to mute.</p>
+  
+  <p><strong>#test</strong> (new) <br />
+  There is a new packet in <strong>palringo::packet</strong> designed to fill up with whatever data you please, and send to the palringo servers. This command is what triggers the sending of the command.</p>
+  
+  <p><strong>#loadini</strong> (new) <br />
+  Reloads the bot's ini file to update ignore/mod/auto lists. It also spits out the output of the reload.</p>
+</blockquote>
+
+<h4>Admin PM Commands</h4>
+
+<blockquote>
+  <p>Work similar to the regular admin commands except they are triggered when you PM the bot.They are called from <code>baseClient::parse_pm()</code>.  </p>
+  
+  <p><strong>#help</strong> <br />
+  Tells you the available PM commands</p>
+  
+  <p><strong>#msg &lt; user id > &lt; message ></strong> <br />
+  The bot will PM the user with the supplied <strong>USER ID</strong> with the supplied message.</p>
+  
+  <p><strong>#leave &lt; group id ></strong> <br />
+  Makes the bot leave the requested group, <strong>NOTE:</strong> supply the group <strong>ID</strong> not <strong>NAME</strong></p>
+  
+  <p><strong>#join &lt; group name ></strong> <br />
+  Makes the bot join the requested group name.</p>
+  
+  <p><strong>#uptime</strong> <br />
+  Sends you a message displaying the bots uptime in a fashion as such <code>0d 20h 3m 28s</code>.</p>
+</blockquote>
+
+<h4>Mod Commands</h4>
+
+<blockquote>
+  <p>Mods are currently programed to use all admin commands except for <strong>Secure, test and loadini</strong>. They currently can also use the PM commands.</p>
+</blockquote>
+
+<h4>User Commands</h4>
+
+<blockquote>
+  <p>Anyone in the group the bot is in can use these commands.</p>
+  
+  <p><strong>/help</strong> <br />
+  Tells everyone the available commands.</p>
+  
+  <p><strong>/google &lt; query ></strong> <br />
+  Put simply posts a google search url, doesn't post results to chat.</p>
+  
+  <p><strong>/youtube &lt; query ></strong> <br />
+  Put simply posts a youtube search url, doesn't post results to chat.</p>
+  
+  <p><strong>/credits</strong> <br />
+  Posts a little message to chat telling people who helped me get the bot going.</p>
+  
+  <p><strong>/admin</strong> <br />
+  Tells the group who the admin is and if they are online, if they are offline and the admin has set an away message, displays that message.</p>
+  
+  <p><strong>/mods</strong> (new) <br />
+  Tells the group who all the assigned mods are and if they are online or not.</p>
+  
+  <p><strong>/uptime</strong> <br />
+  Posts how long the bot has been running.</p>
+  
+  <p><strong>/dice &lt; coin,6,8,10,12 or 20 ></strong> <br />
+  Very basic random number generator, posts results to group.</p>
+  
+  <p><strong>/website</strong> <br />
+  Posts a link to the BitBucket Repo for ravenclaw.</p>
+</blockquote>
+
+<hr />
+
+<h3>Other Features</h3>
+
+<blockquote>
+  <p>These are simple features that trigger with certain messages.</p>
+</blockquote>
+
+<h4>Crude AI</h4>
+
+<blockquote>
+  <p>Simply using <code>botname phrase</code> can trigger cute little responses from the bot. I've only given ravenclaw a couple "AI" triggers, its just a giant if statement, its super easy to add your own.</p>
+  
+  <p><strong>Example:</strong> saying <code>ravenclaw how are you?</code> would trigger the bot to respond <code>I'm good thanks for asking!</code>.</p>
+</blockquote>
+
+<h4>Filters</h4>
+
+<blockquote>
+  <p>In the else statement in <code>baseClient::parse_commands()</code> commented with <code>/* filters */</code> are various ways to call various types of message <em>"searching"</em>. Explaining all the current triggers can make this readme EVEN MORE lengthy so ive decided not to do that, but instead describe the types of triggers I have coded, and a single example. All triggers are simply if statements and it takes seconds to add your own.</p>
+  
+  <p><strong>Phrases</strong> <br />
+  if the message is the phrase and ONLY the phrase, the event triggers. <br />
+  Example phrase is: <code>bye guys</code> triggers the bot to post <code>/me waves goodbye</code></p>
+  
+  <p><strong>Word Filters</strong> <br />
+  If a users post contains the word <strong>ANYWHERE</strong> in the message, the event triggers. <br />
+  Example: <code>shit</code> and some other curse words trigger the bot to call them a potty mouth.</p>
+  
+  <p><strong>Internal Phrase Triggers</strong> <br />
+  The example ive put in the code is the <code>call of duty</code> trigger, slightly complicated code wise but not hard to wrap your head around, these trigger if the phrase is <strong>ANYWHERE</strong> in the users message.</p>
+  
+  <p><strong>HashTags</strong> <br />
+  If someone uses a hashtag phrase <strong>IE:</strong> <code>#yolo</code> at the end of a message, this triggers the bot to post a very silly message about the use of yolo.</p>
+</blockquote>
+
+<hr />
+
+<h3>TODO</h3>
+
+<h4>Fix group join / leave events</h4>
+
+<blockquote>
+  <p>Figure out how to decode the packet telling me information like what group and who left/joined.</p>
+</blockquote>
+
+<h4>Sub Profile Reading</h4>
+
+<blockquote>
+  <p>this handles all the text usernames and statuses and such.</p>
+</blockquote>
+
+<h4>Clean up code</h4>
+
+<blockquote>
+  <p>Fuck yea re-did packet parser, and a new packet debug output.</p>
+</blockquote>
+
+<h4>Figure out if its possible to recreate the functionality of youtube bot</h4>
+
+<blockquote>
+  <p>No it is not, ive tried.</p>
+</blockquote>
+
+<h4>Make the bot scripted</h4>
+
+<blockquote>
+  <p>No one wants to recompile the bot, the goal is once the base is nailed out and polished, impiliment python or another scripting language as a frontend, and keep RavenClaw as a backend, that only needs to be compiled for new features and bugs.</p>
+</blockquote>
 </body>
 </html>

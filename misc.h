@@ -29,6 +29,8 @@ using namespace std;
 //project includes
 #include "INIreader.h"
 
+//const string ADMIN = "test";
+
 struct fileDataStruct{
     vector< char > stream;
     long size;

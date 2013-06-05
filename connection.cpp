@@ -110,7 +110,7 @@ DWORD connection::read(void)
 	engine.pl("\nconnection-> Thread Started", 1);
 
 	//setup data values
-	int bufferSize = 128000;
+	int bufferSize = 10240;
 	int bytes_recv = 0;
 	char data_recv[bufferSize];
 
@@ -130,6 +130,7 @@ DWORD connection::read(void)
 			buffer.append(temp_buff.substr(0, temp_buff.size()));
 
 			//engine.pLog(buffer, 0);
+			//palConn->recv_packet(buffer, data_recv);
 			palConn->recv_packet(buffer, data_recv);
 
 

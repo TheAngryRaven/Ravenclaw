@@ -17,12 +17,6 @@ packet::packet()
 	payload = "";
 }
 
-struct packetHeader
-{
-	string key;
-	string value;
-};
-
 string packet::serialize()
 {
 	string output = "";
@@ -67,6 +61,7 @@ string packet::serialize()
 	//and were done
 	return output;
 }
+
 void packet::addHeader(string name, string data)
 {
 	headers[headCnt][0] = name;
@@ -87,10 +82,10 @@ string packet::search_headers(string query)
 		}
 	}
 
-	return "no-header";
+	return NULLHEADER;
 }
 
-void 			packet::addCommand(string data) { command  = data; }\
+void 			packet::addCommand(string data) { command  = data; }
 void 			packet::addPayload(string data) { payload  = data; }
 
 string			packet::getCommand()			{ return command; }
