@@ -21,11 +21,11 @@ void palringoMessage::recv_message(packet data)
 {
  	if(data.search_headers("Content-Type") == "text/plain")
 	{
-		botClient->recv_message(data.search_headers("Target-Id"),data.search_headers("Source-Id"), data.getPayload());
+		botClient->recv_groupMessage(data.search_headers("Target-Id"),data.search_headers("Source-Id"), data.getPayload());
 	}
 	else if(data.search_headers("CONTENT-TYPE") == "text/plain")
 	{
-		botClient->recv_pm(data.search_headers("EMAIL"), data.search_headers("SOURCE-ID"), data.getPayload());
+		botClient->recv_personalMessage(data.search_headers("EMAIL"), data.search_headers("SOURCE-ID"), data.getPayload());
 	}
 }
 

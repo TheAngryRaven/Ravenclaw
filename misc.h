@@ -29,8 +29,6 @@ using namespace std;
 //project includes
 #include "INIreader.h"
 
-//const string ADMIN = "test";
-
 struct fileDataStruct{
     vector< char > stream;
     long size;
@@ -42,19 +40,33 @@ class misc
 {
 	public:
 		misc();
-		void  pause(void);			//pauses application/thread
+		void            pause(void);			//pauses application/thread
 
-        string i2s(int number);     //VERY basic int2string
-		void  pf(string data,		//prints line to end of file
-				 string file = "log.txt");
+        string          i2s(int number);     //VERY basic int2string
+        string          l2s(long number);     //VERY basic long2string
 
-		void  pl(string data,		//prints line to console
-				 int type = 0);
+        //prints line to end of file
+		void            pf(string data,	string file = "log.txt");
+        //prints line to consolke
+		void            pl(string data, int type = 0);
 
-		void 			pLog(string data, int type);//prints packet data to log
-		char*			str2ch(string data);	//input string receive char*
+        //prints packet data to log
+		void 			pLog(string data, int type);
+
+		//input string receive char*
+		char*			str2ch(string data);
+
+		//Splits string based on token character
 		vector<string>	splitStr(string data, char token);
+
+		//reads file to dinary and returns a special struct
 		fileDataStruct  readFile(string fileLocation);
+
+		//Insert hex string reveice calculated value
+		int             hex2Int(string data);
+		int             hexPow(int input, int power);
+
+		bool DEBUG;
 
 	protected:
 	private:

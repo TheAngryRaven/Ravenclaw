@@ -23,8 +23,6 @@
 #include "palringoConnection.h"
 #include "palringoMessage.h"
 
-using namespace std;
-
 class misc;
 class crypt;
 class baseClient;
@@ -37,7 +35,7 @@ class palringoGroup
 		palringoGroup(palringoConnection *client, baseClient *base);
 
 		//when someone joins or leaves
-		void group_update(void);
+		void group_update(packet input);
 
 		//when someone does any kind of admin action
 		void group_admin(packet data);
@@ -51,6 +49,8 @@ class palringoGroup
 
 	protected:
 	private:
+        map<string, string> parseUpdate(string hexPayload);
+
 	    palringoPacket		palPack;
 		palringoConnection	*palConn;
 		baseClient			*botClient;

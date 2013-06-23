@@ -19,7 +19,6 @@
 #include <iostream>
 #include <sstream>
 #include <cstring>
-using namespace std;
 
 //project includes
 #include "misc.h"

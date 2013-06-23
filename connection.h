@@ -16,14 +16,11 @@
 #define CONNECTION_H
 
 //library includes
-#include <windows.h>
 #include <winsock.h>
 #include <iostream>
 #include <fstream>
 #include <cstring>
-
 #include <stdio.h>
-using namespace std;
 
 //function includes
 #include "misc.h"
@@ -44,11 +41,12 @@ class connection
 		void	write(string data);	//writes to socket
 		void	writeBytes(char* data);	//writes to socket
 
+		bool	connected;
+
 	protected:
 	private:
 		misc	engine;
 		crypt	cipher;
-		bool	connected;
 		SOCKET	sock;
 
 		palringoConnection *palConn;

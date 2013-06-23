@@ -44,7 +44,9 @@ int main(int argc, char* argv[])
         iniStream <<    "[LOGON]\r\n"
                         "#your palringo logon details\r\n"
                         "email=example@email.com\r\n"
-                        "password=123456\r\n\r\n"
+                        "password=123456\r\n"
+                        "#SSL yes or no\r\n"
+                        "SSL=no\r\n\r\n"
                         "[SETTINGS]\r\n"
                         "#the user ID of the user in chage of the bot\r\n"
                         "adminId=1234\r\n\n"
@@ -56,6 +58,10 @@ int main(int argc, char* argv[])
                         "cmdAdmin=#\r\n\n"
                         "#the prefix for user bot commands ie: /help or /google\r\n"
                         "cmdUser=/\r\n"
+                        "#Official palringo user created bots require a 'namespace\r\n"
+                        "#if you delete the namespace field the bot will work as normal ie: '#help'"
+                        "#Example: '#rc' help instead of '#help, works for both user and admin commands a secondary namespace is not required'"
+                        "nameSpace=rc\r\n"
                         ;
         iniStream.close();
 
@@ -77,11 +83,12 @@ int main(int argc, char* argv[])
             cout << "Can't load " << iniFile << "\n";
             return 1;
         }
-        //get LOGON details
         map<string, string> botSettings;
 
+        //get LOGON details
         botSettings["username"]     = reader.Get("LOGON", "email", "UNKNOWN");
         botSettings["password"]     = reader.Get("LOGON", "password", "UNKNOWN");
+        botSettings["SSL"]          = reader.Get("LOGON", "SSL", "true");
 
         //get bot settings
         botSettings["botAdmin"]     = reader.Get("SETTINGS", "adminId", "UNKNOWN");
@@ -89,7 +96,11 @@ int main(int argc, char* argv[])
         botSettings["botName"]      = reader.Get("SETTINGS", "botName", "UNKNOWN");
         botSettings["cmdAdmin"]     = reader.Get("SETTINGS", "cmdAdmin", "#");
         botSettings["cmdUser"]      = reader.Get("SETTINGS", "cmdUser", "/");
+        botSettings["nameSpace"]    = reader.Get("SETTINGS", "nameSpace", "UNKNOWN");
+
+        //Get the location of the bots ini file
         botSettings["iniFile"]      = iniFile;
+
 
         if(botSettings["username"]      == "UNKNOWN" ||
            botSettings["password"]      == "UNKNOWN" ||

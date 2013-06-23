@@ -16,11 +16,8 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
 
-#include <windows.h>
 #include <iostream>
 #include <fstream>
-
-using namespace std;
 
 //project includes
 #include "misc.h"

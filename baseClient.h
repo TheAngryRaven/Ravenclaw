@@ -30,8 +30,6 @@
 #include "palringoGroup.h"
 #include "definitions.h"
 
-using namespace std;
-
 struct botMod{
     string id;
     string name;
@@ -49,11 +47,11 @@ class baseClient
 		baseClient(map<string, string> botSettings);
 
 		//The following 4 functions are called from palringoConnection when needed
-		void recv_message(string group, string user, string message);
-		void recv_pm(string name, string user, string message);
+		void recv_groupMessage(string group, string user, string message);
+		void recv_personalMessage(string name, string user, string message);
 
 		//group update and admin actions also dont touch
-		void group_update(void);
+		void group_update(map<string, string> updatePacket);
 		void group_admin(string group, string admin, string user, string action);
 
 		//these functions should not be touched
@@ -88,16 +86,15 @@ class baseClient
 		void admin_ban(string groupID, string userID);
 
 		//"working" functions
-		void    parse_commands(string group, string user, vector<string> data);
-		void    parse_pm(string name, string user, vector<string> data);
-		string  messagePatcher(vector<string> message, string patch = " ", int start = 1);
+		void    parse_groupMessage(string group, string user, vector<string> data);
+		void    parse_personalMessage(string name, string user, vector<string> data);
+		string  messagePatcher(vector<string> message, string patch = " ", int start = 2);
 
-		//beta features
 		void    reloadIni(string group = "");
 
 	private:
 		string	username, password, botAdmin, botName, adminName, adminMessage;
-		string  cmdAdmin, cmdBase;
+		string  cmdAdmin, cmdBase, nameSpace;
 		bool	canTalk, adminOnline, security;
 		time_t  startTime;
 		misc	engine;
@@ -106,8 +103,8 @@ class baseClient
 		palringoMessage *palMesg;
 		palringoGroup 	*palGroup;
 
-		//beta features
 		string iniFile;
+		int patchStart;
 
 		map<string, botMod> botMods;
 		bool isMod(string userid);
@@ -121,6 +118,11 @@ class baseClient
 
 		vector<string> banList;
 		bool shouldBan(string userid);
+
+		//Beta Features
+		unsigned long   messagesReceived;
+		unsigned long   messagesSent;
+		bool            debug;
 };
 
 #endif // BASECLIENT_H

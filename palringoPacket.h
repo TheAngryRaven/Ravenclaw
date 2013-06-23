@@ -18,9 +18,6 @@
 //librarys
 #include <iostream>
 #include <cstring>
-#include <windows.h>
-using namespace std;
-
 
 //project includes
 #include "misc.h"

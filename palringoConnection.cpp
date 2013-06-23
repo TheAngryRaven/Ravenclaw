@@ -9,13 +9,21 @@
  */
 
 #include "palringoConnection.h"
-
-//private variables
-const string	SERVERIP	= "80.69.129.75"; //palringo
-const int		SERVERPORT	= 0x3039;
-
-palringoConnection::palringoConnection(palringoClient *client)
+palringoConnection::palringoConnection(palringoClient *client, bool SSL)
 {
+    if(SSL == true)
+    {
+        engine.pl("palConn-> logging in with SSL", 1);
+        SERVERIP = "80.69.129.123";
+        SERVERPORT = 0x1BB; //443
+    }
+    else
+    {
+        engine.pl("palConn-> logging in with plaintext", 1);
+        SERVERIP = "80.69.129.75";
+        SERVERPORT = 0x3039; //12345
+    }
+
 	palClient	= client;
 	clientUser	= palClient->get_Client();
 	loggedIn	= false;
@@ -23,7 +31,7 @@ palringoConnection::palringoConnection(palringoClient *client)
 
 	conn		= new connection(this);
 	palMsg		= new palringoMessage(this, clientUser);
-	palGroup		= new palringoGroup(this, clientUser);
+	palGroup	= new palringoGroup(this, clientUser);
 }
 
 bool palringoConnection::connect()
@@ -101,7 +109,7 @@ void palringoConnection::parse_recv(string data, char* raw)
 {
     packet output;				//this is our output packet data
 
-    data = cipher.hexEnc(data);
+    //data = cipher.hexEnc(data);
     //cout << data << endl;
 
     int packetLength    = data.length();
@@ -127,6 +135,7 @@ void palringoConnection::parse_recv(string data, char* raw)
            break;
        }
     }
+
     //If we have a valid payload
     if(payloadStart !=0)
     {
@@ -195,7 +204,6 @@ void palringoConnection::parse_recv(string data, char* raw)
         output.addPayload(data);
     }
 
-
 	this->parse_packet(output);
 }
 
@@ -206,8 +214,9 @@ void palringoConnection::parse_packet(packet data)
 	int		paySize = data.getPayload().size()/2;
 	string	packCmd = data.getCommand();
 
-    if(packCmd != "MALFORMED PACKET" && packCmd != "SUB PROFILE" && packCmd != "BALANCE QUERY RESULT")
+    if(engine.DEBUG == true && (packCmd != "MALFORMED PACKET" && packCmd != "SUB PROFILE" && packCmd != "BALANCE QUERY RESULT"))
     {
+        cout << engine.DEBUG << endl;
         //debug information
         cout << "------------------------------------" << endl;
         cout << "Command:\t\t";
@@ -219,7 +228,18 @@ void palringoConnection::parse_packet(packet data)
         for(int i=1; i<data.getHeaders(); i++)
         {
             packetHeader buffer = data.getHeader(i);
-            cout << "[" << i << "] " << buffer.key << "\t" << buffer.value << endl;
+            string tabs;
+            int bSize = buffer.key.size();
+
+            if(bSize < 8)
+                tabs = "\t\t";
+            else if(bSize >= 8 && bSize <= 11)
+                tabs = "\t\t";
+            else
+                tabs = "\t";
+
+
+            cout << "[" << i << "] " << buffer.key << tabs << buffer.value << endl;
         }
 
         cout << "------------------------------------" << endl;
@@ -258,6 +278,7 @@ void palringoConnection::parse_packet(packet data)
 	}
 	else if(packCmd == "MESG")
 	{
+        engine.pl("palConn-> Received message");
 	    data.addPayload(cipher.hexDec(data.getPayload()));
         palMsg->recv_message(data);
 	}
@@ -269,19 +290,21 @@ void palringoConnection::parse_packet(packet data)
     }
     else if(packCmd == "SUB PROFILE")
     {
-        engine.pl("palConn-> Subprofile received");
+        //engine.pl("palConn-> Subprofile received");
     }
     else if(packCmd == "GROUP ADMIN")
     {
+        engine.pl("palConn-> Received Group Admin", 1);
         palGroup->group_admin(data);
     }
     else if(packCmd == "GROUP UPDATE")
     {
-        palGroup->group_update();
+        engine.pl("palConn-> Received Group Update");
+        palGroup->group_update(data);
     }
     else if(packCmd == "P")
     {
-        engine.pl("palConn-> Received Ping Request");
+        engine.pl("palConn-> Received Ping Request", 1);
         this->send_ping();
     }
     else if(packCmd == "RESPONSE")

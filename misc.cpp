@@ -11,10 +11,12 @@
 #include "misc.h"
 
 //setting a few values
-const bool DEBUG = true;
 ofstream fileStream;
 
-misc::misc(){}
+misc::misc()
+{
+    DEBUG = true;
+}
 
 void misc::pause()
 {
@@ -25,6 +27,13 @@ void misc::pause()
 string misc::i2s(int number)
 {
 
+    stringstream ss;//create a stringstream
+    ss << number;//add number to the stream
+    return ss.str();//return a string with the contents of the stream
+}
+
+string misc::l2s(long number)
+{
     stringstream ss;//create a stringstream
     ss << number;//add number to the stream
     return ss.str();//return a string with the contents of the stream
@@ -147,4 +156,65 @@ fileDataStruct misc::readFile(string fileLocation)
     file.close();
 
     return output;
+}
+
+int misc::hex2Int(string data)
+{
+    const char* input = data.c_str();
+    int length = data.size();
+    int buffer = 0;
+
+    int it = 0;
+    for(int i = length-1; i>=0; i--)
+    {
+        switch(input[i])
+        {
+            case '1': buffer = buffer + this->hexPow( 1, it); break;
+            case '2': buffer = buffer + this->hexPow( 2, it); break;
+            case '3': buffer = buffer + this->hexPow( 3, it); break;
+            case '4': buffer = buffer + this->hexPow( 4, it); break;
+            case '5': buffer = buffer + this->hexPow( 5, it); break;
+            case '6': buffer = buffer + this->hexPow( 6, it); break;
+            case '7': buffer = buffer + this->hexPow( 7, it); break;
+            case '8': buffer = buffer + this->hexPow( 8, it); break;
+            case '9': buffer = buffer + this->hexPow( 9, it); break;
+
+            case 'A': buffer = buffer + this->hexPow(10, it); break;
+            case 'B': buffer = buffer + this->hexPow(11, it); break;
+            case 'C': buffer = buffer + this->hexPow(12, it); break;
+            case 'D': buffer = buffer + this->hexPow(13, it); break;
+            case 'E': buffer = buffer + this->hexPow(14, it); break;
+            case 'F': buffer = buffer + this->hexPow(15, it); break;
+
+            case 'a': buffer = buffer + this->hexPow(10, it); break;
+            case 'b': buffer = buffer + this->hexPow(11, it); break;
+            case 'c': buffer = buffer + this->hexPow(12, it); break;
+            case 'd': buffer = buffer + this->hexPow(13, it); break;
+            case 'e': buffer = buffer + this->hexPow(14, it); break;
+            case 'f': buffer = buffer + this->hexPow(15, it); break;
+        }
+        it++;
+    }
+    return buffer;
+}
+
+int misc::hexPow(int input, int power)
+{
+    int buffer = 16;
+
+    if(power > 0)
+    {
+        for(int i=1; i<power; i++)
+        {
+            buffer *= 16;
+        }
+
+        buffer *= input;
+    }
+    else
+    {
+        buffer = input;
+    }
+
+    return buffer;
 }

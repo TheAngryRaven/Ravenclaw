@@ -12,7 +12,8 @@
 
 connection::connection(palringoConnection *client)
 {
-	palConn = client;
+	palConn     = client;
+	connected   = false;
 }
 
 unsigned long WINAPI readStub(void *ptr)
@@ -32,13 +33,13 @@ bool connection::connectToHost(string IP, int PORT)
 	int error = WSAStartup(0x0202, &wsadata);
 
     if (error)
-        return false;
+        return connected;
 
     if (wsadata.wVersion != 0x0202)
     {
         WSACleanup(); //Clean up Winsock
         engine.pl("connection-> wrong winsock version", 1);
-        return false;
+        return connected;
     }
 
 	//set socket information
@@ -54,7 +55,6 @@ bool connection::connectToHost(string IP, int PORT)
     {
     	engine.pl("connection-> Connection: Bad Socket", 1);
 
-		connected = false;
         return connected;
     }
 
@@ -63,7 +63,6 @@ bool connection::connectToHost(string IP, int PORT)
     {
 		engine.pl("connection-> Could not connect", 1);
 
-		connected = false;
         return connected;
     }
     else
@@ -124,10 +123,11 @@ DWORD connection::read(void)
 		//if we received data
 		if(bytes_recv != -1)
 		{
-			string temp_buff = data_recv;
+			string temp_buff = cipher.hexEnc(data_recv, bytes_recv);
 			string buffer;
 
-			buffer.append(temp_buff.substr(0, temp_buff.size()));
+			buffer.append(temp_buff);
+			//buffer.append(temp_buff.substr(0, temp_buff.size()));
 
 			//engine.pLog(buffer, 0);
 			//palConn->recv_packet(buffer, data_recv);

@@ -12,8 +12,17 @@
 
 palringoClient::palringoClient(map<string, string> botSettings)
 {
-	clientUser	= new baseClient(botSettings);
-	palConn		= new palringoConnection(this);
+    bool SSL = false;
+	if( botSettings["SSL"] == "true" ||
+        botSettings["SSL"] == "TRUE" ||
+        botSettings["SSL"] == "yes" ||
+        botSettings["SSL"] == "YES")
+    {
+        SSL = true;
+    }
+
+    clientUser	= new baseClient(botSettings);
+	palConn		= new palringoConnection(this, SSL);
 }
 
 void palringoClient::run()
@@ -24,8 +33,6 @@ void palringoClient::run()
 	if(connected)
 	{
 		engine.pl("palClient-> We are connected");
-		//engine.pl("palClient-> We connected, now disconnecting");
-		//palConn->disconnect();
 		while(connected)
 		{
 			Sleep(1000);

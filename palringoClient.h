@@ -15,10 +15,6 @@
 #ifndef PALRINGOCLIENT_H
 #define PALRINGOCLIENT_H
 
-//library includes
-#include "conio.h"
-using namespace std;
-
 //project includes
 #include "misc.h"
 #include "baseClient.h"

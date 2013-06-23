@@ -40,7 +40,7 @@ class palringoGroup;
 class palringoConnection
 {
 	public:
-		palringoConnection(palringoClient *client);
+		palringoConnection(palringoClient *client, bool SSL);
 
 		bool connect(void);		//connect's to palringo server
 		void disconnect(void);	//disconnect from server
@@ -70,6 +70,9 @@ class palringoConnection
 		crypt			cipher;
 		bool 			loggedIn;
 		int             pingsSent;
+
+		string	SERVERIP;
+		int		SERVERPORT;
 
 };
 
