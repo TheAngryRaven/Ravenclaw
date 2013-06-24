@@ -9,27 +9,71 @@
  */
 
 /*	Class: palringoContact
- *	handles person information gathering
+ *	handles server and client side information gathering
  */
 
 #ifndef PALRINGOCONTACT_H
 #define PALRINGOCONTACT_H
 
+//library includes
+#include <iostream>
+#include <string.h>
+#include <algorithm>
+#include <vector>
+
+//project includes
+#include "misc.h"
+#include "crypt.h"
+#include "baseClient.h"
+#include "palringoPacket.h"
+#include "palringoConnection.h"
+#include "palringoMessage.h"
+#include "palringoContact.h"
+
+struct contact{
+    string nickname;
+	string userId;
+    string status;
+	string privileges;
+	string rep;
+	string icon;
+	string onlineStatus;
+    string device;
+};
+
+//TODO: Sub Profile Parsing
+class misc;
+class crypt;
+class baseClient;
+class palringoPacket;
+class palringoConnection;
+class palringoMessage;
 class palringoContact
 {
 	public:
-		palringoContact();
+		palringoContact(palringoConnection *client, baseClient *base);
 
-		void getName(void); //get persons name based on id
-		void getID(void);	//
+		//client side actions
+		void    client_add(map<string, string> data);   //adds user details to struct map
+		contact client_lookup(string id);               //looks up user details based on ID
 
-		void add(void);		//add someone to your contacts list by using their id
-		void accept(void);	//accept someones contact request
-		void decline(void);	//decline someones contact request
-		void block(void);	//block a user from messaging you
+        //server side actions
+		void server_added(void);	//Someone added you to their contact list
+
+		void server_add(void);		//add someone to your contacts list by using their id
+		void server_accept(void);	//accept someones contact request
+		void server_decline(void);	//decline someones contact request
+		void server_block(void);	//block a user from messaging you
 
 	protected:
 	private:
+        misc	engine;
+		crypt	cipher;
+
+		palringoConnection	*palConn;
+		baseClient			*botClient;
+
+	    map<string, contact> contactList;
 };
 
 #endif // PALRINGOCONTACT_H

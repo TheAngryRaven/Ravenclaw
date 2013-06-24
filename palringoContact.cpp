@@ -10,7 +10,55 @@
 
 #include "palringoContact.h"
 
-palringoContact::palringoContact()
+palringoContact::palringoContact(palringoConnection *client, baseClient *base)
 {
-	//TODO: Sub Profile Parsing
+    palConn		= client;
+	botClient	= base;
+	botClient->set_palContact(this);
+}
+
+void palringoContact::client_add(map<string, string> data)
+{
+    contact newContact;
+
+    newContact.nickname     = data["Nickname"];
+    newContact.userId       = data["Contact-Id"];
+    newContact.status       = data["Status"];
+    newContact.privileges   = data["Privileges"];
+    newContact.rep          = data["rep"];
+    newContact.icon         = data["Icon-Id"];
+    newContact.onlineStatus = data["Online-Status"];
+    newContact.device       = data["Device-Type"];
+
+    contactList[data["Contact-Id"]] = newContact;
+    cout << "Added user ["<<data["Contact-Id"]<<"] to contact list" << endl;
+}
+
+contact palringoContact::client_lookup(string id)
+{
+    /*
+    try
+    {
+        return contactList[id];
+    }
+    catch(exception e)
+    {
+         contact buffer;
+        buffer.nickname = "null";
+        return buffer;
+    }*/
+
+    map<string, contact>::iterator it = contactList.find(id);
+
+    if(it != contactList.end())
+    {
+       return contactList[id];
+    }
+    else
+    {
+        contact buffer;
+        buffer.userId = "000";
+        return buffer;
+    }
+
 }

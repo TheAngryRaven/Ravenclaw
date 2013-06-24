@@ -409,11 +409,11 @@ Can be found in <a href="http://www.palringo.com/en/us/groups/uncategorized/furr
 
 <h2>Licenses</h2>
 
-<p>RavenClaw: <a href="http://opensource.org/licenses/GPL-3.0">http://opensource.org/licenses/GPL-3.0</a></p>
+<p>RavenClaw: <a href="http://opensource.org/licenses/GPL-3.0">GNU General Public License, version</a></p>
 
-<p>Cryptopp: <a href="http://www.boost.org/users/license.html">http://www.boost.org/users/license.html</a></p>
+<p>Cryptopp: <a href="http://www.boost.org/users/license.html">Boost Software License</a></p>
 
-<p>IniReader: <a href="http://opensource.org/licenses/BSD-3-Clause">http://opensource.org/licenses/BSD-3-Clause</a></p>
+<p>IniReader: <a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a></p>
 
 <hr />
 
@@ -425,19 +425,46 @@ Can be found in <a href="http://www.palringo.com/en/us/groups/uncategorized/furr
 
 <p>Bot is now staying publicly open source, because I feel like it. Be aware it is missing a couple of key features, so start your own fork and help me out!</p>
 
-<h4>Missing Core Features</h4>
+<h4>Missing Core Feature</h4>
 
 <ul>
-<li><p>Sub Profile Decryption</p>
+<li>Sub Profile Decryption
+
 
 <blockquote>
-  <p>This is the packet sent from palringo telling us things like <strong>display names</strong> and <strong>users status messages</strong> along with <strong>users in a group</strong>.</p>
-</blockquote></li>
-<li><p>Group Update Parsing</p>
+  This is the packet sent from palringo telling us things like <strong>display names</strong> and <strong>users status messages</strong> along with <strong>users in a group</strong>.</li>
+  </ul>
+  <hr />
+</blockquote>
 
-<blockquote>
-  <p>We have a function that activates on group update, but haven't quite gotten around to figuring out what data is where in the payload, its oddly serialized.</p>
-</blockquote></li>
+<h2>VERY Recent Changelog</h2>
+
+Lots of things have been added to the bot, here is a basic changelog!
+
+<ul>
+<li>Added a "namespace" feature that pal requires, such as <strong>#rc help</strong> instead of <strong>#help</strong> (but it's optional)</li>
+<li>I updated the main packet decryptor, and it works SOO much better</li>
+<li>I have completed the <strong>groupUpdate</strong> decryptor. You can see it in effect in <strong>baseClient::group_update</strong></li>
+<li>Updated security functions to ban/mute when a user joins the group</li>
+<li>I have renamed <strong>baseClient::parseCommands</strong> to <strong>baseClient::parse_groupMessage</strong></li>
+<li>I have fixed a couple little minor bugs, like how incomming messages are display in console</li>
+<li>Added dynamic message IDs on outbound packets so we can actually use response codes in the future</li>
+<li>Added new fields to the INI one required two are optional (more discussed in program notes)</li>
+<li>Added <strong>#info</strong> to show very basic bot statistics</li>
+<li>Updated <strong>#mute</strong> to only effect bot auto responses so commands still work</li>
+<li>Added basic definitions.h to be used to help with various response codes and such, I will expand this to a full class</li>
+<li>Reorganized some of the code in <strong>baseClient::parse_groupMessage</strong> just to be cleaner</li>
+<li>Added section in the INI for the bots userID this is temporary until I can complete the sub profile code</li>
+</ul>
+
+<p>Features that are new but not BRAND NEW</p>
+
+<ul>
+<li>simply run the command <strong>#reload</strong> to have the bot reload lists out of the ini</li>
+<li>Bot can now have mods, which are added in the ini file</li>
+<li>Mods have their own set of admin commands as defined in <strong>baseClient::parse_groupMessage</strong> and even get to set away messages</li>
+<li>Bot now has an auto ban/mute list which applies to the users when they post or when they join a group</li>
+<li>Also added an ignore list, bot simply ignores ANY input but those users</li>
 </ul>
 
 <hr />
@@ -453,9 +480,9 @@ Can be found in <a href="http://www.palringo.com/en/us/groups/uncategorized/furr
 <h4>Compiling CryptoPP</h4>
 
 <blockquote>
-  <p>In the downloads section of the repo you can find a copy of cryptopp i have slightly tweaked to compile with mingw using various internet sources.</p>
+  <p>In the downloads section of the repo you can find a copy of cryptopp I have slightly tweaked to compile with mingw using various internet sources.</p>
   
-  <p>I've included a precompiled version of cryptopp which you can use, simply open up the folder where <strong>Code::Blocks</strong> is installed, typically <strong>C:\Program Files\CodeBlocks\</strong>, now inside of that folder you will see a folder called <strong>Mingw</strong>, simply copy the <strong>include</strong> and <strong>lib</strong> folder from the archive i've supplied in the downloads section to that folder, it will ask if you want to merger or copy over click yes, you will not be overwritting anything. <br />
+  <p>I've included a precompiled version of cryptopp which you can use, simply open up the folder where <strong>Code::Blocks</strong> is installed, typically <strong>C:\Program Files\CodeBlocks\</strong>, now inside of that folder you will see a folder called <strong>Mingw</strong>, simply copy the <strong>include</strong> and <strong>lib</strong> folder from the archive I've supplied in the downloads section to that folder, it will ask if you want to merger or copy over click yes, you will not be overwritting anything. <br />
   <strong>In Theory</strong> you do not need to recompile cryptopp, if you do here are the basic instructions. </p>
   
   <ul>
@@ -490,14 +517,16 @@ Can be found in <a href="http://www.palringo.com/en/us/groups/uncategorized/furr
   
   <p>See the below example for the input the ini excepts.</p>
   
-  <p>Awww man whats that? New features? Bet your damn ass. <br />
-  Bot can now have admins, based on the example it is super easy to add people to the ini file <br />
-  Auto mute/ban will automatically mute/ban the userid's the first time they post a message</p>
+  <p><strong>Note</strong>: when HTTPS is enabled, it connects to palringo's secure server, weither or not the data is encrypted is unknown to me, as I have not taken the time to actually go through the packets and such.</p>
+  
+  <p>Namespace and HTTPS are optional, when nameSpace is removed commands become <strong>#help</strong> instead of <strong>#rc help</strong></p>
 </blockquote>
 
 <pre><code>[LOGON]
 email=youremailhere@gmail.com
 password=yourpassword
+botId=25804994 *NEW
+HTTPS=true  *NEW
 
 [SETTINGS]
 adminId=yourID
@@ -505,6 +534,7 @@ adminName=ravey
 botName=ravenclaw
 cmdAdmin=#
 cmdUser=/
+nameSpace=rc *NEW
 
 [MODS]
 modAccounts=17779473|2937702
@@ -562,6 +592,10 @@ autoMute=18089645
 
 <h2>Core Features</h2>
 
+<blockquote>
+  <p>Many of these features can be removed if desired, this is just a list of everything you get when you download the source.</p>
+</blockquote>
+
 <h4>Basic chat listening</h4>
 
 <blockquote>
@@ -596,10 +630,10 @@ autoMute=18089645
   <p><code>baseClient::group_admin()</code> gets triggered when any admin function is used in a group.</p>
 </blockquote>
 
-<h4>Group join/leave trigger - <em>BETA</em></h4>
+<h4>Group join/leave trigger - <em>NEW AND OUT OF BETA</em></h4>
 
 <blockquote>
-  <p><code>baseClient::group_update()</code> gets triggered when anyone joins or leaves a group BUT cannot currently tell who or where.</p>
+  <p><code>baseClient::group_update()</code> gets triggered when anyone joins or leaves a group. Even saves basic contact data that we can call back later, this is the beginning of a contact list.</p>
 </blockquote>
 
 <h4>Bot Admin status</h4>
@@ -611,8 +645,7 @@ autoMute=18089645
 <h4>Find Mod/Admins</h4>
 
 <blockquote>
-  <p>Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.
-  This is not a hard coded feature, just a neat one I like. Also now works for mods.</p>
+  <p>Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.</p>
 </blockquote>
 
 <h4>Bot Mod status - <em>NEW</em></h4>
@@ -627,10 +660,10 @@ autoMute=18089645
   <p>As shown in the example ini above you can now have bot mods, there is a new if loop in <strong>baseClient::parse_commands()</strong> you can even load new mods without restarting the bot, just add them to the ini and run the command <code>#loadini</code> and boom, mods/auto lists now updated!</p>
 </blockquote>
 
-<h4>Auto ban/mute - <em>NEW/BETA</em></h4>
+<h4>Auto ban/mute - <em>NEW AND OUT OF BETA</em></h4>
 
 <blockquote>
-  <p>Not exactly where I want it yet, but that will come with sub profile parsing. If a user is on the ban/mute list the first time they post a message they will be muted/banned.</p>
+  <p>If a user on the ban/mute list talks <strong>OR</strong> joins a group the bot is in, they automatically muted/banned.</p>
 </blockquote>
 
 <h4>Ignore - <em>NEW</em></h4>
@@ -642,7 +675,7 @@ autoMute=18089645
 <h4>Server Responses - <em>NEW/BETA</em></h4>
 
 <blockquote>
-  <p>Currently doesnt work, is only triggered in <strong>baseClient::parseResponse()</strong> will soon be able to listen for all sorts of server responses and hopefully advert all errors if they occur.</p>
+  <p>Currently doesnt work, is only triggered in <strong>baseClient::parseResponse()</strong> will soon be able to listen for all sorts of server responses and hopefully advert all errors if they occur. I have now also added a system to proerly send a "dynamic" message id with each message to properly parse these responses.</p>
 </blockquote>
 
 <hr />
@@ -680,7 +713,7 @@ autoMute=18089645
   Default state is <strong>ON</strong> usefull to program various functions like the included <em>group name checker</em> found in <code>baseClient::parseCommands()</code>, the function checks if someone posted a link to a group and will scilence them.</p>
   
   <p><strong>#mute</strong> (also unmute) <br />
-  Default state is <strong>OFF</strong> bot will still do admin commands in code, but will not post messages to the group, useful if someone keeps triggering the <em>potty mouth</em>* function.</p>
+  Default state is <strong>OFF</strong> bot will still listen and respond to commands. But auto responses and such will not trigger.</p>
   
   <p><strong>#check</strong> <br />
   The bot will post a little message letting you know that it's online even if its set to mute.</p>
@@ -688,8 +721,11 @@ autoMute=18089645
   <p><strong>#test</strong> (new) <br />
   There is a new packet in <strong>palringo::packet</strong> designed to fill up with whatever data you please, and send to the palringo servers. This command is what triggers the sending of the command.</p>
   
-  <p><strong>#loadini</strong> (new) <br />
+  <p><strong>#reload</strong> (new) <br />
   Reloads the bot's ini file to update ignore/mod/auto lists. It also spits out the output of the reload.</p>
+  
+  <p><strong>#info</strong> (new) <br />
+  Displays various data like messages sent/received and so on.</p>
 </blockquote>
 
 <h4>Admin PM Commands</h4>
@@ -716,7 +752,7 @@ autoMute=18089645
 <h4>Mod Commands</h4>
 
 <blockquote>
-  <p>Mods are currently programed to use all admin commands except for <strong>Secure, test and loadini</strong>. They currently can also use the PM commands.</p>
+  <p>Mods are currently programed to use all admin commands except for <strong>Secure, test and reload</strong>. They currently can also use the PM commands.</p>
 </blockquote>
 
 <h4>User Commands</h4>
@@ -792,28 +828,22 @@ autoMute=18089645
 
 <h3>TODO</h3>
 
-<h4>Fix group join / leave events</h4>
-
-<blockquote>
-  <p>Figure out how to decode the packet telling me information like what group and who left/joined.</p>
-</blockquote>
-
 <h4>Sub Profile Reading</h4>
 
 <blockquote>
   <p>this handles all the text usernames and statuses and such.</p>
 </blockquote>
 
+<h4>Linux compatibility</h4>
+
+<blockquote>
+  <p>The entire project is virtually linux ready, the only non linux code is currently in my base connection class. Cryptopp works with zero problems I even ran a few tests.</p>
+</blockquote>
+
 <h4>Clean up code</h4>
 
 <blockquote>
   <p>Fuck yea re-did packet parser, and a new packet debug output.</p>
-</blockquote>
-
-<h4>Figure out if its possible to recreate the functionality of youtube bot</h4>
-
-<blockquote>
-  <p>No it is not, ive tried.</p>
 </blockquote>
 
 <h4>Make the bot scripted</h4>

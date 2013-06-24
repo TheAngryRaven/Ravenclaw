@@ -3,11 +3,11 @@ Raven (ID: 25909767 | 512388)
 Can be found in [[furry]](http://www.palringo.com/en/us/groups/uncategorized/furry-2676)
 ***    
 ## Licenses
-RavenClaw: [http://opensource.org/licenses/GPL-3.0](http://opensource.org/licenses/GPL-3.0)
+RavenClaw: [GNU General Public License, version](http://opensource.org/licenses/GPL-3.0)
 
-Cryptopp: [http://www.boost.org/users/license.html](http://www.boost.org/users/license.html)
+Cryptopp: [Boost Software License](http://www.boost.org/users/license.html)
 
-IniReader: [http://opensource.org/licenses/BSD-3-Clause](http://opensource.org/licenses/BSD-3-Clause)
+IniReader: [BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause)
 
 ***    
 ## Description
@@ -18,12 +18,36 @@ A library called crypto++ is required for the bot to function, you can find it i
 
 Bot is now staying publicly open source, because I feel like it. Be aware it is missing a couple of key features, so start your own fork and help me out!
 
-####Missing Core Features
+####Missing Core Feature
 * Sub Profile Decryption
 >This is the packet sent from palringo telling us things like **display names** and **users status messages** along with **users in a group**.
 
-* Group Update Parsing
->We have a function that activates on group update, but haven't quite gotten around to figuring out what data is where in the payload, its oddly serialized.
+***
+##VERY Recent Changelog
+
+Lots of things have been added to the bot, here is a basic changelog!
+
+* Added a "namespace" feature that pal requires, such as **#rc help** instead of **#help** (but it's optional)
+* I updated the main packet decryptor, and it works SOO much better
+* I have completed the **groupUpdate** decryptor. You can see it in effect in **baseClient::group_update**
+* Updated security functions to ban/mute when a user joins the group
+* I have renamed **baseClient::parseCommands** to **baseClient::parse_groupMessage**
+* I have fixed a couple little minor bugs, like how incomming messages are display in console
+* Added dynamic message IDs on outbound packets so we can actually use response codes in the future
+* Added new fields to the INI one required two are optional (more discussed in program notes)
+* Added **#info** to show very basic bot statistics
+* Updated **#mute** to only effect bot auto responses so commands still work
+* Added basic definitions.h to be used to help with various response codes and such, I will expand this to a full class
+* Reorganized some of the code in **baseClient::parse_groupMessage** just to be cleaner
+* Added section in the INI for the bots userID this is temporary until I can complete the sub profile code
+
+Features that are new but not BRAND NEW
+
+* simply run the command **#reload** to have the bot reload lists out of the ini
+* Bot can now have mods, which are added in the ini file
+* Mods have their own set of admin commands as defined in **baseClient::parse_groupMessage** and even get to set away messages
+* Bot now has an auto ban/mute list which applies to the users when they post or when they join a group
+* Also added an ignore list, bot simply ignores ANY input but those users
 ***
 ## Compile Help
 
@@ -31,9 +55,9 @@ Bot is now staying publicly open source, because I feel like it. Be aware it is 
 >I use [**Code::Blocks**](http://www.codeblocks.org/) with the version of mingw that comes with it
 
 ####Compiling CryptoPP
->In the downloads section of the repo you can find a copy of cryptopp i have slightly tweaked to compile with mingw using various internet sources.
+>In the downloads section of the repo you can find a copy of cryptopp I have slightly tweaked to compile with mingw using various internet sources.
 
->I've included a precompiled version of cryptopp which you can use, simply open up the folder where **Code::Blocks** is installed, typically **C:\Program Files\CodeBlocks\\**, now inside of that folder you will see a folder called **Mingw**, simply copy the **include** and **lib** folder from the archive i've supplied in the downloads section to that folder, it will ask if you want to merger or copy over click yes, you will not be overwritting anything.  
+>I've included a precompiled version of cryptopp which you can use, simply open up the folder where **Code::Blocks** is installed, typically **C:\Program Files\CodeBlocks\\**, now inside of that folder you will see a folder called **Mingw**, simply copy the **include** and **lib** folder from the archive I've supplied in the downloads section to that folder, it will ask if you want to merger or copy over click yes, you will not be overwritting anything.  
 **In Theory** you do not need to recompile cryptopp, if you do here are the basic instructions. 
 
 >* Setup the mingw/bin/ folder to be part of your system path [How To](http://www.computerhope.com/issues/ch000549.htm)
@@ -58,13 +82,15 @@ In **Code::Blocks** go to **settings->compiler** now click on the **linker setti
 
 >See the below example for the input the ini excepts.
 
->Awww man whats that? New features? Bet your damn ass.  
-Bot can now have admins, based on the example it is super easy to add people to the ini file  
-Auto mute/ban will automatically mute/ban the userid's the first time they post a message
+>**Note**: when HTTPS is enabled, it connects to palringo's secure server, weither or not the data is encrypted is unknown to me, as I have not taken the time to actually go through the packets and such.
     
+>Namespace and HTTPS are optional, when nameSpace is removed commands become **#help** instead of **#rc help**
+
     [LOGON]
     email=youremailhere@gmail.com
     password=yourpassword
+	botId=25804994 *NEW
+	HTTPS=true	*NEW
 
     [SETTINGS]
     adminId=yourID
@@ -72,6 +98,7 @@ Auto mute/ban will automatically mute/ban the userid's the first time they post 
 	botName=ravenclaw
 	cmdAdmin=#
 	cmdUser=/
+	nameSpace=rc *NEW
 	
 	[MODS]
 	modAccounts=17779473|2937702
@@ -109,6 +136,8 @@ The source files are included in the project and require no action from you, but
 
 ***
 ## Core Features
+>Many of these features can be removed if desired, this is just a list of everything you get when you download the source.
+
 #### Basic chat listening
 >Can listen for keywords in the chat and respond, and do various actions.
 
@@ -128,15 +157,14 @@ The source files are included in the project and require no action from you, but
 ####Admin triggers
 >`baseClient::group_admin()` gets triggered when any admin function is used in a group.
 		
-####Group join/leave trigger - *BETA*
->`baseClient::group_update()` gets triggered when anyone joins or leaves a group BUT cannot currently tell who or where.
+####Group join/leave trigger - *NEW AND OUT OF BETA*
+>`baseClient::group_update()` gets triggered when anyone joins or leaves a group. Even saves basic contact data that we can call back later, this is the beginning of a contact list.
 		
 ####Bot Admin status
 >Default status is offline, when the bot sees that the bot-admin has typed a message in a group the bot is in it sets the admins status to online.
 
 ####Find Mod/Admins
 >Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.
-This is not a hard coded feature, just a neat one I like. Also now works for mods.
 
 ####Bot Mod status - *NEW*
 >Default status is offline, when the bot sees that a bot-mod has typed a message in a group the bot is in it sets the mods status to online.
@@ -144,14 +172,14 @@ This is not a hard coded feature, just a neat one I like. Also now works for mod
 ####Bot Mods - *NEW*
 >As shown in the example ini above you can now have bot mods, there is a new if loop in **baseClient::parse_commands()** you can even load new mods without restarting the bot, just add them to the ini and run the command `#loadini` and boom, mods/auto lists now updated!
 
-####Auto ban/mute - *NEW/BETA*
->Not exactly where I want it yet, but that will come with sub profile parsing. If a user is on the ban/mute list the first time they post a message they will be muted/banned.
+####Auto ban/mute - *NEW AND OUT OF BETA*
+>If a user on the ban/mute list talks **OR** joins a group the bot is in, they automatically muted/banned.
 
 ####Ignore - *NEW*
 >If a user is on the ignore list the bot simply ignores **ANY** post they make. Helpfull for those abusing the bot.
 
 ####Server Responses - *NEW/BETA*
->Currently doesnt work, is only triggered in **baseClient::parseResponse()** will soon be able to listen for all sorts of server responses and hopefully advert all errors if they occur.
+>Currently doesnt work, is only triggered in **baseClient::parseResponse()** will soon be able to listen for all sorts of server responses and hopefully advert all errors if they occur. I have now also added a system to proerly send a "dynamic" message id with each message to properly parse these responses.
 ***
 ## List of simple chat commands
 >All of the featured are simply in `baseClient::parse_commands()`, nothing is hard coded and can be changed without breaking anything. It is mostly here as an example how ive acomplished some neat little tricks. **Do not** use the less/greator than signs, they are simply there to show you the arguments for the function.
@@ -181,7 +209,7 @@ Sets the bot admin to away with an **OPTIONAL** message, if *anyone* mentions th
 Default state is **ON** usefull to program various functions like the included *group name checker* found in `baseClient::parseCommands()`, the function checks if someone posted a link to a group and will scilence them.
 
 >**\#mute** (also unmute)  
-Default state is **OFF** bot will still do admin commands in code, but will not post messages to the group, useful if someone keeps triggering the *potty mouth** function.
+Default state is **OFF** bot will still listen and respond to commands. But auto responses and such will not trigger.
 
 >**\#check**  
 The bot will post a little message letting you know that it's online even if its set to mute.
@@ -189,8 +217,11 @@ The bot will post a little message letting you know that it's online even if its
 >**\#test** (new)  
 There is a new packet in **palringo::packet** designed to fill up with whatever data you please, and send to the palringo servers. This command is what triggers the sending of the command.
 
->**\#loadini** (new)  
+>**\#reload** (new)  
 Reloads the bot's ini file to update ignore/mod/auto lists. It also spits out the output of the reload.
+
+>**\#info** (new)  
+Displays various data like messages sent/received and so on.
 
 ####Admin PM Commands
 >Work similar to the regular admin commands except they are triggered when you PM the bot.They are called from `baseClient::parse_pm()`.  
@@ -211,7 +242,7 @@ Makes the bot join the requested group name.
 Sends you a message displaying the bots uptime in a fashion as such `0d 20h 3m 28s`.
 
 ####Mod Commands
->Mods are currently programed to use all admin commands except for **Secure, test and loadini**. They currently can also use the PM commands.
+>Mods are currently programed to use all admin commands except for **Secure, test and reload**. They currently can also use the PM commands.
 
 ####User Commands
 >Anyone in the group the bot is in can use these commands.
@@ -270,17 +301,14 @@ If someone uses a hashtag phrase **IE:** `#yolo` at the end of a message, this t
 
 ***
 ###TODO
-####Fix group join / leave events
->Figure out how to decode the packet telling me information like what group and who left/joined.
-	
 ####Sub Profile Reading
 >this handles all the text usernames and statuses and such.
 		
+####Linux compatibility
+>The entire project is virtually linux ready, the only non linux code is currently in my base connection class. Cryptopp works with zero problems I even ran a few tests.
+
 ####Clean up code
 >Fuck yea re-did packet parser, and a new packet debug output.
-
-####Figure out if its possible to recreate the functionality of youtube bot
->No it is not, ive tried.
 		
 ####Make the bot scripted
 >No one wants to recompile the bot, the goal is once the base is nailed out and polished, impiliment python or another scripting language as a frontend, and keep RavenClaw as a backend, that only needs to be compiled for new features and bugs.

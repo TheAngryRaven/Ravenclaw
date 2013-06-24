@@ -22,6 +22,7 @@
 #include "palringoPacket.h"
 #include "palringoConnection.h"
 #include "palringoMessage.h"
+#include "palringoContact.h"
 
 class misc;
 class crypt;
@@ -29,6 +30,7 @@ class baseClient;
 class palringoPacket;
 class palringoConnection;
 class palringoMessage;
+class palringoContact;
 class palringoGroup
 {
 	public:
@@ -54,6 +56,7 @@ class palringoGroup
 	    palringoPacket		palPack;
 		palringoConnection	*palConn;
 		baseClient			*botClient;
+
 		misc				engine;
 		crypt				cipher;
 };

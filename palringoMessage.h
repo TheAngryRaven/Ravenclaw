@@ -49,7 +49,6 @@ class palringoMessage
 		baseClient			*botClient;
 		misc				engine;
 		crypt				cipher;
-
 };
 
 #endif // PALRINGOMESSAGE_H

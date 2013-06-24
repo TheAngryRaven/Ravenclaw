@@ -28,6 +28,7 @@
 #include "crypt.h"
 #include "palringoMessage.h"
 #include "palringoGroup.h"
+#include "palringoContact.h"
 #include "definitions.h"
 
 struct botMod{
@@ -41,6 +42,7 @@ class misc;
 class crypt;
 class palringoMessage;
 class palringoGroup;
+class palringoContact;
 class baseClient
 {
 	public:
@@ -57,6 +59,11 @@ class baseClient
 		//these functions should not be touched
 		void	set_palMesg(palringoMessage *mesg);	//sets the palringoMessage pointer
 		void	set_palGroup(palringoGroup *group);	//sets the palringoGroup pointer
+		void	set_palContact(palringoContact *contact);	//sets the palringoContact pointer
+
+        //returns pointers to componets
+		palringoContact	*get_palContact();	//returns pointer to palContact
+
 		string 	get_Username(void);	//returns username
 		string 	get_Password(void);	//returns password
 
@@ -93,7 +100,7 @@ class baseClient
 		void    reloadIni(string group = "");
 
 	private:
-		string	username, password, botAdmin, botName, adminName, adminMessage;
+		string	username, password, botAdmin, botName, adminName, adminMessage, botId;
 		string  cmdAdmin, cmdBase, nameSpace;
 		bool	canTalk, adminOnline, security;
 		time_t  startTime;
@@ -102,6 +109,7 @@ class baseClient
 
 		palringoMessage *palMesg;
 		palringoGroup 	*palGroup;
+		palringoContact *palContact;
 
 		string iniFile;
 		int patchStart;

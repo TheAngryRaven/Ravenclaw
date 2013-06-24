@@ -19,7 +19,15 @@ palringoGroup::palringoGroup(palringoConnection *client, baseClient *base)
 
 void palringoGroup::group_update(packet input)
 {
-    botClient->group_update( parseUpdate(input.getPayload()) );
+    map<string, string> buffer = parseUpdate(input.getPayload());
+    botClient->group_update( buffer );
+
+    if(buffer["Type"] == "0")
+    {
+        palringoContact *temp = botClient->get_palContact();
+        temp->client_add(buffer);
+    }
+
     //parseUpdate(input.getPayload()) ;
 }
 

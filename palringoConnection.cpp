@@ -28,10 +28,12 @@ palringoConnection::palringoConnection(palringoClient *client, bool SSL)
 	clientUser	= palClient->get_Client();
 	loggedIn	= false;
 	pingsSent   = 0;
+	messageId   = 1;
 
 	conn		= new connection(this);
 	palMsg		= new palringoMessage(this, clientUser);
 	palGroup	= new palringoGroup(this, clientUser);
+	palContact	= new palringoContact(this, clientUser);
 }
 
 bool palringoConnection::connect()
@@ -73,6 +75,16 @@ void palringoConnection::recv_packet(string data, char* raw)
 void palringoConnection::send_packet(packet data)
 {
 	engine.pl("palConn-> sending packet", 1);
+
+    //add dynamic messageID to packet so we can track responses
+    if(data.getCommand() == "MESG" ||
+       data.getCommand() == "GROUP ADMIN" ||
+       data.getCommand() == "GROUP SUBSCRIBE" ||
+       data.getCommand() == "GROUP UNSUB")
+    {
+        data.addHeader("mesg-id",engine.i2s(messageId));
+        messageId++;
+    }
 
 	string	buffer	= data.serialize();
 
@@ -216,7 +228,7 @@ void palringoConnection::parse_packet(packet data)
 
     if(engine.DEBUG == true && (packCmd != "MALFORMED PACKET" && packCmd != "SUB PROFILE" && packCmd != "BALANCE QUERY RESULT"))
     {
-        cout << engine.DEBUG << endl;
+        //cout << engine.DEBUG << endl;
         //debug information
         cout << "------------------------------------" << endl;
         cout << "Command:\t\t";
@@ -256,7 +268,7 @@ void palringoConnection::parse_packet(packet data)
         Sleep(1000);
         this->connect();
     }
-	if(packCmd == "AUTH")
+	else if(packCmd == "AUTH")
 	{
 		engine.pl("palConn-> AUTH received");
 
@@ -264,7 +276,7 @@ void palringoConnection::parse_packet(packet data)
 		{
 			engine.pl("palConn-> AUTH valid");
 
-			data.addPayload(cipher.hexDec(data.getPayload()));
+			data.addPayload(data.getPayload());
 
 			this->send_auth(data);
 		}

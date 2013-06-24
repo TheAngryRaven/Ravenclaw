@@ -21,7 +21,7 @@ crypt::crypt(){}
 
 string crypt::md5(string data)
 {
-	engine.pl("crypt-> generating md5",1);
+	//engine.pl("crypt-> generating md5",1);
 	//create encryptor
 	CryptoPP::Weak::MD5 hash;
 	byte digest[ CryptoPP::Weak::MD5::DIGESTSIZE ];
@@ -47,7 +47,7 @@ string crypt::md5(string data)
 
 string crypt::hexEnc(char* data, int count)
 {
-	engine.pl("crypt-> generating hex from plaintext",1);
+	//engine.pl("crypt-> generating hex from plaintext",1);
 
 	//create cipher
 	CryptoPP::HexEncoder encoder;
@@ -98,7 +98,7 @@ string crypt::dbMD5(string one, string two)
 {
 	//generates a md5 with a "salt"
 	//basically: md5( md5(one) , two )
-	engine.pl("crypt-> generating dbl md5",1);
+	//engine.pl("crypt-> generating dbl md5",1);
 
 	string ONE = md5(one);
 	string hashIn = "";
@@ -112,7 +112,7 @@ string crypt::dbMD5(string one, string two)
 
 string crypt::salsa20(string IV, string KEY, string DATA)
 {
-	engine.pl("crypt-> encrypting to salsa20",1);
+	//engine.pl("crypt-> encrypting to salsa20",1);
 
 	//set up encryption
 	Salsa20::Encryption enc;
@@ -130,7 +130,7 @@ string crypt::salsa20(string IV, string KEY, string DATA)
 
 string crypt::generateRandomBytes(int count)
 {
-	engine.pl("crypt-> generating random bytes",1);
+	//engine.pl("crypt-> generating random bytes",1);
 
 	//generate random byte string
 	int size = count/2;

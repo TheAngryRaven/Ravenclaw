@@ -88,7 +88,8 @@ int main(int argc, char* argv[])
         //get LOGON details
         botSettings["username"]     = reader.Get("LOGON", "email", "UNKNOWN");
         botSettings["password"]     = reader.Get("LOGON", "password", "UNKNOWN");
-        botSettings["SSL"]          = reader.Get("LOGON", "SSL", "true");
+        botSettings["botId"]        = reader.Get("LOGON", "botId", "UNKNOWN");
+        botSettings["HTTPS"]        = reader.Get("LOGON", "SSL", "true");
 
         //get bot settings
         botSettings["botAdmin"]     = reader.Get("SETTINGS", "adminId", "UNKNOWN");
@@ -106,7 +107,8 @@ int main(int argc, char* argv[])
            botSettings["password"]      == "UNKNOWN" ||
            botSettings["botAdmin"]      == "UNKNOWN" ||
            botSettings["botName"]       == "UNKNOWN" ||
-           botSettings["adminName"]     == "UNKNOWN" )
+           botSettings["adminName"]     == "UNKNOWN" ||
+           botSettings["botId"]     == "UNKNOWN" )
         {
             engine.pl("Bot cannot find required field(s) for logging on\r\nPlease check your .ini file");
             engine.pause();

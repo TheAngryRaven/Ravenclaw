@@ -60,7 +60,7 @@ packet palringoPacket::message(string target, string to, string payload)
 	output.addCommand("MESG");
 	output.addHeader("content-type","text/plain");
 	output.addHeader("last","1");
-	output.addHeader("mesg-id","1");
+	//output.addHeader("mesg-id",engine.i2s(id));
 	output.addHeader("mesg-target",target);
 	output.addHeader("target-id",to);
 	output.addPayload(payload);
@@ -125,7 +125,7 @@ packet palringoPacket::admin(string action, string group, string target)
 	output.addHeader("Action",action);
 	output.addHeader("group-id",group);
 	output.addHeader("last","1");
-	output.addHeader("mesg-id","1");
+	//output.addHeader("mesg-id","1");
 	output.addHeader("target-id",target);
 	return output;
 }
@@ -136,7 +136,7 @@ packet palringoPacket::group_join(string group, string password)
 
 	packet output;
 	output.addCommand("GROUP SUBSCRIBE");
-	output.addHeader("mesg-id","1");
+	//output.addHeader("mesg-id","1");
 	output.addHeader("Name",group);
 	if(password != "")
 	{
@@ -151,7 +151,7 @@ packet palringoPacket::group_part(string group)
 
 	packet output;
 	output.addCommand("GROUP UNSUB");
-	output.addHeader("mesg-id","1");
+	//output.addHeader("mesg-id","1");
 	output.addHeader("group-id",group);
 	return output;
 }
@@ -192,7 +192,7 @@ string palringoPacket::generate_payload(string password, packet data)
 	engine.pl("palPacket-> Generating AUTH", 1);
 
 	//use this instead of the RNG
-	string payload		= data.getPayload();
+	string payload		= cipher.hexDec(data.getPayload());
 	//string rnd		= data.getHeader(1).value.erase(10,1);
 	string rnd			= data.search_headers("TIMESTAMP").erase(10,1);
 
@@ -221,5 +221,15 @@ string palringoPacket::generate_payload(string password, packet data)
 
 	//generate final output for the packet
 	//string result = cipher.salsa20enc(IV, authKey, dte);
-	return cipher.salsa20(IV, authKey, dte);;
+	//return cipher.salsa20(IV, authKey, dte);
+	string result = cipher.salsa20(IV, authKey, dte);
+
+    cout << "IV" << endl << cipher.hexEnc(IV) << endl;
+    cout << "AK" << endl << cipher.hexEnc(authKey) << endl;
+    cout << "DE" << endl << cipher.hexEnc(dte) << endl;
+    cout << "Auth inPacket" << endl << data.getPayload() << endl;
+	cout << "Auth outPacket" << endl << cipher.hexEnc(result) << endl;
+
+
+	return result;
 }

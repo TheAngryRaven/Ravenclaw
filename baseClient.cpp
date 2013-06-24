@@ -19,6 +19,7 @@ baseClient::baseClient(map<string, string> botSettings)
 	this->botAdmin 	= botSettings["botAdmin"];  //the ID of the user who owns the bot
 	this->botName	= botSettings["botName"];   //Set the bots name to give it personality
 	this->adminName	= botSettings["adminName"]; //used for printing the admins name in messages
+	this->botId	    = botSettings["botId"];     //used for certain checks to make sure your not targeting the bot itself, ill eventually figure out how to avoid this
 
 	//these set the way you call commands
 	//ie #leave or /help || #rc leave or #rc help
@@ -117,37 +118,67 @@ void baseClient::group_update(map<string, string> updatePacket)
 {
     string group = updatePacket["Group-Id"];
 
+
     if(updatePacket["Type"] == "0")
     {
-        this->send_message(group, updatePacket["Nickname"] + " joined the group");
-        cout << "Someone joined the group" << endl;
+        string nickname = updatePacket["Nickname"];
+        string userid = updatePacket["Contact-Id"];
+        if(security && shouldMute(userid))
+        {
+            this->admin_silence(group, userid);
+            this->send_message(group, "User <"+nickname+"> is a known pest");
+        }
+        else if(security && shouldBan(userid))
+        {
+            this->admin_ban(group, userid);
+            this->send_message(group, "User <"+nickname+"> is a known pest");
+        }
+        else
+        {
+            this->send_message(group, nickname + " joined the group");
+        }
     }
     else
     {
-        this->send_message(group, "Someone left the group");
-        cout << "Someone left the group" << endl;
+        contact buffer = palContact->client_lookup(updatePacket["Contact-Id"]);
+
+        if(buffer.userId != "000")
+        {
+            this->send_message(group, buffer.nickname + " left the group");
+        }
+        else
+        {
+            this->send_message(group, "Someone left the group");
+        }
+
     }
 }
 
 //triggered when anyone commits an admin action
 void baseClient::group_admin(string group, string admin, string user, string action)
 {
-    //TODO: works, just need more details coded
-
-    /*
-    if(action == ACTION_ADMIN)
-        this->send_message(group, "Congrats!\r\nJust dont power abuse");
-    else if(action == ACTION_MOD)
-        this->send_message(group, "Aww thats cute\r\nYou think you have power");
-    else if(action == ACTION_SILENCE)
-        this->send_message(group, "I love duct tape!");
-    else if(action == ACTION_RESET)
-        this->send_message(group, "Yay they reset you :3");
-    else if(action == ACTION_KICK)
-        this->send_message(group, "Get told");
-    else if(action == ACTION_BAN)
-        this->send_message(group, "Here comes the buthurt");
-    */
+    if(user != botId)
+    {
+        if(action == ACTION_ADMIN)
+            this->send_message(group, "Congrats!\r\nJust dont power abuse");
+        else if(action == ACTION_MOD)
+            this->send_message(group, "Aww thats cute\r\nYou think you have power");
+        else if(action == ACTION_SILENCE)
+            this->send_message(group, "I love duct tape!");
+        else if(action == ACTION_RESET)
+            this->send_message(group, "Yay they reset you :3");
+        else if(action == ACTION_KICK)
+            this->send_message(group, "Get told");
+        else if(action == ACTION_BAN)
+            this->send_message(group, "Here comes the buthurt");
+    }
+    else
+    {
+        if(action == ACTION_ADMIN)
+            this->send_message(group, "Thank you very much :3");
+        else if(action == ACTION_MOD)
+            this->send_message(group, "Woo I'm a cool kid now");
+    }
 }
 
 //ive left in some of the basic bot features im writting for my personal bot to give you a feel of how i do things
@@ -410,36 +441,35 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                 mute = "True";
             }
 
+            double uptime = difftime(time(NULL), startTime);
+
+            char uptimeBuffer[256];
+            int days    = uptime / 86400;
+            int hours   = (uptime - 86400 * days) / 3600;
+            int minutes = ((uptime - 86400 * days) - (3600 * hours))/60;
+            int seconds = ((uptime - 86400 * days) - (3600 * hours))- 60 * minutes;
+
+            //double days = (double)uptime/86400;
+            snprintf(uptimeBuffer, sizeof(buffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
+
             buffer +=   "Bot Information\r\n\r\n"
                         "Bot Admin: "+adminName+
                         "\r\nBot Name: "+botName+
                         "\r\nMods: "+engine.i2s(botMods.size())+
                         "\r\nSecurity Enabled: "+secure+
-                        "\r\nPests: "+engine.i2s(botPests.size())+
-                        "\r\nAuto Ban"+engine.i2s(banList.size())+
-                        "\r\nAuto Mute"+engine.i2s(muteList.size())+
                         "\r\nBot Muted: "+mute+
+
+                        "\r\nPests: "+engine.i2s(botPests.size())+
+                        "\r\nAuto Ban: "+engine.i2s(banList.size())+
+                        "\r\nAuto Mute: "+engine.i2s(muteList.size())+
+
+                        "\r\nUptime: "+uptimeBuffer+
                         "\r\nMessages Received: "+engine.l2s(messagesReceived)+
                         "\r\nMessages Sent: "+engine.l2s(messagesSent);
 
             this->send_message(group, buffer);
 
         }
-        /*else if(cmd == cmdAdmin+"hexdec")
-        {
-            if(blocks > patchStart-1)
-            {
-
-            }
-        }
-        else if(cmd == cmdAdmin+"hexenc")
-        {
-            if(blocks > patchStart-1)
-            {
-                string buffer = cipher.hexEnc(data[patchStart]);
-                this->send_message(group, buffer);
-            }
-        }*/
         else if(cmd == cmdAdmin+"help")
         {
              this->send_message(group, 	"Admin Help\r\n"+
@@ -581,6 +611,50 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                 this->send_message(group, "I can talk again!");
             }
         }
+        else if(cmd == cmdAdmin+"info")
+        {
+            string buffer;
+            string secure = "False";
+            if(security == true)
+            {
+                secure = "True";
+            }
+
+            string mute = "False";
+            if(this->canTalk == true)
+            {
+                mute = "True";
+            }
+
+            double uptime = difftime(time(NULL), startTime);
+
+            char uptimeBuffer[256];
+            int days    = uptime / 86400;
+            int hours   = (uptime - 86400 * days) / 3600;
+            int minutes = ((uptime - 86400 * days) - (3600 * hours))/60;
+            int seconds = ((uptime - 86400 * days) - (3600 * hours))- 60 * minutes;
+
+            //double days = (double)uptime/86400;
+            snprintf(uptimeBuffer, sizeof(buffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
+
+            buffer +=   "Bot Information\r\n\r\n"
+                        "Bot Admin: "+adminName+
+                        "\r\nBot Name: "+botName+
+                        "\r\nMods: "+engine.i2s(botMods.size())+
+                        "\r\nSecurity Enabled: "+secure+
+                        "\r\nBot Muted: "+mute+
+
+                        "\r\nPests: "+engine.i2s(botPests.size())+
+                        "\r\nAuto Ban: "+engine.i2s(banList.size())+
+                        "\r\nAuto Mute: "+engine.i2s(muteList.size())+
+
+                        "\r\nUptime: "+uptimeBuffer+
+                        "\r\nMessages Received: "+engine.l2s(messagesReceived)+
+                        "\r\nMessages Sent: "+engine.l2s(messagesSent);
+
+            this->send_message(group, buffer);
+
+        }
         else if(cmd == cmdAdmin+"help")
         {
              this->send_message(group, 	"Mod Help\r\n"+
@@ -589,7 +663,8 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                                         cmdAdmin+"join [<group name>] <password>\r\n"+
                                         cmdAdmin+"msg <user id> <message>\r\n"+
                                         cmdAdmin+"away <message>\r\n"+
-                                        cmdAdmin+"mute (also unmute)"
+                                        cmdAdmin+"mute (also unmute)"+
+                                        cmdAdmin+"info"
                                         );
         }
     }
@@ -1124,6 +1199,10 @@ void	baseClient::admin_ban    (string groupID, string userID)	{ palGroup->admin(
 //sets pointers
 void	baseClient::set_palMesg(palringoMessage *mesg)				{ palMesg = mesg; }
 void	baseClient::set_palGroup(palringoGroup *group)				{ palGroup = group; }
+void	baseClient::set_palContact(palringoContact *contact)		{ palContact = contact; }
+
+//gets pointers
+palringoContact *baseClient::get_palContact()                      { return palContact; }
 
 //public functions to get variables
 string 	baseClient::get_Username() 									{ return this->username; }
@@ -1170,8 +1249,7 @@ string baseClient::messagePatcher(vector<string> message, string patch, int star
 	return output;
 }
 
-//COMPLETELY BETA FEATURES
-
+//New security functions
 bool baseClient::isMod(string userid)
 {
     if(botMods.find(userid) != botMods.end())
