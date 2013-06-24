@@ -436,7 +436,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             }
 
             string mute = "False";
-            if(this->canTalk == true)
+            if(this->canTalk != true)
             {
                 mute = "True";
             }
@@ -1369,14 +1369,28 @@ void baseClient::reloadIni(string group)
 
     if(cmdAdmin+this->nameSpace+" " != this->cmdAdmin)
     {
-        this->cmdAdmin = cmdAdmin+nameSpace;
-        postBuffer += "\r\nUpdated Admin Command: "+this->cmdAdmin;
+        if(this->nameSpace != "UNKNOWN")
+        {
+            this->cmdAdmin = cmdAdmin+nameSpace;
+            postBuffer += "\r\nUpdated Admin Command: "+this->cmdAdmin;
+        }
+        else
+        {
+            this->cmdAdmin = cmdAdmin;
+        }
     }
 
     if(cmdBase+this->nameSpace+" " != this->cmdBase)
     {
-        this->cmdBase = cmdBase+nameSpace;
-        postBuffer += "\r\nUpdated User Command: "+this->cmdBase;
+        if(this->nameSpace != "UNKNOWN")
+        {
+            this->cmdBase = cmdBase+nameSpace;
+            postBuffer += "\r\nUpdated User Command: "+this->cmdBase;
+        }
+        else
+        {
+            this->cmdBase = cmdBase;
+        }
     }
 
     /////Mod Functions
