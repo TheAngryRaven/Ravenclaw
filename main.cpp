@@ -45,8 +45,10 @@ int main(int argc, char* argv[])
                         "#your palringo logon details\r\n"
                         "email=example@email.com\r\n"
                         "password=123456\r\n"
+                        "REQUIRED it's used in one or two applications currently to prevent the bot 'talking to itself'\r\n"
+                        "botId=123456\r\n"
                         "#SSL yes or no\r\n"
-                        "SSL=no\r\n\r\n"
+                        "HTTPS=no\r\n\r\n"
                         "[SETTINGS]\r\n"
                         "#the user ID of the user in chage of the bot\r\n"
                         "adminId=1234\r\n\n"
@@ -58,10 +60,11 @@ int main(int argc, char* argv[])
                         "cmdAdmin=#\r\n\n"
                         "#the prefix for user bot commands ie: /help or /google\r\n"
                         "cmdUser=/\r\n"
-                        "#Official palringo user created bots require a 'namespace\r\n"
-                        "#if you delete the namespace field the bot will work as normal ie: '#help'"
-                        "#Example: '#rc' help instead of '#help, works for both user and admin commands a secondary namespace is not required'"
+                        "#Required for an offical palringo bot turns [#help] into [#rc help]\r\n"
+                        "#Namespace can be anything as long as it has no spaces\r\n"
                         "nameSpace=rc\r\n"
+                        "#if you delete the namespace field the bot will work as normal ie: '#help'\r\n"
+                        "#Please see readme.html for more ini settings"
                         ;
         iniStream.close();
 
