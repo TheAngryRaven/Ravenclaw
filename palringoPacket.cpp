@@ -224,12 +224,16 @@ string palringoPacket::generate_payload(string password, packet data)
 	//return cipher.salsa20(IV, authKey, dte);
 	string result = cipher.salsa20(IV, authKey, dte);
 
-    cout << "IV" << endl << cipher.hexEnc(IV) << endl;
-    cout << "AK" << endl << cipher.hexEnc(authKey) << endl;
-    cout << "DE" << endl << cipher.hexEnc(dte) << endl;
-    cout << "Auth inPacket" << endl << data.getPayload() << endl;
-	cout << "Auth outPacket" << endl << cipher.hexEnc(result) << endl;
-
+    if(engine.DEBUG)
+    {
+        cout << "------------------------------------" << endl;
+        cout << "IV" << endl << cipher.hexEnc(IV) << endl << endl;
+        cout << "AK" << endl << cipher.hexEnc(authKey) << endl << endl;
+        cout << "DE" << endl << cipher.hexEnc(dte) << endl << endl;
+        cout << "Auth inPacket" << endl << data.getPayload() << endl << endl;
+        cout << "Auth outPacket" << endl << cipher.hexEnc(result) << endl;
+        cout << "------------------------------------" << endl;
+    }
 
 	return result;
 }

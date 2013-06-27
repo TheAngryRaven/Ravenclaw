@@ -27,8 +27,6 @@ void palringoGroup::group_update(packet input)
         palringoContact *temp = botClient->get_palContact();
         temp->client_add(buffer);
     }
-
-    //parseUpdate(input.getPayload()) ;
 }
 
 void palringoGroup::group_admin(packet data)
@@ -145,37 +143,42 @@ map<string, string> palringoGroup::parseUpdate(string hexPayload)
 			running = false;
 		}
     }
-    if(updatePacket["Type"] == "1")
-	{
-		cout << "------------------------------------" << endl;
-        cout << "Leave Packet" << endl;
-        cout << "------------------------------------" << endl;
 
-		cout << "Group-Id\t" << updatePacket["Group-Id"] << endl;
-		cout << "Contact-Id\t" << updatePacket["Contact-Id"] << endl;
-		cout << "------------------------------------" << endl;
-	}
-	else
-	{
-		cout << "------------------------------------" << endl;
-        cout << "Join Packet" << endl;
-        cout << "------------------------------------" << endl;
+    if(engine.DEBUG)
+    {
+        if(updatePacket["Type"] == "1")
+        {
+            cout << "------------------------------------" << endl;
+            cout << "Leave Packet" << endl;
+            cout << "------------------------------------" << endl;
 
-		cout << "Group-Id\t" << updatePacket["Group-Id"] << endl;
-		cout << "Contact-Id\t" << updatePacket["Contact-Id"] << endl;
+            cout << "Group-Id\t" << updatePacket["Group-Id"] << endl;
+            cout << "Contact-Id\t" << updatePacket["Contact-Id"] << endl;
+            cout << "------------------------------------" << endl;
+        }
+        else
+        {
+            cout << "------------------------------------" << endl;
+            cout << "Join Packet" << endl;
+            cout << "------------------------------------" << endl;
 
-		cout << "------------------------------------" << endl;
-		cout << "Contact Information" << endl;
-		cout << "------------------------------------" << endl;
-		cout << "Nickname\t" << updatePacket["Nickname"] << endl;
-		cout << "Status\t\t" << updatePacket["Status"] << endl;
-		cout << "Privileges\t" << updatePacket["Privileges"] << endl;
-		cout << "rep\t\t" << updatePacket["rep"] << endl;
-		cout << "Icon-Id\t\t" << updatePacket["Icon-Id"] << endl;
-		cout << "Online-Status\t" << updatePacket["Online-Status"] << endl;
-		cout << "Device-Type\t" << updatePacket["Device-Type"] << endl;
-		cout << "------------------------------------" << endl;
-	}
+            cout << "Group-Id\t" << updatePacket["Group-Id"] << endl;
+            cout << "Contact-Id\t" << updatePacket["Contact-Id"] << endl;
+
+            cout << "------------------------------------" << endl;
+            cout << "Contact Information" << endl;
+            cout << "------------------------------------" << endl;
+            cout << "Nickname\t" << updatePacket["Nickname"] << endl;
+            cout << "Status\t\t" << updatePacket["Status"] << endl;
+            cout << "Privileges\t" << updatePacket["Privileges"] << endl;
+            cout << "rep\t\t" << updatePacket["rep"] << endl;
+            cout << "Icon-Id\t\t" << updatePacket["Icon-Id"] << endl;
+            cout << "Online-Status\t" << updatePacket["Online-Status"] << endl;
+            cout << "Device-Type\t" << updatePacket["Device-Type"] << endl;
+            cout << "------------------------------------" << endl;
+        }
+    }
+
 
     return updatePacket;
 }

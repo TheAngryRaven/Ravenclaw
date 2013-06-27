@@ -59,6 +59,12 @@
 		<Unit filename="crypt.h">
 			<Option virtualFolder="base/header/" />
 		</Unit>
+		<Unit filename="curl.cpp">
+			<Option virtualFolder="base/source/" />
+		</Unit>
+		<Unit filename="curl.h">
+			<Option virtualFolder="base/header/" />
+		</Unit>
 		<Unit filename="definitions.h">
 			<Option virtualFolder="base/header/" />
 		</Unit>

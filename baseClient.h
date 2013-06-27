@@ -26,9 +26,11 @@
 //project includes
 #include "misc.h"
 #include "crypt.h"
+#include "curl.h"
 #include "palringoMessage.h"
 #include "palringoGroup.h"
 #include "palringoContact.h"
+#include "palringoDatabase.h"
 #include "definitions.h"
 
 struct botMod{
@@ -40,9 +42,11 @@ struct botMod{
 
 class misc;
 class crypt;
+class curl;
 class palringoMessage;
 class palringoGroup;
 class palringoContact;
+class palringoDatabase;
 class baseClient
 {
 	public:
@@ -68,7 +72,7 @@ class baseClient
 		string 	get_Password(void);	//returns password
 
 		//beta features
-		void    parseResponse(packet input);
+		void    parseResponse(packet response, packet input);
 
 	protected:
 		//Functions to send things
@@ -106,6 +110,8 @@ class baseClient
 		time_t  startTime;
 		misc	engine;
 		crypt	cipher;
+		curl    Curl;
+		palringoDatabase palDB;
 
 		palringoMessage *palMesg;
 		palringoGroup 	*palGroup;

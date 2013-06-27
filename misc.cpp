@@ -21,7 +21,10 @@ misc::misc()
 void misc::pause()
 {
 	pl("\nPress any key to continue...");
-	_getch();
+
+	#ifdef __MINGW32__
+        _getch();
+    #endif
 }
 
 string misc::i2s(int number)

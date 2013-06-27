@@ -118,39 +118,43 @@ void baseClient::group_update(map<string, string> updatePacket)
 {
     string group = updatePacket["Group-Id"];
 
-
-    if(updatePacket["Type"] == "0")
+    if(updatePacket["Contact-Id"] != this->botId)
     {
-        string nickname = updatePacket["Nickname"];
-        string userid = updatePacket["Contact-Id"];
-        if(security && shouldMute(userid))
+        if(updatePacket["Type"] == "0")
         {
-            this->admin_silence(group, userid);
-            this->send_message(group, "User <"+nickname+"> is a known pest");
-        }
-        else if(security && shouldBan(userid))
-        {
-            this->admin_ban(group, userid);
-            this->send_message(group, "User <"+nickname+"> is a known pest");
+            string nickname = updatePacket["Nickname"];
+            string userid = updatePacket["Contact-Id"];
+            if(security && shouldMute(userid))
+            {
+                this->admin_silence(group, userid);
+                this->send_message(group, "User <"+nickname+"> is a known pest");
+            }
+            else if(security && shouldBan(userid))
+            {
+                this->admin_ban(group, userid);
+                this->send_message(group, "User <"+nickname+"> is a known pest");
+            }
+            else
+            {
+                this->send_message(group, nickname + " joined the group");
+            }
+
+            palDB.userRegister(userid, nickname);
         }
         else
         {
-            this->send_message(group, nickname + " joined the group");
-        }
-    }
-    else
-    {
-        contact buffer = palContact->client_lookup(updatePacket["Contact-Id"]);
+            contact buffer = palContact->client_lookup(updatePacket["Contact-Id"]);
 
-        if(buffer.userId != "000")
-        {
-            this->send_message(group, buffer.nickname + " left the group");
-        }
-        else
-        {
-            this->send_message(group, "Someone left the group");
-        }
+            if(buffer.userId != "000")
+            {
+                this->send_message(group, buffer.nickname + " left the group");
+            }
+            else
+            {
+                this->send_message(group, "Someone left the group");
+            }
 
+        }
     }
 }
 
@@ -179,6 +183,8 @@ void baseClient::group_admin(string group, string admin, string user, string act
         else if(action == ACTION_MOD)
             this->send_message(group, "Woo I'm a cool kid now");
     }
+
+    palDB.logAdminAction(group, admin, user, action);
 }
 
 //ive left in some of the basic bot features im writting for my personal bot to give you a feel of how i do things
@@ -416,11 +422,16 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
         }
         else if(cmd == cmdAdmin+"test")
         {
-            this->send_message(group, "Sending developer packet");
-            this->send_debug(group);
+            //this->send_message(group, "Sending developer packet");
+            //this->send_debug(group);
 
-            /*this->send_message(group, "Sending Transparency Test Image");
-            this->send_image(group, "transparency.png"); */
+            //this->send_message(group, "Sending Transparency Test Image");
+            //this->send_image(group, "transparency.png");
+            //engine.getUrl("http://google.com");
+            //curl.getUrl("http://google.com");
+
+            string buffer = Curl.postUrl("http://127.0.0.1/palringo/postTest.php","d=testdata");
+            this->send_message(group, buffer);
         }
         else if(cmd == cmdAdmin+"reload")
         {
@@ -450,7 +461,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             int seconds = ((uptime - 86400 * days) - (3600 * hours))- 60 * minutes;
 
             //double days = (double)uptime/86400;
-            snprintf(uptimeBuffer, sizeof(buffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
+            snprintf(uptimeBuffer, sizeof(buffer), "%id %ih %im %is", days, hours, minutes, seconds);
 
             buffer +=   "Bot Information\r\n\r\n"
                         "Bot Admin: "+adminName+
@@ -671,6 +682,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
 
     //user commands
     {
+        //TODO: encode various text data for URL queries
         if(cmd == cmdBase+"admin")
         {
             string output = "The bot owner is "+adminName+" Userid: "+botAdmin;
@@ -689,7 +701,8 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
         }
         else if(cmd == cmdBase+"help")
         {
-            this->send_message(group, 	"User Help\r\n"+
+            this->send_message(group, 	"User Help\r\n"
+                                        "< and > signs are used to show you command arguments, do not type them out!\r\n"+
                                         cmdBase+"admin\r\n"+
                                         cmdBase+"mods\r\n"+
                                         cmdBase+"google <query>\r\n"+
@@ -697,7 +710,10 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                                         cmdBase+"credits\r\n"+
                                         cmdBase+"uptime\r\n"+
                                         cmdBase+"dice <coin,6,8,10,12 or 20>\r\n"+
-                                        cmdBase+"website");
+                                        cmdBase+"website\r\n"+
+                                        cmdBase+"nickname 'Shows your current registered nickname'\r\n"+
+                                        cmdBase+"register <nickname>"
+                                        );
         }
         else if(cmd == cmdBase+"credits")
         {
@@ -830,6 +846,40 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             snprintf(buffer, sizeof(buffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
 
             this->send_message(group, buffer);
+        }
+        else if(cmd == cmdBase+"nickname")
+        {
+            map<string, string> dbLookup = palDB.userLookUp(user);
+
+            if(dbLookup["success"] == "true")
+            {
+                this->send_message(group, "You are currently registered under <"+dbLookup["nickname"]+">");
+            }
+            else
+            {
+                this->send_message(group, "You are not currently registered to the bot\r\nPlease run the command"+cmdBase+"register <nickname>");
+            }
+        }
+        else if(cmd == cmdBase+"register")
+        {
+            if(blocks > patchStart-1)
+            {
+                string nickname = this->messagePatcher(data, "+", patchStart);
+                map<string, string> dbLookup = palDB.userRegister(user, nickname);
+
+                if(dbLookup["success"] == "true")
+                {
+                    this->send_message(group, "You have registered the nickname <"+nickname+">");
+                }
+                else
+                {
+                    this->send_message(group, "There was an error registering your nickname");
+                }
+            }
+            else
+            {
+                this->send_message(group, "Sorry thats not how you use this command\r\n"+cmdBase+"register <nickname>");
+            }
         }
     }
 
@@ -1159,8 +1209,77 @@ void baseClient::parse_personalMessage(string name, string user, vector<string> 
 
 //BETA
 //handle response packets
-void baseClient::parseResponse(packet input)
+void baseClient::parseResponse(packet response, packet sent)
 {
+    string resp_what = response.search_headers("WHAT");
+    string resp_code = engine.i2s(engine.hex2Int(response.getPayload().substr (12,4)));
+
+    //debug info
+    if(engine.DEBUG)
+    {
+        string buffer = "What: "+resp_what+"\r\nCode: "+resp_code;
+
+        cout << "------------------------------------" << endl;
+        cout << buffer << endl;
+        cout << "------------------------------------" << endl;
+    }
+
+    //messages
+    if(resp_what == "11")
+    {
+        if(resp_code == "13")
+        {
+            this->send_pm(botAdmin, "Failed sending message\r\n\r\nType: "+sent.search_headers("mesg-target")+"\r\nTarget: "+sent.search_headers("target-id")+"\r\nMessage: "+sent.getPayload());
+        }
+    }
+
+    //Joining Group
+    if(resp_what == "1")
+    {
+        if(resp_code == "2")
+        {
+            this->send_pm(botAdmin, "Failed joining ["+ sent.search_headers("Name") +"]\r\n\r\ndoes not exist");
+        }
+        else if(resp_code == "13")
+        {
+            this->send_pm(botAdmin, "Failed joining ["+ sent.search_headers("Name") +"]\r\n\r\nWrong/Missing password");
+        }
+        else if(resp_code == "18")
+        {
+            this->send_pm(botAdmin, "Failed joining ["+ sent.search_headers("Name") +"]\r\n\r\nBanned");
+        }
+        else
+        {
+            this->send_pm(botAdmin, "Joined [" + sent.search_headers("Name") + "]");
+        }
+    }
+
+    //leave group
+    if(resp_what == "4")
+    {
+        if(resp_code == "2")
+        {
+            this->send_pm(botAdmin, "Failed leaving "+ sent.search_headers("group-id")+"\r\n\r\nNot in group?");
+        }
+        else if(resp_code == "18")
+        {
+            this->send_pm(botAdmin, "Failed leaving "+ sent.search_headers("group-id") +"\r\n\r\nBanned");
+        }
+        else
+        {
+            this->send_pm(botAdmin, "Left Group "+ sent.search_headers("group-id"));
+        }
+    }
+
+    //admin actions
+    if(resp_what == "19")
+    {
+        if(resp_code == "13")
+        {
+            this->send_pm(botAdmin, "Admin action failed\r\n\r\nGroup: "+sent.search_headers("group-id")+"\r\nAction: "+sent.search_headers("Action")+"\r\nTarget"+sent.search_headers("target-id"));
+        }
+    }
+
 }
 
 ////////////////////////////////////////////////////////////

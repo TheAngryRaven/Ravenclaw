@@ -21,8 +21,12 @@
 #include <vector>
 #include <algorithm>
 #include <string.h>
-#include <conio.h>
 #include <sstream>
+
+#ifdef __MINGW32__
+    #include <curl/curl.h>
+    #include <conio.h>
+#endif
 
 using namespace std;
 

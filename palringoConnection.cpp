@@ -82,7 +82,12 @@ void palringoConnection::send_packet(packet data)
        data.getCommand() == "GROUP SUBSCRIBE" ||
        data.getCommand() == "GROUP UNSUB")
     {
-        data.addHeader("mesg-id",engine.i2s(messageId));
+        string mesgId = engine.i2s(messageId);
+
+        data.addHeader("mesg-id",mesgId);
+
+        sentPackets[mesgId] = data;
+
         messageId++;
     }
 
@@ -322,7 +327,18 @@ void palringoConnection::parse_packet(packet data)
     else if(packCmd == "RESPONSE")
     {
         engine.pl("Received response packet");
-        this->clientUser->parseResponse(data);
+
+        //once we receive the header pass both packets to baseclient to parse
+        string mesgId = data.search_headers("MESG-ID");
+
+        map<string, packet>::iterator it = sentPackets.find(mesgId);
+
+        if(it != sentPackets.end())
+        {
+            this->clientUser->parseResponse(data, sentPackets[mesgId]);
+
+            sentPackets.erase(it);
+        }
     }
     else if(packCmd == "THROTTLE")
     {

@@ -36,18 +36,6 @@ void palringoContact::client_add(map<string, string> data)
 
 contact palringoContact::client_lookup(string id)
 {
-    /*
-    try
-    {
-        return contactList[id];
-    }
-    catch(exception e)
-    {
-         contact buffer;
-        buffer.nickname = "null";
-        return buffer;
-    }*/
-
     map<string, contact>::iterator it = contactList.find(id);
 
     if(it != contactList.end())
@@ -60,5 +48,4 @@ contact palringoContact::client_lookup(string id)
         buffer.userId = "000";
         return buffer;
     }
-
 }

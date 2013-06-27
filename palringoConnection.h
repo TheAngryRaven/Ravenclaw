@@ -77,6 +77,8 @@ class palringoConnection
 		string	SERVERIP;
 		int		SERVERPORT;
 
+		map<string, packet> sentPackets;
+
 };
 
 #endif // PALRINGOCONNECTION_H

@@ -11,6 +11,12 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+#include <map>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string.h>
+
 /*	Definitions
  *	Easy to use method to use rather than remembering response codes
  */
