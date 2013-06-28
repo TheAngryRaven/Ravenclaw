@@ -111,6 +111,12 @@
 		<Unit filename="palringoContact.h">
 			<Option virtualFolder="palringo/header/" />
 		</Unit>
+		<Unit filename="palringoDatabase.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoDatabase.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
 		<Unit filename="palringoGroup.cpp">
 			<Option virtualFolder="palringo/source/" />
 		</Unit>

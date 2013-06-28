@@ -19,6 +19,11 @@ class palringoDatabase
 
         map<string, string> userRegister(string user, string name);
         map<string, string> userLookUp(string user);
+
+        map<string, string> groupRegister(string group, string name);
+        map<string, string> groupLookUp(string group);
+
+        map<string, string> logChat(string group, string user, string message);
     protected:
     private:
         misc	engine;

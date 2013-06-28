@@ -111,7 +111,10 @@ class baseClient
 		misc	engine;
 		crypt	cipher;
 		curl    Curl;
-		palringoDatabase palDB;
+
+		#ifdef RAVENCLAW_DEBUG
+			palringoDatabase palDB;
+		#endif
 
 		palringoMessage *palMesg;
 		palringoGroup 	*palGroup;

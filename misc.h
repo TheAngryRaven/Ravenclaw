@@ -24,8 +24,11 @@
 #include <sstream>
 
 #ifdef __MINGW32__
-    #include <curl/curl.h>
     #include <conio.h>
+#endif
+
+#ifdef RAVENCLAW_DEBUG
+    #include <curl/curl.h>
 #endif
 
 using namespace std;

@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1372295527 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1372381183 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
-1372292366 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+1372449868 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -18,15 +18,15 @@
 	"palringoDatabase.h"
 	"definitions.h"
 
-1372194342 c:\users\michael\documents\palringo\git\ravenclaw\misc.h
+1372449837 c:\users\michael\documents\palringo\git\ravenclaw\misc.h
 	<iostream>
 	<fstream>
 	<vector>
 	<algorithm>
 	<string.h>
 	<sstream>
-	<curl/curl.h>
 	<conio.h>
+	<curl/curl.h>
 	"INIreader.h"
 
 1368660984 c:\users\michael\documents\palringo\git\ravenclaw\crypt.h
@@ -186,10 +186,10 @@
 	"crypt.h"
 	<curl/curl.h>
 
-1372295877 source:c:\users\michael\documents\palringo\git\ravenclaw\palringodatabase.cpp
+1372381266 source:c:\users\michael\documents\palringo\git\ravenclaw\palringodatabase.cpp
 	"palringoDatabase.h"
 
-1372295858 c:\users\michael\documents\palringo\git\ravenclaw\palringodatabase.h
+1372381108 c:\users\michael\documents\palringo\git\ravenclaw\palringodatabase.h
 	"misc.h"
 	"crypt.h"
 	"curl.h"
