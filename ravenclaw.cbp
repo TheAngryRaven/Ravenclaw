@@ -15,6 +15,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-DRAVENCLAW_DEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />

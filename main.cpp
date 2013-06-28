@@ -102,6 +102,12 @@ int main(int argc, char* argv[])
         botSettings["cmdUser"]      = reader.Get("SETTINGS", "cmdUser", "/");
         botSettings["nameSpace"]    = reader.Get("SETTINGS", "nameSpace", "UNKNOWN");
 
+		#ifdef RAVENCLAW_DEBUG
+        //obtain user script settings
+        botSettings["useScripts"]	= reader.Get("WEBSCRIPTS", "useWebScripts", "false");
+        botSettings["postUrl"]		= reader.Get("WEBSCRIPTS", "postUrl", "UNKNOWN");
+        #endif
+
         //Get the location of the bots ini file
         botSettings["iniFile"]      = iniFile;
 
@@ -117,6 +123,14 @@ int main(int argc, char* argv[])
             engine.pause();
             return 1;
         }
+        #ifdef RAVENCLAW_DEBUG
+        else if(botSettings["useScripts"] != "false" && botSettings["postUrl"] == "UNKNOWN")
+		{
+			engine.pl("You have enabled webScripts but have not supplied a URL please fix this issue.");
+            engine.pause();
+            return 1;
+		}
+		#endif
 
         spinUp(botSettings["botName"]);
         spinning(botSettings);
