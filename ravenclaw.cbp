@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ravenclaw" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="clients\source\;clients\header\;network\source\;network\header\;base\source\;base\header\;palringo\source\;palringo\header\;RPG\;RPG\player\;RPG\world\;RPG\room\;RPG\room\window\;RPG\room\door\;RPG\room\.source\;RPG\object\;RPG\object\.header\;RPG\object\.source\;RPG\player\.header\;RPG\player\.source\;RPG\room\.header\;RPG\world\.header\;RPG\world\.source\;RPG\room\wall\;RPG\room\wall\.header\;RPG\room\wall\.source\;RPG\room\door\.header\;RPG\room\door\.source\;RPG\room\window\.header\;RPG\room\window\.source\;base\header\ini\;base\source\ini\;" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin/Release/ravenclaw" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Release/" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DRAVENCLAW_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Debug">
+				<Option output="bin/Debug/ravenclaw" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Release/" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="INIReader.cpp">
+			<Option virtualFolder="base/source/ini/" />
+		</Unit>
+		<Unit filename="INIReader.h">
+			<Option virtualFolder="base/header/ini/" />
+		</Unit>
+		<Unit filename="baseClient.cpp">
+			<Option virtualFolder="clients/source/" />
+		</Unit>
+		<Unit filename="baseClient.h">
+			<Option virtualFolder="clients/header/" />
+		</Unit>
+		<Unit filename="connection.cpp">
+			<Option virtualFolder="network/source/" />
+		</Unit>
+		<Unit filename="connection.h">
+			<Option virtualFolder="network/header/" />
+		</Unit>
+		<Unit filename="crypt.cpp">
+			<Option virtualFolder="base/source/" />
+		</Unit>
+		<Unit filename="crypt.h">
+			<Option virtualFolder="base/header/" />
+		</Unit>
+		<Unit filename="curl.cpp">
+			<Option virtualFolder="base/source/" />
+		</Unit>
+		<Unit filename="curl.h">
+			<Option virtualFolder="base/header/" />
+		</Unit>
+		<Unit filename="definitions.h">
+			<Option virtualFolder="base/header/" />
+		</Unit>
+		<Unit filename="ini.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="base/source/ini/" />
+		</Unit>
+		<Unit filename="ini.h">
+			<Option virtualFolder="base/header/ini/" />
+		</Unit>
+		<Unit filename="main.cpp">
+			<Option virtualFolder="base/source/" />
+		</Unit>
+		<Unit filename="main.h">
+			<Option virtualFolder="base/header/" />
+		</Unit>
+		<Unit filename="misc.cpp">
+			<Option virtualFolder="base/source/" />
+		</Unit>
+		<Unit filename="misc.h">
+			<Option virtualFolder="base/header/" />
+		</Unit>
+		<Unit filename="packet.cpp">
+			<Option virtualFolder="network/source/" />
+		</Unit>
+		<Unit filename="packet.h">
+			<Option virtualFolder="network/header/" />
+		</Unit>
+		<Unit filename="palringoClient.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoClient.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="palringoConnection.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoConnection.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="palringoContact.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoContact.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="palringoDatabase.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoDatabase.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="palringoGroup.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoGroup.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="palringoMessage.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoMessage.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="palringoPacket.cpp">
+			<Option virtualFolder="palringo/source/" />
+		</Unit>
+		<Unit filename="palringoPacket.h">
+			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="resources.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,855 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+
+<head>
+	<title>Ravenclaw Readme</title>
+	<style media="screen" type="text/css">
+		body {
+		  font-family: Helvetica, arial, sans-serif;
+		  font-size: 14px;
+		  line-height: 1.6;
+		  padding-top: 10px;
+		  padding-bottom: 10px;
+		  background-color: white;
+		  padding: 30px;
+		  color: #333;
+		  max-width: 800px;
+		  min-width: 500px;
+		  
+		  margin: 0px auto;
+		}
+
+		body > *:first-child {
+		  margin-top: 0 !important;
+		}
+
+		body > *:last-child {
+		  margin-bottom: 0 !important;
+		}
+
+		a {
+		  color: #4183C4;
+		  text-decoration: none;
+		}
+
+		a.absent {
+		  color: #cc0000;
+		}
+
+		a.anchor {
+		  display: block;
+		  padding-left: 30px;
+		  margin-left: -30px;
+		  cursor: pointer;
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  bottom: 0;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+		  margin: 20px 0 10px;
+		  padding: 0;
+		  font-weight: bold;
+		  -webkit-font-smoothing: antialiased;
+		  cursor: text;
+		  position: relative;
+		}
+
+		h2:first-child, h1:first-child, h1:first-child + h2, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+		  margin-top: 0;
+		  padding-top: 0;
+		}
+
+		h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+		  text-decoration: none;
+		}
+
+		h1 tt, h1 code {
+		  font-size: inherit;
+		}
+
+		h2 tt, h2 code {
+		  font-size: inherit;
+		}
+
+		h3 tt, h3 code {
+		  font-size: inherit;
+		}
+
+		h4 tt, h4 code {
+		  font-size: inherit;
+		}
+
+		h5 tt, h5 code {
+		  font-size: inherit;
+		}
+
+		h6 tt, h6 code {
+		  font-size: inherit;
+		}
+
+		h1 {
+		  font-size: 28px;
+		  color: black;
+		}
+
+		h2 {
+		  font-size: 24px;
+		  border-bottom: 1px solid #cccccc;
+		  color: black;
+		}
+
+		h3 {
+		  font-size: 18px;
+		}
+
+		h4 {
+		  font-size: 16px;
+		}
+
+		h5 {
+		  font-size: 14px;
+		}
+
+		h6 {
+		  color: #777777;
+		  font-size: 14px;
+		}
+
+		p, blockquote, ul, ol, dl, li, table, pre {
+		  margin: 15px 0;
+		}
+
+		hr {
+		  #background: transparent url("http://tinyurl.com/bq5kskr") repeat-x 0 0;
+		  border: 0 none;
+		  background-color: #5c5c5c;
+		  height: 2px;
+		  padding: 0;
+		}
+
+		body > h2:first-child {
+		  margin-top: 0;
+		  padding-top: 0;
+		}
+
+		body > h1:first-child {
+		  margin-top: 0;
+		  padding-top: 0;
+		}
+
+		body > h1:first-child + h2 {
+		  margin-top: 0;
+		  padding-top: 0;
+		}
+
+		body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+		  margin-top: 0;
+		  padding-top: 0;
+		}
+
+		a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+		  margin-top: 0;
+		  padding-top: 0;
+		}
+
+		h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+		  margin-top: 0;
+		}
+
+		li p.first {
+		  display: inline-block;
+		}
+
+		ul, ol {
+		  padding-left: 30px;
+		}
+
+		ul :first-child, ol :first-child {
+		  margin-top: 0;
+		}
+
+		ul :last-child, ol :last-child {
+		  margin-bottom: 0;
+		}
+
+		dl {
+		  padding: 0;
+		}
+
+		dl dt {
+		  font-size: 14px;
+		  font-weight: bold;
+		  font-style: italic;
+		  padding: 0;
+		  margin: 15px 0 5px;
+		}
+
+		dl dt:first-child {
+		  padding: 0;
+		}
+
+		dl dt > :first-child {
+		  margin-top: 0;
+		}
+
+		dl dt > :last-child {
+		  margin-bottom: 0;
+		}
+
+		dl dd {
+		  margin: 0 0 15px;
+		  padding: 0 15px;
+		}
+
+		dl dd > :first-child {
+		  margin-top: 0;
+		}
+
+		dl dd > :last-child {
+		  margin-bottom: 0;
+		}
+
+		blockquote {
+		  border-left: 4px solid #dddddd;
+		  padding: 0 15px;
+		  color: #777777;
+		}
+
+		blockquote > :first-child {
+		  margin-top: 0;
+		}
+
+		blockquote > :last-child {
+		  margin-bottom: 0;
+		}
+
+		table {
+		  padding: 0;
+		}
+		table tr {
+		  border-top: 1px solid #cccccc;
+		  background-color: white;
+		  margin: 0;
+		  padding: 0;
+		}
+
+		table tr:nth-child(2n) {
+		  background-color: #f8f8f8;
+		}
+
+		table tr th {
+		  font-weight: bold;
+		  border: 1px solid #cccccc;
+		  text-align: left;
+		  margin: 0;
+		  padding: 6px 13px;
+		}
+
+		table tr td {
+		  border: 1px solid #cccccc;
+		  text-align: left;
+		  margin: 0;
+		  padding: 6px 13px;
+		}
+
+		table tr th :first-child, table tr td :first-child {
+		  margin-top: 0;
+		}
+
+		table tr th :last-child, table tr td :last-child {
+		  margin-bottom: 0;
+		}
+
+		img {
+		  max-width: 100%;
+		}
+
+		span.frame {
+		  display: block;
+		  overflow: hidden;
+		}
+
+		span.frame > span {
+		  border: 1px solid #dddddd;
+		  display: block;
+		  float: left;
+		  overflow: hidden;
+		  margin: 13px 0 0;
+		  padding: 7px;
+		  width: auto;
+		}
+
+		span.frame span img {
+		  display: block;
+		  float: left;
+		}
+
+		span.frame span span {
+		  clear: both;
+		  color: #333333;
+		  display: block;
+		  padding: 5px 0 0;
+		}
+
+		span.align-center {
+		  display: block;
+		  overflow: hidden;
+		  clear: both;
+		}
+
+		span.align-center > span {
+		  display: block;
+		  overflow: hidden;
+		  margin: 13px auto 0;
+		  text-align: center;
+		}
+
+		span.align-center span img {
+		  margin: 0 auto;
+		  text-align: center;
+		}
+
+		span.align-right {
+		  display: block;
+		  overflow: hidden;
+		  clear: both;
+		}
+
+		span.align-right > span {
+		  display: block;
+		  overflow: hidden;
+		  margin: 13px 0 0;
+		  text-align: right;
+		}
+
+		span.align-right span img {
+		  margin: 0;
+		  text-align: right;
+		}
+
+		span.float-left {
+		  display: block;
+		  margin-right: 13px;
+		  overflow: hidden;
+		  float: left;
+		}
+
+		span.float-left span {
+		  margin: 13px 0 0;
+		}
+
+		span.float-right {
+		  display: block;
+		  margin-left: 13px;
+		  overflow: hidden;
+		  float: right;
+		}
+
+		span.float-right > span {
+		  display: block;
+		  overflow: hidden;
+		  margin: 13px auto 0;
+		  text-align: right;
+		}
+
+		code, tt {
+		  margin: 0 2px;
+		  padding: 0 5px;
+		  white-space: nowrap;
+		  border: 1px solid #ff7777;
+		  color: #000;
+		  background-color: #FFF;
+		  border-radius: 3px;
+		}
+
+		pre code {
+		  margin: 0;
+		  padding: 0;
+		  white-space: pre;
+		  border: none;
+		  background: transparent;
+		}
+
+		.highlight pre {
+		  background-color: #f8f8f8;
+		  border: 1px solid #cccccc;
+		  font-size: 13px;
+		  line-height: 19px;
+		  overflow: auto;
+		  padding: 6px 10px;
+		  border-radius: 3px;
+		}
+
+		pre {
+		  background-color: #f8f8f8;
+		  border: 1px solid #cccccc;
+		  font-size: 13px;
+		  line-height: 19px;
+		  overflow: auto;
+		  padding: 6px 10px;
+		  border-radius: 3px;
+		}
+
+		pre code, pre tt {
+		  background-color: transparent;
+		  border: none;
+		}
+	</style>
+</head>
+
+<body>
+<h1>Creator</h1>
+
+<p>Raven (ID: 25909767 | 512388) <br />
+Can be found in <a href="http://www.palringo.com/en/us/groups/uncategorized/furry-2676">[furry]</a></p>
+
+<hr />
+
+<h2>Licenses</h2>
+
+<p>RavenClaw: <a href="http://opensource.org/licenses/GPL-3.0">GNU General Public License, version</a></p>
+
+<p>Cryptopp: <a href="http://www.boost.org/users/license.html">Boost Software License</a></p>
+
+<p>IniReader: <a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a></p>
+
+<hr />
+
+<h2>Description</h2>
+
+<p>A C++ bot base for palringo. Designed for <strong>Windows</strong> It has a handful of basic chat commands and core features. </p>
+
+<p>A library called crypto++ is required for the bot to function, you can find it in the downloads section.  </p>
+
+<p>Bot is now staying publicly open source, because I feel like it. Be aware it is missing a couple of key features, so start your own fork and help me out!</p>
+
+<h4>Missing Core Feature</h4>
+
+<ul>
+<li>Sub Profile Decryption
+
+
+<blockquote>
+  This is the packet sent from palringo telling us things like <strong>display names</strong> and <strong>users status messages</strong> along with <strong>users in a group</strong>.</li>
+  </ul>
+  <hr />
+</blockquote>
+
+<h2>VERY Recent Changelog</h2>
+
+Lots of things have been added to the bot, here is a basic changelog!
+
+<ul>
+<li>Added a "namespace" feature that pal requires, such as <strong>#rc help</strong> instead of <strong>#help</strong> (but it's optional)</li>
+<li>I updated the main packet decryptor, and it works SOO much better</li>
+<li>I have completed the <strong>groupUpdate</strong> decryptor. You can see it in effect in <strong>baseClient::group_update</strong></li>
+<li>Updated security functions to ban/mute when a user joins the group</li>
+<li>I have renamed <strong>baseClient::parseCommands</strong> to <strong>baseClient::parse_groupMessage</strong></li>
+<li>I have fixed a couple little minor bugs, like how incomming messages are display in console</li>
+<li>Added dynamic message IDs on outbound packets so we can actually use response codes in the future</li>
+<li>Added new fields to the INI one required two are optional (more discussed in program notes)</li>
+<li>Added <strong>#info</strong> to show very basic bot statistics</li>
+<li>Updated <strong>#mute</strong> to only effect bot auto responses so commands still work</li>
+<li>Added basic definitions.h to be used to help with various response codes and such, I will expand this to a full class</li>
+<li>Reorganized some of the code in <strong>baseClient::parse_groupMessage</strong> just to be cleaner</li>
+<li>Added section in the INI for the bots userID this is temporary until I can complete the sub profile code</li>
+</ul>
+
+<p>Features that are new but not BRAND NEW</p>
+
+<ul>
+<li>simply run the command <strong>#reload</strong> to have the bot reload lists out of the ini</li>
+<li>Bot can now have mods, which are added in the ini file</li>
+<li>Mods have their own set of admin commands as defined in <strong>baseClient::parse_groupMessage</strong> and even get to set away messages</li>
+<li>Bot now has an auto ban/mute list which applies to the users when they post or when they join a group</li>
+<li>Also added an ignore list, bot simply ignores ANY input but those users</li>
+</ul>
+
+<hr />
+
+<h2>Compile Help</h2>
+
+<h4>Enviroment</h4>
+
+<blockquote>
+  <p>I use <a href="http://www.codeblocks.org/"><strong>Code::Blocks</strong></a> with the version of mingw that comes with it</p>
+</blockquote>
+
+<h4>Compiling CryptoPP</h4>
+
+<blockquote>
+  <p>In the downloads section of the repo you can find a copy of cryptopp I have slightly tweaked to compile with mingw using various internet sources.</p>
+  
+  <p>I've included a precompiled version of cryptopp which you can use, simply open up the folder where <strong>Code::Blocks</strong> is installed, typically <strong>C:\Program Files\CodeBlocks\</strong>, now inside of that folder you will see a folder called <strong>Mingw</strong>, simply copy the <strong>include</strong> and <strong>lib</strong> folder from the archive I've supplied in the downloads section to that folder, it will ask if you want to merger or copy over click yes, you will not be overwritting anything. <br />
+  <strong>In Theory</strong> you do not need to recompile cryptopp, if you do here are the basic instructions. </p>
+  
+  <ul>
+  <li>Setup the mingw/bin/ folder to be part of your system path <a href="http://www.computerhope.com/issues/ch000549.htm">How To</a></li>
+  <li>Copy the <strong>cryptopp</strong> folder from the root of the archive somewhere to your computer</li>
+  <li><strong>DELETE</strong> the <strong>include</strong> and <strong>lib</strong> folders</li>
+  <li>Open the folder in an instance of the windows command prompt</li>
+  <li>Run the command <code>mingw32-make</code> and wait for it to compile you <em>shouldn't</em> receive any errors (it takes a while)</li>
+  <li>Run the command (can copy and paste) <code>mkdir include&amp;mkdir include\cryptopp&amp;mkdir lib</code> to create the folders to stick the binaries in</li>
+  <li>Run the command <code>copy *.h include\cryptopp&amp;copy *.a lib</code> this copies the headers needed for <strong>Code::Blocks</strong> and the libary to link against</li>
+  <li>Now as directed before copy the <em>include</em> and <em>lib</em> folders to the mingw path in your <strong>Code::Blocks</strong> install path</li>
+  </ul>
+</blockquote>
+
+<h4>Setting up:</h4>
+
+<blockquote>
+  <p>Before you can just simply compile the bot, you need to set a few things up. <br />
+  In <strong>Code::Blocks</strong> go to <strong>settings->compiler</strong> now click on the <strong>linker settings</strong> tab and add both <strong>libws2_32.a</strong> and <strong>libcryptopp.a</strong> from <strong>codeblocks\mingw\lib</strong></p>
+  
+  <p>Now in theory, you are ready to build the bot, have fun!</p>
+</blockquote>
+
+<hr />
+
+<h2>Program Notes:</h2>
+
+<h4>Setting login details and such</h4>
+
+<blockquote>
+  <p>The bot can now load details from an INI file, apon starting the bot a basic INI <strong>that you need to edit yourself</strong> (any text editor will do) will be generated called <strong>example.ini</strong> if you do not supply one in the commandline. Along with a super basic <strong>runBot.bat</strong> batch script, which simply contains <code>ravenclaw.exe exampli.ini</code>.  </p>
+  
+  <p>See the below example for the input the ini excepts.</p>
+  
+  <p><strong>Note</strong>: when HTTPS is enabled, it connects to palringo's secure server, weither or not the data is encrypted is unknown to me, as I have not taken the time to actually go through the packets and such.</p>
+  
+  <p>Namespace and HTTPS are optional, when nameSpace is removed commands become <strong>#help</strong> instead of <strong>#rc help</strong></p>
+</blockquote>
+
+<pre><code>[LOGON]
+email=youremailhere@gmail.com
+password=yourpassword
+botId=25804994 *NEW
+HTTPS=true  *NEW
+
+[SETTINGS]
+adminId=yourID
+adminName=ravey
+botName=ravenclaw
+cmdAdmin=#
+cmdUser=/
+nameSpace=rc *NEW
+
+[MODS]
+modAccounts=17779473|2937702
+modNames=nom|andrei
+
+[SECURITY]
+#first two are welcome/autopost bots
+ignore=15145815|10324473|18089645
+autoBan=18089645
+autoMute=18089645
+</code></pre>
+
+<h4>Starting the bot</h4>
+
+<blockquote>
+  <p>Simply run a command in the cmd prompt along the lines of</p>
+  
+  <p><code>ravenclaw.exe example.ini</code></p>
+  
+  <p>The bot will load the required settings from example.ini, logon and start listening.</p>
+</blockquote>
+
+<h4>Misc.cpp</h4>
+
+<blockquote>
+  <p>Inside of misc.cpp (usually refered to as engine) I have created some basic and useful features that can be used project wide. The main reason I did this, was to create a "debug printline" which is toggled with debug in misc.cpp, more core features will be added to this function as time progresses. Even has a super simple int to string function <code>misc::i2s(int number)</code></p>
+</blockquote>
+
+<hr />
+
+<h3>Libraries Used</h3>
+
+<h4>libws2_32.a</h4>
+
+<blockquote>
+  <p>For the base socket connector <br />
+  Included with most IDEs, its a basic windows lib just link against it in the project.</p>
+</blockquote>
+
+<h4>libcryptopp.a ver5.61</h4>
+
+<blockquote>
+  <p>For Salsa20/MD5/Hex methods <br />
+  Taken from <a href="http://www.cryptopp.com/">Cryptopp 5.61</a></p>
+</blockquote>
+
+<h4>INIReader version 27</h4>
+
+<blockquote>
+  <p>Super basic ini parser under the BSD license, more of an include than a library. <br />
+  The source files are included in the project and require no action from you, but you can find the originals here <a href="http://code.google.com/p/inih/">Google Code inih</a> if you care to have them.</p>
+</blockquote>
+
+<hr />
+
+<h2>Core Features</h2>
+
+<blockquote>
+  <p>Many of these features can be removed if desired, this is just a list of everything you get when you download the source.</p>
+</blockquote>
+
+<h4>Basic chat listening</h4>
+
+<blockquote>
+  <p>Can listen for keywords in the chat and respond, and do various actions.</p>
+  
+  <p>Currently can listen for <strong>phrases</strong> and <strong>keywords</strong> anywhere in a message, along with seeing <strong>#hashtags</strong> at the end of a message.</p>
+</blockquote>
+
+<h4>PM Responses</h4>
+
+<blockquote>
+  <p>When the bot receives a pm, it PMs the bot owner with the message, then the bot owner can reply back using the bot to the original sender. But can be modified for listening to PMs like it listens to chats.</p>
+  
+  <p>Now has a dedicated function for parsing private message in <strong>baseClient::parse_pm()</strong>.</p>
+</blockquote>
+
+<h4>Image Sending</h4>
+
+<blockquote>
+  <p>You can now send images inside of <code>baseClient::</code> and it's super simple! Second simply call <code>this-&gt;send_image("groupID", "filepath\test.jpg");</code> or <code>this-&gt;send_image_pm("userID", "filepath\test.jpg");</code> and away the image goes.</p>
+</blockquote>
+
+<h4>Full admin functions</h4>
+
+<blockquote>
+  <p>If given elevated premissions can mod/mute/ban etc. </p>
+</blockquote>
+
+<h4>Admin triggers</h4>
+
+<blockquote>
+  <p><code>baseClient::group_admin()</code> gets triggered when any admin function is used in a group.</p>
+</blockquote>
+
+<h4>Group join/leave trigger - <em>NEW AND OUT OF BETA</em></h4>
+
+<blockquote>
+  <p><code>baseClient::group_update()</code> gets triggered when anyone joins or leaves a group. Even saves basic contact data that we can call back later, this is the beginning of a contact list.</p>
+</blockquote>
+
+<h4>Bot Admin status</h4>
+
+<blockquote>
+  <p>Default status is offline, when the bot sees that the bot-admin has typed a message in a group the bot is in it sets the admins status to online.</p>
+</blockquote>
+
+<h4>Find Mod/Admins</h4>
+
+<blockquote>
+  <p>Programmatically the bot owner can set keywords where the bot pms them saying they're being looked for.</p>
+</blockquote>
+
+<h4>Bot Mod status - <em>NEW</em></h4>
+
+<blockquote>
+  <p>Default status is offline, when the bot sees that a bot-mod has typed a message in a group the bot is in it sets the mods status to online.</p>
+</blockquote>
+
+<h4>Bot Mods - <em>NEW</em></h4>
+
+<blockquote>
+  <p>As shown in the example ini above you can now have bot mods, there is a new if loop in <strong>baseClient::parse_commands()</strong> you can even load new mods without restarting the bot, just add them to the ini and run the command <code>#loadini</code> and boom, mods/auto lists now updated!</p>
+</blockquote>
+
+<h4>Auto ban/mute - <em>NEW AND OUT OF BETA</em></h4>
+
+<blockquote>
+  <p>If a user on the ban/mute list talks <strong>OR</strong> joins a group the bot is in, they automatically muted/banned.</p>
+</blockquote>
+
+<h4>Ignore - <em>NEW</em></h4>
+
+<blockquote>
+  <p>If a user is on the ignore list the bot simply ignores <strong>ANY</strong> post they make. Helpfull for those abusing the bot.</p>
+</blockquote>
+
+<h4>Server Responses - <em>NEW/BETA</em></h4>
+
+<blockquote>
+  <p>Currently doesnt work, is only triggered in <strong>baseClient::parseResponse()</strong> will soon be able to listen for all sorts of server responses and hopefully advert all errors if they occur. I have now also added a system to proerly send a "dynamic" message id with each message to properly parse these responses.</p>
+</blockquote>
+
+<hr />
+
+<h2>List of simple chat commands</h2>
+
+<blockquote>
+  <p>All of the featured are simply in <code>baseClient::parse_commands()</code>, nothing is hard coded and can be changed without breaking anything. It is mostly here as an example how ive acomplished some neat little tricks. <strong>Do not</strong> use the less/greator than signs, they are simply there to show you the arguments for the function.</p>
+  
+  <p><strong>Example:</strong> If the command is <code>/google &lt;query&gt;</code> you call the function with <code>/google icecream party</code>.</p>
+</blockquote>
+
+<h4>Admin Commands</h4>
+
+<blockquote>
+  <p>Only the bot admin can use these commands.</p>
+  
+  <p><strong>#help</strong> <br />
+  Tells you the available commands, this isn't dynamic if you add more functions be sure to add it to the code.</p>
+  
+  <p><strong>#leave</strong> <br />
+  Makes the bot leave the group you posted the message in.</p>
+  
+  <p><strong>#join [&lt; group name >] &lt; password ><em></strong>  - *UPDATED</em> <br />
+  Tells the bot to join whatever group name you want, this function has been updated to support passwords.
+  Using passwords is rather simple, to join a group with no password simply <code>#join [group name]</code> to join with a password <code>#join [group name] password</code>. Brackets are now <strong>ONLY required</strong> for the group name, if you do not want to supply a password.</p>
+  
+  <p><strong>#msg &lt; user id > &lt; message ></strong> <br />
+  The bot will PM the user with the supplied <strong>USER ID</strong> with the supplied message.</p>
+  
+  <p><strong>#away &lt; message ></strong> <br />
+  Sets the bot admin to away with an <strong>OPTIONAL</strong> message, if <em>anyone</em> mentions the admins name in chat, the bot will tell the group if the admin is online or not.</p>
+  
+  <p><strong>#secure</strong> (also unsecure) <br />
+  Default state is <strong>ON</strong> usefull to program various functions like the included <em>group name checker</em> found in <code>baseClient::parseCommands()</code>, the function checks if someone posted a link to a group and will scilence them.</p>
+  
+  <p><strong>#mute</strong> (also unmute) <br />
+  Default state is <strong>OFF</strong> bot will still listen and respond to commands. But auto responses and such will not trigger.</p>
+  
+  <p><strong>#check</strong> <br />
+  The bot will post a little message letting you know that it's online even if its set to mute.</p>
+  
+  <p><strong>#test</strong> (new) <br />
+  There is a new packet in <strong>palringo::packet</strong> designed to fill up with whatever data you please, and send to the palringo servers. This command is what triggers the sending of the command.</p>
+  
+  <p><strong>#reload</strong> (new) <br />
+  Reloads the bot's ini file to update ignore/mod/auto lists. It also spits out the output of the reload.</p>
+  
+  <p><strong>#info</strong> (new) <br />
+  Displays various data like messages sent/received and so on.</p>
+</blockquote>
+
+<h4>Admin PM Commands</h4>
+
+<blockquote>
+  <p>Work similar to the regular admin commands except they are triggered when you PM the bot.They are called from <code>baseClient::parse_pm()</code>.  </p>
+  
+  <p><strong>#help</strong> <br />
+  Tells you the available PM commands</p>
+  
+  <p><strong>#msg &lt; user id > &lt; message ></strong> <br />
+  The bot will PM the user with the supplied <strong>USER ID</strong> with the supplied message.</p>
+  
+  <p><strong>#leave &lt; group id ></strong> <br />
+  Makes the bot leave the requested group, <strong>NOTE:</strong> supply the group <strong>ID</strong> not <strong>NAME</strong></p>
+  
+  <p><strong>#join &lt; group name ></strong> <br />
+  Makes the bot join the requested group name.</p>
+  
+  <p><strong>#uptime</strong> <br />
+  Sends you a message displaying the bots uptime in a fashion as such <code>0d 20h 3m 28s</code>.</p>
+</blockquote>
+
+<h4>Mod Commands</h4>
+
+<blockquote>
+  <p>Mods are currently programed to use all admin commands except for <strong>Secure, test and reload</strong>. They currently can also use the PM commands.</p>
+</blockquote>
+
+<h4>User Commands</h4>
+
+<blockquote>
+  <p>Anyone in the group the bot is in can use these commands.</p>
+  
+  <p><strong>/help</strong> <br />
+  Tells everyone the available commands.</p>
+  
+  <p><strong>/google &lt; query ></strong> <br />
+  Put simply posts a google search url, doesn't post results to chat.</p>
+  
+  <p><strong>/youtube &lt; query ></strong> <br />
+  Put simply posts a youtube search url, doesn't post results to chat.</p>
+  
+  <p><strong>/credits</strong> <br />
+  Posts a little message to chat telling people who helped me get the bot going.</p>
+  
+  <p><strong>/admin</strong> <br />
+  Tells the group who the admin is and if they are online, if they are offline and the admin has set an away message, displays that message.</p>
+  
+  <p><strong>/mods</strong> (new) <br />
+  Tells the group who all the assigned mods are and if they are online or not.</p>
+  
+  <p><strong>/uptime</strong> <br />
+  Posts how long the bot has been running.</p>
+  
+  <p><strong>/dice &lt; coin,6,8,10,12 or 20 ></strong> <br />
+  Very basic random number generator, posts results to group.</p>
+  
+  <p><strong>/website</strong> <br />
+  Posts a link to the BitBucket Repo for ravenclaw.</p>
+</blockquote>
+
+<hr />
+
+<h3>Other Features</h3>
+
+<blockquote>
+  <p>These are simple features that trigger with certain messages.</p>
+</blockquote>
+
+<h4>Crude AI</h4>
+
+<blockquote>
+  <p>Simply using <code>botname phrase</code> can trigger cute little responses from the bot. I've only given ravenclaw a couple "AI" triggers, its just a giant if statement, its super easy to add your own.</p>
+  
+  <p><strong>Example:</strong> saying <code>ravenclaw how are you?</code> would trigger the bot to respond <code>I'm good thanks for asking!</code>.</p>
+</blockquote>
+
+<h4>Filters</h4>
+
+<blockquote>
+  <p>In the else statement in <code>baseClient::parse_commands()</code> commented with <code>/* filters */</code> are various ways to call various types of message <em>"searching"</em>. Explaining all the current triggers can make this readme EVEN MORE lengthy so ive decided not to do that, but instead describe the types of triggers I have coded, and a single example. All triggers are simply if statements and it takes seconds to add your own.</p>
+  
+  <p><strong>Phrases</strong> <br />
+  if the message is the phrase and ONLY the phrase, the event triggers. <br />
+  Example phrase is: <code>bye guys</code> triggers the bot to post <code>/me waves goodbye</code></p>
+  
+  <p><strong>Word Filters</strong> <br />
+  If a users post contains the word <strong>ANYWHERE</strong> in the message, the event triggers. <br />
+  Example: <code>shit</code> and some other curse words trigger the bot to call them a potty mouth.</p>
+  
+  <p><strong>Internal Phrase Triggers</strong> <br />
+  The example ive put in the code is the <code>call of duty</code> trigger, slightly complicated code wise but not hard to wrap your head around, these trigger if the phrase is <strong>ANYWHERE</strong> in the users message.</p>
+  
+  <p><strong>HashTags</strong> <br />
+  If someone uses a hashtag phrase <strong>IE:</strong> <code>#yolo</code> at the end of a message, this triggers the bot to post a very silly message about the use of yolo.</p>
+</blockquote>
+
+<hr />
+
+<h3>TODO</h3>
+
+<h4>Sub Profile Reading</h4>
+
+<blockquote>
+  <p>this handles all the text usernames and statuses and such.</p>
+</blockquote>
+
+<h4>Linux compatibility</h4>
+
+<blockquote>
+  <p>The entire project is virtually linux ready, the only non linux code is currently in my base connection class. Cryptopp works with zero problems I even ran a few tests.</p>
+</blockquote>
+
+<h4>Clean up code</h4>
+
+<blockquote>
+  <p>Fuck yea re-did packet parser, and a new packet debug output.</p>
+</blockquote>
+
+<h4>Make the bot scripted</h4>
+
+<blockquote>
+  <p>No one wants to recompile the bot, the goal is once the base is nailed out and polished, impiliment python or another scripting language as a frontend, and keep RavenClaw as a backend, that only needs to be compiled for new features and bugs.</p>
+</blockquote>
+</body>
+</html>
