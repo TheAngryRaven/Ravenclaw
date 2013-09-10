@@ -1,6 +1,5 @@
 # Creator
-Raven (ID: 25909767 | 512388)  
-Can be found in [[furry]](http://www.palringo.com/en/us/groups/uncategorized/furry-2676)
+Raven (ID: 25909767 | 512388)
 ***    
 ## Licenses
 RavenClaw: [GNU General Public License, version](http://opensource.org/licenses/GPL-3.0)
