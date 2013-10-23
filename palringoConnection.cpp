@@ -21,7 +21,8 @@ palringoConnection::palringoConnection(palringoClient *client, bool SSL)
     {
         engine.pl("palConn-> logging in with plaintext", 1);
         SERVERIP = "80.69.129.75";
-        SERVERPORT = 0x3039; //12345
+        //SERVERPORT = 0x3039; //12345
+        SERVERPORT = 0x9687; //38535
     }
 
 	palClient	= client;
@@ -307,7 +308,7 @@ void palringoConnection::parse_packet(packet data)
     }
     else if(packCmd == "SUB PROFILE")
     {
-        //engine.pl("palConn-> Subprofile received");
+        engine.pl("palConn-> Subprofile received");
     }
     else if(packCmd == "GROUP ADMIN")
     {
