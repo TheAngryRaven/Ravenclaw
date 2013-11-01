@@ -2,7 +2,7 @@
 1372450227 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
-1372449868 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
+1383321770 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -113,13 +113,13 @@
 1371669240 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.cpp
 	"palringoClient.h"
 
-1372262849 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
+1381860060 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
 	"palringoConnection.h"
 
 1372196385 source:c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.cpp
 	"palringoContact.h"
 
-1372105961 c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.h
+1383321533 c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -181,7 +181,7 @@
 1372296010 source:c:\users\michael\documents\palringo\git\ravenclaw\curl.cpp
 	"curl.h"
 
-1372295699 c:\users\michael\documents\palringo\git\ravenclaw\curl.h
+1383321601 c:\users\michael\documents\palringo\git\ravenclaw\curl.h
 	"misc.h"
 	"crypt.h"
 	<curl/curl.h>
@@ -189,7 +189,7 @@
 1372381266 source:c:\users\michael\documents\palringo\git\ravenclaw\palringodatabase.cpp
 	"palringoDatabase.h"
 
-1372381108 c:\users\michael\documents\palringo\git\ravenclaw\palringodatabase.h
+1383321631 c:\users\michael\documents\palringo\git\ravenclaw\palringodatabase.h
 	"misc.h"
 	"crypt.h"
 	"curl.h"

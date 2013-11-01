@@ -111,9 +111,7 @@ void baseClient::recv_personalMessage(string name, string user, string message)
     {
         this->parse_personalMessage(name, user, engine.splitStr(message,' '));
 
-		#ifdef RAVENCLAW_DEBUG
-        palDB.userRegister(user, name);
-		#endif
+        //palDB.userRegister(user, name);
     }
 }
 
@@ -142,9 +140,8 @@ void baseClient::group_update(map<string, string> updatePacket)
             {
                 this->send_message(group, nickname + " joined the group");
             }
-			#ifdef RAVENCLAW_DEBUG
-            palDB.userRegister(userid, nickname);
-			#endif
+
+			//palDB.userRegister(userid, nickname);
         }
         else
         {
@@ -156,7 +153,7 @@ void baseClient::group_update(map<string, string> updatePacket)
             }
             else
             {
-				#ifdef RAVENCLAW_DEBUG
+				/*
 				map<string, string> dbLookup = palDB.userLookUp(updatePacket["Contact-Id"]);
 				if(dbLookup["success"] == "true")
 				{
@@ -166,9 +163,9 @@ void baseClient::group_update(map<string, string> updatePacket)
 				{
 					this->send_message(group, "Someone left the group");
 				}
-				#else
-					this->send_message(group, "Someone left the group");
-				#endif
+				*/
+
+				this->send_message(group, "Someone left the group");
             }
 
         }
@@ -201,9 +198,7 @@ void baseClient::group_admin(string group, string admin, string user, string act
             this->send_message(group, "Woo I'm a cool kid now");
     }
 
-	#ifdef RAVENCLAW_DEBUG
-    palDB.logAdminAction(group, admin, user, action);
-	#endif
+    //palDB.logAdminAction(group, admin, user, action);
 }
 
 //ive left in some of the basic bot features im writting for my personal bot to give you a feel of how i do things
@@ -212,9 +207,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
 	int     blocks  = data.size();
 	string  mesg    = this->messagePatcher(data, " ", 1);
 
-	#ifdef RAVENCLAW_DEBUG
-	palDB.logChat(group, user, mesg);
-	#endif
+	//palDB.logChat(group, user, mesg);
 
     //new method of creating a command allows us to create "namespace commands" that palringo requires
     //IE: `#rc help` rather than `#help`
@@ -453,8 +446,8 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             //engine.getUrl("http://google.com");
             //curl.getUrl("http://google.com");
 
-            string buffer = Curl.postUrl("http://127.0.0.1/palringo/postTest.php","d=testdata");
-            this->send_message(group, buffer);
+            //string buffer = Curl.postUrl("http://127.0.0.1/palringo/postTest.php","d=testdata");
+            //this->send_message(group, buffer);
         }
         else if(cmd == cmdAdmin+"reload")
         {
@@ -504,7 +497,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             this->send_message(group, buffer);
 
         }
-		#ifdef RAVENCLAW_DEBUG
+		/*
         else if(cmd == cmdAdmin+"register")
 		{
 			if(blocks > patchStart-1)
@@ -539,7 +532,8 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                 this->send_message(group, "This group is not currently registered to the bot\r\nPlease run the command "+cmdAdmin+"register <groupname>");
             }
 		}
-		#endif
+		*/
+
         else if(cmd == cmdAdmin+"help")
         {
              this->send_message(group, 	"Admin Help\r\n"+
@@ -553,10 +547,10 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                                         cmdAdmin+"test\r\n"+
                                         cmdAdmin+"reload\r\n"+
                                         cmdAdmin+"info"
-										#ifdef RAVENCLAW_DEBUG
+										/*
 										"\r\n"+cmdAdmin+"register <groupname>\r\n"+
                                         cmdAdmin+"group"
-										#endif
+										*/
                                         );
         }
     }
@@ -912,7 +906,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
 
             this->send_message(group, buffer);
         }
-		#ifdef RAVENCLAW_DEBUG
+		/*
         else if(cmd == cmdBase+"nickname")
         {
             map<string, string> dbLookup = palDB.userLookUp(user);
@@ -947,7 +941,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                 this->send_message(group, "Sorry thats not how you use this command\r\n"+cmdBase+"register <nickname>");
             }
         }
-		#endif
+		*/
     }
 
     //Bot AI

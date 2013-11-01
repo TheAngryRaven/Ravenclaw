@@ -11,7 +11,7 @@
 /*	Class: curl
  *	Info: handles gathering data from web locations
  */
-
+/*
 #ifndef CURL_H
 #define CURL_H
 
@@ -45,3 +45,4 @@ class curl
 };
 
 #endif // CRYPT_H
+*/

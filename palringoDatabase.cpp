@@ -1,3 +1,14 @@
+/*
+ * Software created by:
+ * Michael Champagne
+ * Raven (ID: 22885233 | 512388)
+
+ * Licensed with GNU lpgl v3.0
+ * Found in gnu-v3.txt or available online here
+ * http://www.gnu.org/licenses/lgpl.txt
+ */
+
+/*
 #include "palringoDatabase.h"
 
 palringoDatabase::palringoDatabase()
@@ -78,3 +89,4 @@ map<string, string> palringoDatabase::logChat(string group, string user, string 
     string output = Curl.postUrl(baseUrl, Curl.buildPostData(postData));
     return Curl.parseCurlPacket(output);
 }
+*/

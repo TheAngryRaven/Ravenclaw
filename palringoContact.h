@@ -58,7 +58,7 @@ class palringoContact
 		contact client_lookup(string id);               //looks up user details based on ID
 
         //server side actions
-		void server_added(void);	//Someone added you to their contact list
+		void server_request(void);	//Someone added you to their contact list
 
 		void server_add(void);		//add someone to your contacts list by using their id
 		void server_accept(void);	//accept someones contact request

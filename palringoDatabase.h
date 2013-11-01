@@ -1,3 +1,14 @@
+/*
+ * Software created by:
+ * Michael Champagne
+ * Raven (ID: 22885233 | 512388)
+
+ * Licensed with GNU lpgl v3.0
+ * Found in gnu-v3.txt or available online here
+ * http://www.gnu.org/licenses/lgpl.txt
+ */
+
+/*
 #ifndef PALRINGODATABASE_H
 #define PALRINGODATABASE_H
 
@@ -32,3 +43,4 @@ class palringoDatabase
 };
 
 #endif // PALRINGODATABASE_H
+*/

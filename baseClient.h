@@ -110,11 +110,9 @@ class baseClient
 		time_t  startTime;
 		misc	engine;
 		crypt	cipher;
-		curl    Curl;
 
-		#ifdef RAVENCLAW_DEBUG
-			palringoDatabase palDB;
-		#endif
+		//curl    Curl;
+		//palringoDatabase palDB;
 
 		palringoMessage *palMesg;
 		palringoGroup 	*palGroup;
