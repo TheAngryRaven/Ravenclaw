@@ -1,120 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="palringoPacket.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="899" topLine="24" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5029" topLine="0" />
-		</Cursor>
-	</File>
 	<File name="main.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="482" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="palringoClient.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="palringoContact.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="500" topLine="2" />
+			<Cursor1 position="1355" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="baseClient.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="packet.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3732" topLine="162" />
-		</Cursor>
-		<Folding>
-			<Collapse line="0" />
-			<Collapse line="13" />
-			<Collapse line="30" />
-			<Collapse line="38" />
-		</Folding>
-	</File>
-	<File name="baseClient.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3462" topLine="47" />
-		</Cursor>
-	</File>
-	<File name="packet.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="255" topLine="54" />
-		</Cursor>
-	</File>
-	<File name="connection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="403" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="connection.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1030" topLine="114" />
-		</Cursor>
-	</File>
-	<File name="INIReader.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="808" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="crypt.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="packet.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="337" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="INIReader.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="306" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="misc.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5339" topLine="121" />
-		</Cursor>
-		<Folding>
-			<Collapse line="0" />
-			<Collapse line="16" />
-			<Collapse line="21" />
-			<Collapse line="30" />
-			<Collapse line="38" />
-			<Collapse line="48" />
-			<Collapse line="58" />
-			<Collapse line="68" />
-			<Collapse line="69" />
-		</Folding>
-	</File>
-	<File name="palringoConnection.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="426" topLine="28" />
-		</Cursor>
-	</File>
-	<File name="curl.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1061" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="0" />
-			<Collapse line="14" />
-			<Collapse line="19" />
-			<Collapse line="33" />
-			<Collapse line="61" />
-			<Collapse line="91" />
-			<Collapse line="113" />
-		</Folding>
-	</File>
-	<File name="crypt.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="curl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="305" topLine="3" />
+			<Cursor1 position="1239" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="definitions.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -122,43 +21,24 @@
 			<Cursor1 position="545" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="ini.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="packet.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="206" topLine="0" />
+			<Cursor1 position="337" topLine="31" />
 		</Cursor>
 	</File>
-	<File name="palringoClient.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="palringoClient.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="374" topLine="0" />
+			<Cursor1 position="243" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="palringoConnection.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="connection.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7814" topLine="137" />
-		</Cursor>
-		<Folding>
-			<Collapse line="55" />
-			<Collapse line="61" />
-			<Collapse line="76" />
-			<Collapse line="103" />
-			<Collapse line="109" />
-			<Collapse line="115" />
-			<Collapse line="126" />
-		</Folding>
-	</File>
-	<File name="misc.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="486" topLine="8" />
+			<Cursor1 position="1030" topLine="114" />
 		</Cursor>
 	</File>
-	<File name="palringoContact.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="palringoDatabase.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1811" topLine="33" />
-		</Cursor>
-	</File>
-	<File name="palringoGroup.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="405" topLine="147" />
+			<Cursor1 position="276" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="palringoGroup.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -168,25 +48,202 @@
 	</File>
 	<File name="palringoDatabase.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1462" topLine="0" />
+			<Cursor1 position="1226" topLine="41" />
+		</Cursor>
+	</File>
+	<File name="palringoConnection.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="426" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="crypt.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="490" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="INIReader.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="306" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="curl.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="323" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="curl.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1426" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="palringoGroup.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="405" topLine="147" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2804" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="crypt.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="baseClient.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="864" topLine="49" />
+		</Cursor>
+	</File>
+	<File name="misc.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4574" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="9" />
-			<Collapse line="23" />
-			<Collapse line="35" />
-			<Collapse line="46" />
-			<Collapse line="58" />
-			<Collapse line="69" />
+			<Collapse line="16" />
+			<Collapse line="21" />
+			<Collapse line="30" />
+			<Collapse line="38" />
 		</Folding>
 	</File>
-	<File name="palringoContact.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="baseClient.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1095" topLine="16" />
+			<Cursor1 position="33682" topLine="72" />
+		</Cursor>
+		<Folding>
+			<Collapse line="0" />
+			<Collapse line="13" />
+			<Collapse line="30" />
+			<Collapse line="38" />
+			<Collapse line="68" />
+			<Collapse line="70" />
+			<Collapse line="77" />
+			<Collapse line="79" />
+			<Collapse line="85" />
+			<Collapse line="92" />
+			<Collapse line="94" />
+			<Collapse line="100" />
+			<Collapse line="108" />
+			<Collapse line="110" />
+			<Collapse line="119" />
+			<Collapse line="123" />
+			<Collapse line="125" />
+			<Collapse line="129" />
+			<Collapse line="134" />
+			<Collapse line="139" />
+			<Collapse line="146" />
+			<Collapse line="150" />
+			<Collapse line="154" />
+			<Collapse line="155" />
+			<Collapse line="176" />
+			<Collapse line="178" />
+			<Collapse line="193" />
+			<Collapse line="215" />
+			<Collapse line="217" />
+			<Collapse line="221" />
+			<Collapse line="225" />
+			<Collapse line="230" />
+			<Collapse line="235" />
+			<Collapse line="240" />
+			<Collapse line="243" />
+			<Collapse line="252" />
+			<Collapse line="254" />
+			<Collapse line="279" />
+			<Collapse line="292" />
+			<Collapse line="303" />
+			<Collapse line="305" />
+			<Collapse line="309" />
+			<Collapse line="317" />
+			<Collapse line="321" />
+			<Collapse line="323" />
+			<Collapse line="325" />
+			<Collapse line="337" />
+			<Collapse line="350" />
+			<Collapse line="367" />
+			<Collapse line="375" />
+			<Collapse line="380" />
+			<Collapse line="382" />
+			<Collapse line="392" />
+			<Collapse line="397" />
+			<Collapse line="400" />
+			<Collapse line="406" />
+			<Collapse line="413" />
+			<Collapse line="415" />
+			<Collapse line="420" />
+			<Collapse line="426" />
+			<Collapse line="428" />
+			<Collapse line="433" />
+			<Collapse line="439" />
+			<Collapse line="452" />
+			<Collapse line="456" />
+			<Collapse line="460" />
+			<Collapse line="466" />
+			<Collapse line="499" />
+			<Collapse line="537" />
+			<Collapse line="549" />
+			<Collapse line="559" />
+			<Collapse line="561" />
+			<Collapse line="565" />
+			<Collapse line="573" />
+			<Collapse line="577" />
+			<Collapse line="579" />
+			<Collapse line="581" />
+			<Collapse line="593" />
+			<Collapse line="606" />
+			<Collapse line="623" />
+			<Collapse line="631" />
+			<Collapse line="636" />
+			<Collapse line="638" />
+			<Collapse line="648" />
+			<Collapse line="653" />
+			<Collapse line="656" />
+			<Collapse line="662" />
+			<Collapse line="669" />
+			<Collapse line="671" />
+			<Collapse line="676" />
+			<Collapse line="682" />
+			<Collapse line="686" />
+			<Collapse line="692" />
+			<Collapse line="726" />
+			<Collapse line="743" />
+			<Collapse line="749" />
+			<Collapse line="759" />
+			<Collapse line="777" />
+			<Collapse line="785" />
+			<Collapse line="792" />
+			<Collapse line="805" />
+			<Collapse line="807" />
+			<Collapse line="818" />
+			<Collapse line="820" />
+			<Collapse line="828" />
+			<Collapse line="848" />
+			<Collapse line="852" />
+			<Collapse line="861" />
+			<Collapse line="866" />
+			<Collapse line="868" />
+			<Collapse line="872" />
+			<Collapse line="876" />
+			<Collapse line="880" />
+			<Collapse line="894" />
+			<Collapse line="940" />
+			<Collapse line="980" />
+			<Collapse line="1043" />
+		</Folding>
+	</File>
+	<File name="regex.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="399" topLine="2" />
 		</Cursor>
 	</File>
-	<File name="palringoMessage.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="misc.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1145" topLine="8" />
+			<Cursor1 position="445" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="palringoClient.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="592" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="palringoPacket.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -209,12 +266,44 @@
 			<Collapse line="190" />
 		</Folding>
 	</File>
-	<File name="palringoMessage.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="palringoConnection.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2749" topLine="18" />
+			<Cursor1 position="9218" topLine="303" />
 		</Cursor>
-		<Folding>
-			<Collapse line="46" />
-		</Folding>
+	</File>
+	<File name="palringoMessage.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="968" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="ini.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="206" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="palringoPacket.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="899" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="palringoMessage.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1145" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="connection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="403" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="regex.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="272" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="INIReader.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="852" topLine="13" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

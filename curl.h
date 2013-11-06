@@ -11,7 +11,7 @@
 /*	Class: curl
  *	Info: handles gathering data from web locations
  */
-/*
+
 #ifndef CURL_H
 #define CURL_H
 
@@ -28,7 +28,7 @@ class curl
 {
 	public:
 		curl();
-		void    getUrl(string url);
+		string    getUrl(string url);
 		string  postUrl(string url, string data);
 		string  buildPostData(map<string, string>postData);
 		map<string, string> parseCurlPacket(string data);
@@ -45,4 +45,4 @@ class curl
 };
 
 #endif // CRYPT_H
-*/
+

@@ -15,10 +15,25 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 					<Add option="-DRAVENCLAW_DEBUG" />
+					<Add option="-DCURL_STATICLIB" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\curl\libcurl.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\curl\librtmp.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\curl\libidn.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\curl\libssl.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\curl\libssh2.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\curl\libcrypto.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\curl\libz.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libcryptopp.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libgdi32.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libwinmm.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libwldap32.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libws2_32.a" />
+					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\regex\libregex-static.a" />
 				</Linker>
 			</Target>
 			<Target title="Debug">
@@ -135,6 +150,12 @@
 		</Unit>
 		<Unit filename="palringoPacket.h">
 			<Option virtualFolder="palringo/header/" />
+		</Unit>
+		<Unit filename="regex.cpp">
+			<Option virtualFolder="base/source/" />
+		</Unit>
+		<Unit filename="regex.h">
+			<Option virtualFolder="base/header/" />
 		</Unit>
 		<Unit filename="resources.rc">
 			<Option compilerVar="WINDRES" />

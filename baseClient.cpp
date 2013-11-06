@@ -906,6 +906,38 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
 
             this->send_message(group, buffer);
         }
+        else if(cmd == cmdBase+"translate")
+		{
+			if(blocks > patchStart+1)
+            {
+				string URL = "http://translate.google.com/translate_a/t?client=s&sl="+data[patchStart-1]+"&tl="+data[patchStart]+"&q=";
+                URL.append(this->messagePatcher(data, "+", patchStart+2));
+
+				string request = Curl.getUrl(URL);
+
+				string LB_Pattern = "trans\":\"";
+				string Pattern = ".[A-Za-z ,!.]*.+";
+				string LA_Pattern = "\",\"orig";
+
+				string result = "";
+				size_t start = request.find(LB_Pattern) + LB_Pattern.length();
+				size_t stop = request.find(LA_Pattern);
+
+				if(start != std::string::npos && stop != std::string::npos)
+				{
+					result = request.substr(start, stop-start);
+				}
+				else
+				{
+					result = "cannot find translation";
+				}
+				this->send_message(group, result);
+            }
+            else
+            {
+                this->send_message(group, "Sorry hun thats not how you use this command\r\n"+cmdBase+"translate <from> <to>\r\nExample "+cmdBase+"translate en fr hello my lady");
+            }
+		}
 		/*
         else if(cmd == cmdBase+"nickname")
         {

@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/lgpl.txt
  */
 
-/*
+
 #include "curl.h"
 
 //how we write data from CURL to buffer
@@ -30,20 +30,21 @@ curl::curl()
 {
     curlP = curl_easy_init();
 }
-*/
-/*
-void curl::getUrl(string url)
+
+string curl::getUrl(string url)
 {
     CURL *curl;
     CURLcode res;
     curl = curl_easy_init();
+    string buffer;
 
     if(curl)
     {
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-
-        //example.com is redirected, so we tell libcurl to follow redirection
-        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+        curl_easy_setopt(curl, CURLOPT_HEADER, 0);
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 0);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writer);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
         //Perform the request, res will get the return code
         res = curl_easy_perform(curl);
@@ -58,6 +59,8 @@ void curl::getUrl(string url)
         //always cleanup
         curl_easy_cleanup(curl);
     }
+
+    return buffer;
 }
 
 string curl::postUrl(string url, string data)
@@ -198,5 +201,5 @@ map<string, string> curl::parseCurlPacket(string data)
 
     return output;
 }
-*/
+
 

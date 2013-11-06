@@ -27,6 +27,7 @@
 #include "misc.h"
 #include "crypt.h"
 #include "curl.h"
+#include "regex.h"
 #include "palringoMessage.h"
 #include "palringoGroup.h"
 #include "palringoContact.h"
@@ -43,6 +44,7 @@ struct botMod{
 class misc;
 class crypt;
 class curl;
+class regex;
 class palringoMessage;
 class palringoGroup;
 class palringoContact;
@@ -110,8 +112,9 @@ class baseClient
 		time_t  startTime;
 		misc	engine;
 		crypt	cipher;
+		regex	Regex;
 
-		//curl    Curl;
+		curl    Curl;
 		//palringoDatabase palDB;
 
 		palringoMessage *palMesg;
