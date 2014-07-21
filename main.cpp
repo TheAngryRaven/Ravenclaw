@@ -47,8 +47,9 @@ int main(int argc, char* argv[])
                         "password=123456\r\n"
                         "REQUIRED it's used in one or two applications currently to prevent the bot 'talking to itself'\r\n"
                         "botId=123456\r\n"
-                        "#SSL yes or no\r\n"
-                        "HTTPS=no\r\n\r\n"
+                        "#SSL yes or no\r\n\r\n"
+                        "[SERVER]\r\n"
+                        "SSL=false\r\n"
                         "[SETTINGS]\r\n"
                         "#the user ID of the user in chage of the bot\r\n"
                         "adminId=1234\r\n\n"
@@ -92,7 +93,10 @@ int main(int argc, char* argv[])
         botSettings["username"]     = reader.Get("LOGON", "email", "UNKNOWN");
         botSettings["password"]     = reader.Get("LOGON", "password", "UNKNOWN");
         botSettings["botId"]        = reader.Get("LOGON", "botId", "UNKNOWN");
-        botSettings["HTTPS"]        = reader.Get("LOGON", "SSL", "true");
+
+        //palringo settings
+        botSettings["SSL"]        = reader.Get("SERVER", "SSL", "false");
+        botSettings["IP"]        = reader.Get("SERVER", "IP", "UNKNOWN");
 
         //get bot settings
         botSettings["botAdmin"]     = reader.Get("SETTINGS", "adminId", "UNKNOWN");
@@ -101,12 +105,6 @@ int main(int argc, char* argv[])
         botSettings["cmdAdmin"]     = reader.Get("SETTINGS", "cmdAdmin", "#");
         botSettings["cmdUser"]      = reader.Get("SETTINGS", "cmdUser", "/");
         botSettings["nameSpace"]    = reader.Get("SETTINGS", "nameSpace", "UNKNOWN");
-
-		#ifdef RAVENCLAW_DEBUG
-        //obtain user script settings
-        botSettings["useScripts"]	= reader.Get("WEBSCRIPTS", "useWebScripts", "false");
-        botSettings["postUrl"]		= reader.Get("WEBSCRIPTS", "postUrl", "UNKNOWN");
-        #endif
 
         //Get the location of the bots ini file
         botSettings["iniFile"]      = iniFile;
@@ -123,14 +121,6 @@ int main(int argc, char* argv[])
             engine.pause();
             return 1;
         }
-        #ifdef RAVENCLAW_DEBUG
-        else if(botSettings["useScripts"] != "false" && botSettings["postUrl"] == "UNKNOWN")
-		{
-			engine.pl("You have enabled webScripts but have not supplied a URL please fix this issue.");
-            engine.pause();
-            return 1;
-		}
-		#endif
 
         spinUp(botSettings["botName"]);
         spinning(botSettings);

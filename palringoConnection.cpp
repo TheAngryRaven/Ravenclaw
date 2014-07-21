@@ -11,19 +11,9 @@
 #include "palringoConnection.h"
 palringoConnection::palringoConnection(palringoClient *client, bool SSL)
 {
-    if(SSL == true)
-    {
-        engine.pl("palConn-> logging in with SSL", 1);
-        SERVERIP = "80.69.129.123";
-        SERVERPORT = 0x1BB; //443
-    }
-    else
-    {
-        engine.pl("palConn-> logging in with plaintext", 1);
-        SERVERIP = "80.69.129.75";
-        //SERVERPORT = 0x3039; //12345
-        SERVERPORT = 0x9687; //38535
-    }
+    engine.pl("palConn-> logging in with SSL", 1);
+    SERVERIP = "80.69.129.75";
+    SERVERPORT = 0x1BB; //443
 
 	palClient	= client;
 	clientUser	= palClient->get_Client();

@@ -110,8 +110,6 @@ void baseClient::recv_personalMessage(string name, string user, string message)
     if(!isPest(user) and !shouldMute(user) and !shouldBan(user))
     {
         this->parse_personalMessage(name, user, engine.splitStr(message,' '));
-
-        //palDB.userRegister(user, name);
     }
 }
 
@@ -140,8 +138,6 @@ void baseClient::group_update(map<string, string> updatePacket)
             {
                 this->send_message(group, nickname + " joined the group");
             }
-
-			//palDB.userRegister(userid, nickname);
         }
         else
         {
@@ -153,18 +149,6 @@ void baseClient::group_update(map<string, string> updatePacket)
             }
             else
             {
-				/*
-				map<string, string> dbLookup = palDB.userLookUp(updatePacket["Contact-Id"]);
-				if(dbLookup["success"] == "true")
-				{
-					this->send_message(group, dbLookup["nickname"]+" has left the group");
-				}
-				else
-				{
-					this->send_message(group, "Someone left the group");
-				}
-				*/
-
 				this->send_message(group, "Someone left the group");
             }
 
@@ -197,8 +181,6 @@ void baseClient::group_admin(string group, string admin, string user, string act
         else if(action == ACTION_MOD)
             this->send_message(group, "Woo I'm a cool kid now");
     }
-
-    //palDB.logAdminAction(group, admin, user, action);
 }
 
 //ive left in some of the basic bot features im writting for my personal bot to give you a feel of how i do things
@@ -206,8 +188,6 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
 {
 	int     blocks  = data.size();
 	string  mesg    = this->messagePatcher(data, " ", 1);
-
-	//palDB.logChat(group, user, mesg);
 
     //new method of creating a command allows us to create "namespace commands" that palringo requires
     //IE: `#rc help` rather than `#help`
@@ -497,42 +477,6 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             this->send_message(group, buffer);
 
         }
-		/*
-        else if(cmd == cmdAdmin+"register")
-		{
-			if(blocks > patchStart-1)
-            {
-                string groupName = this->messagePatcher(data, " ", patchStart);
-                map<string, string> dbLookup = palDB.groupRegister(group, groupName);
-
-                if(dbLookup["success"] == "true")
-                {
-                    this->send_message(group, "You have registered this group with the name <"+groupName+">");
-                }
-                else
-                {
-                    this->send_message(group, "There was an error registering the group");
-                }
-            }
-            else
-            {
-                this->send_message(group, "Sorry thats not how you use this command\r\n"+cmdAdmin+"register <groupname>");
-            }
-		}
-        else if(cmd == cmdAdmin+"group")
-		{
-			map<string, string> dbLookup = palDB.groupLookUp(group);
-
-            if(dbLookup["success"] == "true")
-            {
-                this->send_message(group, "The group is currently registered under <"+dbLookup["name"]+">");
-            }
-            else
-            {
-                this->send_message(group, "This group is not currently registered to the bot\r\nPlease run the command "+cmdAdmin+"register <groupname>");
-            }
-		}
-		*/
 
         else if(cmd == cmdAdmin+"help")
         {
@@ -906,74 +850,6 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
 
             this->send_message(group, buffer);
         }
-        else if(cmd == cmdBase+"translate")
-		{
-			if(blocks > patchStart+1)
-            {
-				string URL = "http://translate.google.com/translate_a/t?client=s&sl="+data[patchStart-1]+"&tl="+data[patchStart]+"&q=";
-                URL.append(this->messagePatcher(data, "+", patchStart+2));
-
-				string request = Curl.getUrl(URL);
-
-				string LB_Pattern = "trans\":\"";
-				string Pattern = ".[A-Za-z ,!.]*.+";
-				string LA_Pattern = "\",\"orig";
-
-				string result = "";
-				size_t start = request.find(LB_Pattern) + LB_Pattern.length();
-				size_t stop = request.find(LA_Pattern);
-
-				if(start != std::string::npos && stop != std::string::npos)
-				{
-					result = request.substr(start, stop-start);
-				}
-				else
-				{
-					result = "cannot find translation";
-				}
-				this->send_message(group, result);
-            }
-            else
-            {
-                this->send_message(group, "Sorry hun thats not how you use this command\r\n"+cmdBase+"translate <from> <to>\r\nExample "+cmdBase+"translate en fr hello my lady");
-            }
-		}
-		/*
-        else if(cmd == cmdBase+"nickname")
-        {
-            map<string, string> dbLookup = palDB.userLookUp(user);
-
-            if(dbLookup["success"] == "true")
-            {
-                this->send_message(group, "You are currently registered under <"+dbLookup["nickname"]+">");
-            }
-            else
-            {
-                this->send_message(group, "You are not currently registered to the bot\r\nPlease run the command "+cmdBase+"register <nickname>");
-            }
-        }
-        else if(cmd == cmdBase+"register")
-        {
-            if(blocks > patchStart-1)
-            {
-                string nickname = this->messagePatcher(data, " ", patchStart);
-                map<string, string> dbLookup = palDB.userRegister(user, nickname);
-
-                if(dbLookup["success"] == "true")
-                {
-                    this->send_message(group, "You have registered the nickname <"+nickname+">");
-                }
-                else
-                {
-                    this->send_message(group, "There was an error registering your nickname");
-                }
-            }
-            else
-            {
-                this->send_message(group, "Sorry thats not how you use this command\r\n"+cmdBase+"register <nickname>");
-            }
-        }
-		*/
     }
 
     //Bot AI
@@ -1372,7 +1248,6 @@ void baseClient::parseResponse(packet response, packet sent)
             this->send_pm(botAdmin, "Admin action failed\r\n\r\nGroup: "+sent.search_headers("group-id")+"\r\nAction: "+sent.search_headers("Action")+"\r\nTarget: "+sent.search_headers("target-id"));
         }
     }
-
 }
 
 ////////////////////////////////////////////////////////////
