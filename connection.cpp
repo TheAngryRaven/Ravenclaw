@@ -39,6 +39,7 @@ bool connection::connectToHost(string IP, int PORT)
     {
         WSACleanup(); //Clean up Winsock
         engine.pl("connection-> wrong winsock version", 1);
+
         return connected;
     }
 
@@ -54,6 +55,7 @@ bool connection::connectToHost(string IP, int PORT)
     if (sock == INVALID_SOCKET)
     {
     	engine.pl("connection-> Connection: Bad Socket", 1);
+
 
         return connected;
     }

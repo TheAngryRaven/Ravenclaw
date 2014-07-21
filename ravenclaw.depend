@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1405921719 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
+1405929581 source:c:\users\michael\documents\palringo\git\ravenclaw\baseclient.cpp
 	"baseClient.h"
 
 1405923507 c:\users\michael\documents\palringo\git\ravenclaw\baseclient.h
@@ -59,7 +59,7 @@
 	"misc.h"
 	"crypt.h"
 
-1372177944 c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.h
+1405932595 c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.h
 	<algorithm>
 	<vector>
 	"misc.h"
@@ -87,13 +87,13 @@
 	"baseClient.h"
 	"palringoConnection.h"
 
-1371668194 source:c:\users\michael\documents\palringo\git\ravenclaw\connection.cpp
+1405931904 source:c:\users\michael\documents\palringo\git\ravenclaw\connection.cpp
 	"connection.h"
 
 1372110135 source:c:\users\michael\documents\palringo\git\ravenclaw\crypt.cpp
 	"crypt.h"
 
-1405921082 source:c:\users\michael\documents\palringo\git\ravenclaw\main.cpp
+1405924289 source:c:\users\michael\documents\palringo\git\ravenclaw\main.cpp
 	"main.h"
 
 1371672984 c:\users\michael\documents\palringo\git\ravenclaw\main.h
@@ -108,16 +108,16 @@
 1370393057 source:c:\users\michael\documents\palringo\git\ravenclaw\packet.cpp
 	"packet.h"
 
-1383757304 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.cpp
+1405924308 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoclient.cpp
 	"palringoClient.h"
 
-1381860060 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
+1405932305 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
 	"palringoConnection.h"
 
-1372196385 source:c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.cpp
+1405932522 source:c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.cpp
 	"palringoContact.h"
 
-1383321533 c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.h
+1405932431 c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -145,7 +145,7 @@
 1372109611 source:c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.cpp
 	"palringoMessage.h"
 
-1372198916 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp
+1405927067 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp
 	"palringoPacket.h"
 
 1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\resources.rc

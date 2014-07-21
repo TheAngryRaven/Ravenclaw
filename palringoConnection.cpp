@@ -9,7 +9,7 @@
  */
 
 #include "palringoConnection.h"
-palringoConnection::palringoConnection(palringoClient *client, bool SSL)
+palringoConnection::palringoConnection(palringoClient *client)
 {
     engine.pl("palConn-> logging in with SSL", 1);
     SERVERIP = "80.69.129.75";
@@ -259,7 +259,16 @@ void palringoConnection::parse_packet(packet data)
 
 	if(packCmd == "LOGON FAILED")
     {
-        engine.pl("palConn-> Auth Failed");
+        if(data.getHeader(1).value == "32")
+        {
+            engine.pl("palConn-> Server Redirect");
+            this->SERVERIP = cipher.hexDec(data.getPayload());
+        }
+        else
+        {
+            engine.pl("palConn-> Auth Failed");
+        }
+
         this->disconnect();
         Sleep(1000);
         this->connect();
@@ -299,6 +308,8 @@ void palringoConnection::parse_packet(packet data)
     else if(packCmd == "SUB PROFILE")
     {
         engine.pl("palConn-> Subprofile received");
+        palContact->parse_subprofile(data);
+
     }
     else if(packCmd == "GROUP ADMIN")
     {

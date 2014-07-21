@@ -65,6 +65,8 @@ class palringoContact
 		void server_decline(void);	//decline someones contact request
 		void server_block(void);	//block a user from messaging you
 
+		void parse_subprofile(packet profilePacket);
+
 	protected:
 	private:
         misc	engine;

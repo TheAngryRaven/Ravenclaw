@@ -95,7 +95,6 @@ int main(int argc, char* argv[])
         botSettings["botId"]        = reader.Get("LOGON", "botId", "UNKNOWN");
 
         //palringo settings
-        botSettings["SSL"]        = reader.Get("SERVER", "SSL", "false");
         botSettings["IP"]        = reader.Get("SERVER", "IP", "UNKNOWN");
 
         //get bot settings

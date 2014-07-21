@@ -49,3 +49,9 @@ contact palringoContact::client_lookup(string id)
         return buffer;
     }
 }
+
+
+void palringoContact::parse_subprofile(packet profilePacket)
+{
+    cout << "palContact-> Parsing Subprofile" << endl;
+}

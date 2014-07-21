@@ -42,7 +42,7 @@ class palringoContact;
 class palringoConnection
 {
 	public:
-		palringoConnection(palringoClient *client, bool SSL);
+		palringoConnection(palringoClient *client);
 
 		bool connect(void);		//connect's to palringo server
 		void disconnect(void);	//disconnect from server

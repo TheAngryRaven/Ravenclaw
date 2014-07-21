@@ -12,17 +12,8 @@
 
 palringoClient::palringoClient(map<string, string> botSettings)
 {
-    bool SSL = false;
-	if( botSettings["SSL"] == "true" ||
-        botSettings["SSL"] == "TRUE" ||
-        botSettings["SSL"] == "yes" ||
-        botSettings["SSL"] == "YES")
-    {
-        SSL = true;
-    }
-
     clientUser	= new baseClient(botSettings);
-	palConn		= new palringoConnection(this, SSL);
+	palConn		= new palringoConnection(this);
 }
 
 void palringoClient::run()

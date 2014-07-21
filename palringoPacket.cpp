@@ -22,7 +22,7 @@ packet palringoPacket::logon(string email)
     output.addHeader("Client-ID", cipher.hexEnc(cipher.md5(email)));
     output.addHeader("Operator","winpc");
     output.addHeader("affiliate-id","winpc");
-    output.addHeader("app-type","Windows x86");
+    output.addHeader("app-type","Win/P7");
     output.addHeader("capabilities","786437");
     output.addHeader("client-version: ","2.8.1, 60842");
     output.addHeader("fw","Win 6.2");

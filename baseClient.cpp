@@ -457,7 +457,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             int seconds = ((uptime - 86400 * days) - (3600 * hours))- 60 * minutes;
 
             //double days = (double)uptime/86400;
-            snprintf(uptimeBuffer, sizeof(buffer), "%id %ih %im %is", days, hours, minutes, seconds);
+            snprintf(uptimeBuffer, sizeof(uptimeBuffer), "%id %ih %im %is", days, hours, minutes, seconds);
 
             buffer +=   "Bot Information\r\n\r\n"
                         "Bot Admin: "+adminName+
@@ -491,10 +491,6 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                                         cmdAdmin+"test\r\n"+
                                         cmdAdmin+"reload\r\n"+
                                         cmdAdmin+"info"
-										/*
-										"\r\n"+cmdAdmin+"register <groupname>\r\n"+
-                                        cmdAdmin+"group"
-										*/
                                         );
         }
     }
@@ -647,7 +643,7 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
             int seconds = ((uptime - 86400 * days) - (3600 * hours))- 60 * minutes;
 
             //double days = (double)uptime/86400;
-            snprintf(uptimeBuffer, sizeof(buffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
+            snprintf(uptimeBuffer, sizeof(uptimeBuffer), "Uptime: %id %ih %im %is", days, hours, minutes, seconds);
 
             buffer +=   "Bot Information\r\n\r\n"
                         "Bot Admin: "+adminName+
@@ -712,10 +708,6 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
                                         cmdBase+"uptime\r\n"+
                                         cmdBase+"dice <coin,6,8,10,12 or 20>\r\n"+
                                         cmdBase+"website"
-										#ifdef RAVENCLAW_DEBUG
-                                        "\r\n"+cmdBase+"nickname 'Shows your current registered nickname'\r\n"+
-                                        cmdBase+"register <nickname>"
-										#endif
                                         );
         }
         else if(cmd == cmdBase+"credits")
@@ -987,12 +979,18 @@ void baseClient::parse_groupMessage(string group, string user, vector<string> da
 						//this->admin_silence(group, user);
 						break;
 					}
-					/*else if(data[i] == "ass" || data[i] == "bitch" || data[i] == "fuck" || data[i] == "shit" || data[i] == "damn" || data[i] == "hell" || data[i] == "cunt")
+					else if(data[i] == "bitch" || data[i] == "fuck" || data[i] == "shit" || data[i] == "cunt")
 					{
 						this->send_message(group, "Potty Mouth!!!");
 						//this->admin_silence(group, user);
 						break;
-					}*/
+					}
+					else if(data[i] == "nigger" || data[i] == "niggers" || data[i] == "spic" || data[i] == "paki")
+					{
+						this->send_message(group, "Racist!!!");
+						//this->admin_silence(group, user);
+						break;
+					}
 					else if(data[i] == "cod" || (i<blocks-2 && data[i] == "call" && data[i+1] == "of" && data[i+2] == "duty"))
 					{
 						/* can also detect phrases anywhere in the post */
@@ -1196,6 +1194,7 @@ void baseClient::parseResponse(packet response, packet sent)
     //messages
     if(resp_what == "11")
     {
+        //code 4 : success
         if(resp_code == "13")
         {
             this->send_pm(botAdmin, "Failed sending message\r\n\r\nType: "+sent.search_headers("mesg-target")+"\r\nTarget: "+sent.search_headers("target-id")+"\r\nMessage: "+sent.getPayload());
@@ -1207,7 +1206,7 @@ void baseClient::parseResponse(packet response, packet sent)
     {
         if(resp_code == "2")
         {
-            this->send_pm(botAdmin, "Failed joining ["+ sent.search_headers("Name") +"]\r\n\r\ndoes not exist");
+            this->send_pm(botAdmin, "Failed joining ["+ sent.search_headers("Name") +"]\r\n\r\nDoes not exist");
         }
         else if(resp_code == "13")
         {
@@ -1216,6 +1215,10 @@ void baseClient::parseResponse(packet response, packet sent)
         else if(resp_code == "18")
         {
             this->send_pm(botAdmin, "Failed joining ["+ sent.search_headers("Name") +"]\r\n\r\nBanned");
+        }
+        else if(resp_code == "33")
+        {
+            this->send_pm(botAdmin, "Failed joining ["+ sent.search_headers("Name") +"]\r\n\r\nOH PRIVILEGE CHECK");
         }
         else
         {
