@@ -43,7 +43,7 @@ string INIReader::Get(string section, string name, string default_value)
 
 string INIReader::Set(string section, string name, string value)
 {
-
+    return "";
 }
 
 long INIReader::GetInteger(string section, string name, long default_value)

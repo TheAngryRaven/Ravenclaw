@@ -67,9 +67,6 @@ class palringoContact
 
 		void parse_subprofile(packet profilePacket);
 
-		wchar_t *CodePageToUnicode(int codePage, const char *src);
-		char *UnicodeToCodePage(int codePage, const wchar_t *src);
-
 	protected:
 	private:
         misc	engine;

@@ -114,10 +114,10 @@
 1406233656 source:c:\users\michael\documents\palringo\git\ravenclaw\palringoconnection.cpp
 	"palringoConnection.h"
 
-1406252346 source:c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.cpp
+1406313159 source:c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.cpp
 	"palringoContact.h"
 
-1406232529 c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.h
+1406313117 c:\users\michael\documents\palringo\git\ravenclaw\palringocontact.h
 	<iostream>
 	<string.h>
 	<algorithm>
@@ -145,7 +145,7 @@
 1372109611 source:c:\users\michael\documents\palringo\git\ravenclaw\palringomessage.cpp
 	"palringoMessage.h"
 
-1406236376 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp
+1406252700 source:c:\users\michael\documents\palringo\git\ravenclaw\palringopacket.cpp
 	"palringoPacket.h"
 
 1333655084 source:c:\users\michael\documents\palringo\git\ravenclaw\resources.rc
@@ -158,7 +158,7 @@
 
 1369160753 c:\users\michael\documents\palringo\git\ravenclaw\ini.h
 
-1383757304 source:c:\users\michael\documents\palringo\git\ravenclaw\inireader.cpp
+1406312832 source:c:\users\michael\documents\palringo\git\ravenclaw\inireader.cpp
 	<algorithm>
 	<cctype>
 	<cstdlib>
