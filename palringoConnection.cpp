@@ -12,8 +12,11 @@
 palringoConnection::palringoConnection(palringoClient *client)
 {
     engine.pl("palConn-> logging in with SSL", 1);
-    SERVERIP = "80.69.129.75";
-    SERVERPORT = 0x1BB; //443
+    //SERVERIP = "80.69.129.75";
+    SERVERPORT = 0x3039; //12345
+
+    SERVERIP = "80.69.129.126";
+    //SERVERPORT = 0x1BB; //443
 
 	palClient	= client;
 	clientUser	= palClient->get_Client();
@@ -147,7 +150,6 @@ void palringoConnection::parse_recv(string data, char* raw)
     //If we have a valid payload
     if(payloadStart !=0)
     {
-
         //seperate the body
         string buff_head;
         string buff_value = "null";
@@ -186,17 +188,16 @@ void palringoConnection::parse_recv(string data, char* raw)
             }
         }
 
-            output.addCommand(cipher.hexDec(headers[0]));
-            output.addPayload(cipher.hexDec(payload));
+        output.addCommand(cipher.hexDec(headers[0]));
+        output.addPayload(cipher.hexDec(payload));
 
 
-            int headerCount = headers.size();
+        int headerCount = headers.size();
 
-            for(int i=1; i<headerCount; i++)
-            {
-                output.addHeader(cipher.hexDec(headers[i]), cipher.hexDec(values[i]));
-                //cout << headers[i] << endl;
-            }
+        for(int i=1; i<headerCount; i++)
+        {
+            output.addHeader(cipher.hexDec(headers[i]), cipher.hexDec(values[i]));
+        }
 
         //This kills the payload
         for(int i=payloadStart+1; i<=packetLength; i++)
@@ -309,7 +310,6 @@ void palringoConnection::parse_packet(packet data)
     {
         engine.pl("palConn-> Subprofile received");
         palContact->parse_subprofile(data);
-
     }
     else if(packCmd == "GROUP ADMIN")
     {
@@ -346,5 +346,13 @@ void palringoConnection::parse_packet(packet data)
     {
         engine.pl("Received throttle packet");
         //this->clientUser->parseResponse(data);
+    }
+    else if(packCmd == "MALFORMED PACKET")
+    {
+        engine.pl("palConn-> Received malformed packet?", 1);
+    }
+    else
+    {
+        engine.pl("palConn-> WHOA I DONT EVEN KNOW MAN",1);
     }
 }

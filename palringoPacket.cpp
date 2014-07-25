@@ -20,15 +20,15 @@ packet palringoPacket::logon(string email)
 
     output.addCommand("LOGON");
     output.addHeader("Client-ID", cipher.hexEnc(cipher.md5(email)));
-    output.addHeader("Operator","winpc");
+    output.addHeader("Operator","PC_CLIENT");
     output.addHeader("affiliate-id","winpc");
     output.addHeader("app-type","Win/P7");
-    output.addHeader("capabilities","786437");
+    output.addHeader("capabilities","4");
     output.addHeader("client-version: ","2.8.1, 60842");
     output.addHeader("fw","Win 6.2");
     output.addHeader("last","1");
     output.addHeader("name",email);
-    output.addHeader("protocol-version","2.0");
+    output.addHeader("protocol-version","2.2");
 
 	return output;
 }

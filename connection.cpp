@@ -39,7 +39,6 @@ bool connection::connectToHost(string IP, int PORT)
     {
         WSACleanup(); //Clean up Winsock
         engine.pl("connection-> wrong winsock version", 1);
-
         return connected;
     }
 
@@ -55,8 +54,6 @@ bool connection::connectToHost(string IP, int PORT)
     if (sock == INVALID_SOCKET)
     {
     	engine.pl("connection-> Connection: Bad Socket", 1);
-
-
         return connected;
     }
 
@@ -64,7 +61,6 @@ bool connection::connectToHost(string IP, int PORT)
    	if(connect(sock, (SOCKADDR *)&target, sizeof(target)) == SOCKET_ERROR)
     {
 		engine.pl("connection-> Could not connect", 1);
-
         return connected;
     }
     else
@@ -111,7 +107,7 @@ DWORD connection::read(void)
 	engine.pl("\nconnection-> Thread Started", 1);
 
 	//setup data values
-	int bufferSize = 10240;
+	int bufferSize = 40960;
 	int bytes_recv = 0;
 	char data_recv[bufferSize];
 
@@ -145,7 +141,6 @@ DWORD connection::read(void)
 	}
 
 	engine.pl("connection-> lost connection, thread stopped", 1);
-
 	return 0;
 }
 
